@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main
+package com.piotr.practicepad.ui.main.Exercise
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.piotr.practicepad.R
-import com.piotr.practicepad.ui.main.dummy.DummyContent
+import com.piotr.practicepad.ui.main.MainViewModel
 
 class ExerciseFragment : Fragment() {
 
