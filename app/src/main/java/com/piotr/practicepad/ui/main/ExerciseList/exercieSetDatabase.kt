@@ -19,7 +19,7 @@ abstract class ExercieSetDatabase : RoomDatabase() {
         fun getInstance(context: Context): ExercieSetDatabase? {
             if (INSTANCE == null) {
                 synchronized(ExercieSetDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(context, ExercieSetDatabase::class.java, "exercise_set_databse")
+                    INSTANCE = Room.databaseBuilder(context, ExercieSetDatabase::class.java, "exercise_set_database")
                         .fallbackToDestructiveMigration()
                         .addCallback(roomDatabaseCallback())
                         .build()
@@ -38,10 +38,23 @@ abstract class ExercieSetDatabase : RoomDatabase() {
             }
         }
 
-        private fun getExerciseSets() {
-            val paradiddle = Exercise(120, "Paradiddle", "paradiddle", 1)
-            val doubles = Exercise(90, "Doubles", "doubles", 2)
-            val triplets = Exercise(60, "Triplets", "triplets", 3)
+        private fun getExerciseSets(): List<ExerciseSet> {
+            val firstExerciseSet = ExerciseSet(1, getFirstExerciseSetList(), "First Exercise Set")
+            val secondExerciseSet = ExerciseSet(2, getSecondExerciseSetList(), "Second Exercise Set")
+            val thirdExerciseSet = ExerciseSet(3, getThirdExerciseSetList(), "Third Exercise Set")
+            return listOf(firstExerciseSet, secondExerciseSet, thirdExerciseSet)
+        }
+
+        private fun getThirdExerciseSetList(): List<Exercise> {
+            return listOf(Exercise.SINGLE_STROKE_FOUR, Exercise.DOUBLES, Exercise.SINGLE_STROKE_SEVEN)
+        }
+
+        private fun getSecondExerciseSetList(): List<Exercise> {
+            return listOf(Exercise.SEVEN_STROKE_ROLL, Exercise.TRIPLETS, Exercise.SIX_STROKE_ROLL)
+        }
+
+        private fun getFirstExerciseSetList(): List<Exercise> {
+            return listOf(Exercise.DOUBLES, Exercise.DOUBLE_STROKE_OPEN_ROLL, Exercise.FIVE_STROKE_ROLL)
         }
     }
 
