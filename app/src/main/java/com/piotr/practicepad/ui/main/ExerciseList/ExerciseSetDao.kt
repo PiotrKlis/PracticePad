@@ -8,13 +8,13 @@ import android.arch.persistence.room.Query
 
 @Dao
 interface ExerciseSetDao {
-    @Query("SELECT * FROM exerciseset")
-    fun getAll(): LiveData<List<ExerciseSet>>
+    @Query("SELECT * FROM exercisesetentity")
+    fun getAll(): LiveData<List<ExerciseSetEntity>>
 
     @Insert(onConflict = REPLACE)
-    fun insert(exerciseSet: ExerciseSet)
+    fun insert(exerciseSetEntity: ExerciseSetEntity)
 
-    @Query("DELETE from exerciseset")
+    @Query("DELETE from exercisesetentity")
     fun deleteAll()
 
 }

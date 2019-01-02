@@ -8,25 +8,27 @@ import android.widget.TextView
 import com.piotr.practicepad.R
 
 
-import com.piotr.practicepad.ui.main.dummy.DummyContent.DummyItem
-
 import kotlinx.android.synthetic.main.fragment_exerciseset.view.*
+import java.util.*
 
-class MyExerciseSetRecyclerViewAdapter(
-    private val mValues: List<DummyItem>,
-    private val mListener: OnExerciseListInteractionListener?
-) : RecyclerView.Adapter<MyExerciseSetRecyclerViewAdapter.ViewHolder>() {
+class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>() {
 
-    private val mOnClickListener: View.OnClickListener
+    private var onClickListener: View.OnClickListener
+    private var exerciseSetList: List<ExerciseSetEntity> = Collections.emptyList()
 
     init {
-        mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyItem
-
-            // Notify the active callbacks interface (the activity, if the fragment is attached to
-            // one) that an item has been selected.
-            mListener?.onListFragmentInteraction(item)
+        onClickListener = View.OnClickListener { v ->
+            //            mListener?.onListFragmentInteraction(item)
         }
+    }
+
+    fun setListener(listener: View.OnClickListener) {
+        onClickListener = View.OnClickListener { view -> }
+    }
+
+    fun setItems(items: List<ExerciseSetEntity>?) {
+        this.exerciseSetList = items!!
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,17 +38,19 @@ class MyExerciseSetRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mContentView.text = item.content
+        val item = exerciseSetList.get(position)
+        holder.mIdView.text = item.id.toString()
+        holder.mContentView.text = item.name
 
         with(holder.mView) {
-            tag = item
-            setOnClickListener(mOnClickListener)
+            setOnClickListener(onClickListener)
         }
     }
 
-    override fun getItemCount(): Int = mValues.size
+    override fun getItemCount(): Int {
+        return exerciseSetList.size
+
+    }
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mIdView: TextView = mView.item_number
