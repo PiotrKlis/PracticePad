@@ -16,5 +16,4 @@ interface ExerciseSetDao {
 
     @Query("DELETE from exercisesetentity")
     fun deleteAll()
-
 }
