@@ -16,4 +16,7 @@ interface ExerciseDao {
 
     @Query("DELETE from exerciseentity")
     fun deleteAll()
+
+    @Query("SELECT * FROM exerciseentity WHERE id = :exerciseSetId")
+    fun getExercisesById(exerciseSetId: Int): LiveData<List<ExerciseEntity>>
 }

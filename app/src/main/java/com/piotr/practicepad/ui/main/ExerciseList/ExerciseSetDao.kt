@@ -16,4 +16,7 @@ interface ExerciseSetDao {
 
     @Query("DELETE from exercisesetentity")
     fun deleteAll()
+
+    @Query("SELECT * FROM exercisesetentity WHERE id LIKE :id")
+    fun getExerciseSetById(id: Int): LiveData<ExerciseSetEntity>?
 }
