@@ -1,7 +1,6 @@
 package com.piotr.practicepad.ui.main
 
 import android.app.Application
-import com.piotr.practicepad.ui.main.ExerciseList.ExercieSetDatabase
 
 class PracticePad : Application() {
 
@@ -11,6 +10,6 @@ class PracticePad : Application() {
     }
 
     private fun initiliazeRoomDatabase(applicationContext: Application) {
-        ExercieSetDatabase.initializeDatabase(applicationContext)
+        PracticePadDatabase.initializeDatabase(applicationContext)
     }
 }

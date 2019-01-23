@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.Exercise
+package com.piotr.practicepad.ui.main.ExerciseList.external
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
@@ -7,13 +7,13 @@ import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
 
 @Dao
-interface ExerciseDao {
-    @Query("SELECT * FROM exerciseentity")
-    fun getAll(): LiveData<List<ExerciseEntity>>
+interface ExerciseSetDao {
+    @Query("SELECT * FROM exercisesetentity")
+    fun getAll(): LiveData<List<ExerciseSetEntity>>
 
     @Insert(onConflict = REPLACE)
-    fun insert(exerciseEntity: ExerciseEntity)
+    fun insert(exerciseSetEntity: ExerciseSetEntity)
 
-    @Query("DELETE from exerciseentity")
+    @Query("DELETE from exercisesetentity")
     fun deleteAll()
 }

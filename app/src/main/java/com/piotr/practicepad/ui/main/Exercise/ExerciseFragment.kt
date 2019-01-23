@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.piotr.practicepad.R
-import com.piotr.practicepad.ui.main.ExerciseSetViewModel
+import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSetViewModel
 
 class ExerciseFragment : Fragment() {
 

@@ -7,19 +7,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.piotr.practicepad.R
-import com.piotr.practicepad.ui.main.ExerciseSetViewModel
+import com.piotr.practicepad.ui.main.ExerciseList.external.ExerciseSetEntity
 import com.piotr.practicepad.ui.main.dummy.DummyContent
 import kotlinx.android.synthetic.main.fragment_exerciseset_list.*
 
 class ExerciseListFragment : Fragment(), OnExerciseListInteractionListener {
 
     private lateinit var exerciseSetViewModel: ExerciseSetViewModel
-
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
-        Toast.makeText(context, "LOL $item", Toast.LENGTH_SHORT).show()
-    }
 
     private var listener: OnExerciseListInteractionListener? = null
 

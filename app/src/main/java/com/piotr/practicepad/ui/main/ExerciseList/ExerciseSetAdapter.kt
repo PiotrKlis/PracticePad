@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.piotr.practicepad.R
+import com.piotr.practicepad.ui.main.ExerciseList.external.ExerciseSetEntity
 
 
 import kotlinx.android.synthetic.main.fragment_exerciseset.view.*
