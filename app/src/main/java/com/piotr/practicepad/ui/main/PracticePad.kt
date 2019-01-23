@@ -11,5 +11,6 @@ class PracticePad : Application() {
 
     private fun initiliazeRoomDatabase(applicationContext: Application) {
         PracticePadDatabase.initializeDatabase(applicationContext)
+        SharedPrefs.initSharedPrefs(applicationContext)
     }
 }

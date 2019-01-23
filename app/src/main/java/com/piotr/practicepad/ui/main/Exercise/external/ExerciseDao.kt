@@ -12,11 +12,14 @@ interface ExerciseDao {
     fun getAll(): LiveData<List<ExerciseEntity>>
 
     @Insert(onConflict = REPLACE)
-    fun insert(exerciseEntity: ExerciseEntity)
+    fun insert(exerciseEntities: List<ExerciseEntity>?)
 
     @Query("DELETE from exerciseentity")
     fun deleteAll()
 
-    @Query("SELECT * FROM exerciseentity WHERE id = :exerciseSetId")
-    fun getExercisesById(exerciseSetId: Int): LiveData<List<ExerciseEntity>>
+//    @Query("SELECT * FROM exerciseentity WHERE id = :exerciseSetId")
+//    fun getExercisesById(exerciseSetId: Int?): LiveData<List<ExerciseEntity>>
+
+    @Query("SELECT * FROM exerciseentity")
+    fun getExercisesById(): LiveData<List<ExerciseEntity>>
 }

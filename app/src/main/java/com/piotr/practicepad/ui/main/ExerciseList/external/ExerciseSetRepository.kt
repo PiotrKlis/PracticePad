@@ -17,10 +17,4 @@ class ExerciseSetRepository {
     fun getAllExerciseSets(): LiveData<List<ExerciseSetEntity>>? {
         return exerciseSetDao?.getAll()
     }
-
-    fun insertSet(exerciseSetEntity: ExerciseSetEntity) {
-        GlobalScope.launch {
-            exerciseSetDao?.insert(exerciseSetEntity)
-        }
-    }
 }

@@ -12,7 +12,7 @@ interface ExerciseSetDao {
     fun getAll(): LiveData<List<ExerciseSetEntity>>
 
     @Insert(onConflict = REPLACE)
-    fun insert(exerciseSetEntity: ExerciseSetEntity)
+    fun insert(exerciseSetEntities: ArrayList<ExerciseSetEntity>?)
 
     @Query("DELETE from exercisesetentity")
     fun deleteAll()

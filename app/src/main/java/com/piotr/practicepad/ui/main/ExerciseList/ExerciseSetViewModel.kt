@@ -15,8 +15,4 @@ class ExerciseSetViewModel : ViewModel() {
     fun getExerciseSets(): LiveData<List<ExerciseSetEntity>>? {
         return exerciseSetRepository?.getAllExerciseSets()
     }
-
-    fun insertSet(exerciseSetEntity: ExerciseSetEntity) {
-        exerciseSetRepository?.insertSet(exerciseSetEntity)
-    }
 }

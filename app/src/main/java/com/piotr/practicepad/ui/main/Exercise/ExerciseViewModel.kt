@@ -1,8 +1,10 @@
 package com.piotr.practicepad.ui.main.Exercise
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.ViewModel
+import com.piotr.practicepad.ui.main.SharedPrefs.Companion.getActiveSet
 
-class ExerciseViewModel {
+class ExerciseViewModel: ViewModel() {
     private var exerciseRepository: ExerciseRepository? = null
 
     init {

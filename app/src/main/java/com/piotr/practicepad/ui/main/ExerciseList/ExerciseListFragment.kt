@@ -9,18 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.piotr.practicepad.R
 import com.piotr.practicepad.ui.main.ExerciseList.external.ExerciseSetEntity
-import com.piotr.practicepad.ui.main.dummy.DummyContent
 import kotlinx.android.synthetic.main.fragment_exerciseset_list.*
 
-class ExerciseListFragment : Fragment(), OnExerciseListInteractionListener {
+class ExerciseListFragment : Fragment() {
 
-    private lateinit var exerciseSetViewModel: ExerciseSetViewModel
-
-    private var listener: OnExerciseListInteractionListener? = null
+    private lateinit var viewModel: ExerciseSetViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_exerciseset_list, container, false)
-        listener = this
         return view
     }
 
@@ -29,16 +25,11 @@ class ExerciseListFragment : Fragment(), OnExerciseListInteractionListener {
         val adapter = ExerciseSetAdapter()
         recycler_list.adapter = adapter
 
-        exerciseSetViewModel = ViewModelProviders.of(this).get(ExerciseSetViewModel().javaClass)
+        viewModel = ViewModelProviders.of(this).get(ExerciseSetViewModel().javaClass)
 
-        exerciseSetViewModel.getExerciseSets()?.observe(this, Observer<List<ExerciseSetEntity>>
+        viewModel.getExerciseSets()?.observe(this, Observer<List<ExerciseSetEntity>>
         { exerciseSets -> adapter.setItems(exerciseSets) })
 
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
     }
 
     companion object {

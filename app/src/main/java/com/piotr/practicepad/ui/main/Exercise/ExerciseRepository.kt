@@ -2,18 +2,20 @@ package com.piotr.practicepad.ui.main.Exercise
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
-import com.piotr.practicepad.ui.main.ExerciseList.ExercieSetDatabase
+import com.piotr.practicepad.ui.main.Exercise.external.ExerciseDao
+import com.piotr.practicepad.ui.main.Exercise.external.ExerciseEntity
+import com.piotr.practicepad.ui.main.PracticePadDatabase
 
 class ExerciseRepository {
     var exerciseDao: ExerciseDao? = null
 
     init {
-        val exerciseSetDatabase = ExercieSetDatabase.getInstance()
+        val exerciseSetDatabase = PracticePadDatabase.getInstance()
         exerciseDao = exerciseSetDatabase?.exerciseDao()
     }
 
-    fun getExercisesById(exerciseSetId: Int): LiveData<List<Exercise>>? {
-        val exerciseEntities = exerciseDao?.getExercisesById(exerciseSetId)
+    fun getExercisesById(exerciseSetId: Int?): LiveData<List<Exercise>>? {
+        val exerciseEntities = exerciseDao?.getExercisesById()
         return mapToDomain(exerciseEntities)
     }
 
