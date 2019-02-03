@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.Exercise.external
+package com.piotr.practicepad.ui.main.Room
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
@@ -16,9 +16,6 @@ interface ExerciseDao {
 
     @Query("DELETE from exerciseentity")
     fun deleteAll()
-
-//    @Query("SELECT * FROM exerciseentity WHERE id = :exerciseSetId")
-//    fun getExercisesById(exerciseSetId: Int?): LiveData<List<ExerciseEntity>>
 
     @Query("SELECT * FROM exerciseentity")
     fun getExercisesById(): LiveData<List<ExerciseEntity>>

@@ -1,10 +1,8 @@
-package com.piotr.practicepad.ui.main.Exercise
+package com.piotr.practicepad.ui.main.Room
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
-import com.piotr.practicepad.ui.main.Exercise.external.ExerciseDao
-import com.piotr.practicepad.ui.main.Exercise.external.ExerciseEntity
-import com.piotr.practicepad.ui.main.PracticePadDatabase
+import com.piotr.practicepad.ui.main.Exercise.Exercise
 
 class ExerciseRepository {
     var exerciseDao: ExerciseDao? = null
@@ -30,7 +28,12 @@ class ExerciseRepository {
     fun mapToExercise(listOfExerciseEntities: List<ExerciseEntity>): List<Exercise>? {
         val exercises: ArrayList<Exercise> = arrayListOf()
         for (exerciseEntity in listOfExerciseEntities) {
-            val exercise = Exercise(exerciseEntity.id, exerciseEntity.time, exerciseEntity.title, exerciseEntity.image)
+            val exercise = Exercise(
+                exerciseEntity.id,
+                exerciseEntity.time,
+                exerciseEntity.title,
+                exerciseEntity.image
+            )
             exercises.add(exercise)
         }
         return exercises

@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.Exercise.external
+package com.piotr.practicepad.ui.main.Room
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey

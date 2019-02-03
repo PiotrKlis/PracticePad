@@ -1,14 +1,10 @@
-package com.piotr.practicepad.ui.main
+package com.piotr.practicepad.ui.main.Room
 
 import android.app.Application
 import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.*
-import com.piotr.practicepad.ui.main.Exercise.external.ExerciseDao
-import com.piotr.practicepad.ui.main.Exercise.external.ExerciseData
-import com.piotr.practicepad.ui.main.Exercise.external.ExerciseEntity
-import com.piotr.practicepad.ui.main.ExerciseList.external.ExerciseSetDao
-import com.piotr.practicepad.ui.main.ExerciseList.external.ExerciseSetData
-import com.piotr.practicepad.ui.main.ExerciseList.external.ExerciseSetEntity
+import com.piotr.practicepad.ui.main.Exercise.ExerciseData
+import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSetData
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -63,10 +59,13 @@ abstract class PracticePadDatabase : RoomDatabase() {
         private fun saveExerciseSets() {
             val exerciseSetDao = INSTANCE?.exerciseSetDao()
             val enumExercises = ExerciseSetData.values()
-            var exerciseSetEntityList: ArrayList<ExerciseSetEntity>? = arrayListOf()
+            val exerciseSetEntityList: ArrayList<ExerciseSetEntity>? = arrayListOf()
 
             for (exerciseSet in enumExercises) {
-                val exerciseSetEntity = mapExerciseSetDataToEntities(exerciseSet)
+                val exerciseSetEntity =
+                    mapExerciseSetDataToEntities(
+                        exerciseSet
+                    )
                 exerciseSetEntityList?.add(exerciseSetEntity)
             }
             exerciseSetDao?.insert(exerciseSetEntityList)
@@ -75,10 +74,11 @@ abstract class PracticePadDatabase : RoomDatabase() {
         private fun saveExercises() {
             val exerciseDao = INSTANCE?.exerciseDao()
             val enumExercises = ExerciseData.values()
-            var exerciseEntityList: ArrayList<ExerciseEntity>? = arrayListOf()
+            val exerciseEntityList: ArrayList<ExerciseEntity>? = arrayListOf()
 
             for (exercise in enumExercises) {
-                val exerciseEntity = mapExerciseDataToEntities(exercise)
+                val exerciseEntity =
+                    mapExerciseDataToEntities(exercise)
                 exerciseEntityList?.add(exerciseEntity)
             }
             exerciseDao?.insert(exerciseEntityList)

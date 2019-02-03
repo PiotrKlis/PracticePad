@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.Exercise.external
+package com.piotr.practicepad.ui.main.Exercise
 
 import com.piotr.practicepad.ui.main.utils.Helper
 

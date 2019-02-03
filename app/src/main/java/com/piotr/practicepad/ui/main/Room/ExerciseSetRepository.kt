@@ -1,9 +1,9 @@
-package com.piotr.practicepad.ui.main.ExerciseList.external
+package com.piotr.practicepad.ui.main.Room
 
 import android.arch.lifecycle.LiveData
-import com.piotr.practicepad.ui.main.PracticePadDatabase
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.piotr.practicepad.ui.main.Room.ExerciseSetDao
+import com.piotr.practicepad.ui.main.Room.ExerciseSetEntity
+import com.piotr.practicepad.ui.main.Room.PracticePadDatabase
 
 class ExerciseSetRepository {
     var exerciseSetDao: ExerciseSetDao? = null

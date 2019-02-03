@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main
+package com.piotr.practicepad.ui.main.Room
 
 import android.arch.persistence.room.TypeConverter
 import com.google.gson.Gson

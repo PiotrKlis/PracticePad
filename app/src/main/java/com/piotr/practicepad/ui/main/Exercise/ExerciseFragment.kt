@@ -26,6 +26,8 @@ class ExerciseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ExerciseViewModel().javaClass)
         viewModel.getExercises()?.observe(this, Observer<List<Exercise>>
-        { exercises -> Toast.makeText(context, exercises?.get(0)?.title, Toast.LENGTH_LONG).show() })
+        {
+                exercises -> Toast.makeText(context, exercises?.get(0)?.title, Toast.LENGTH_LONG).show()
+        })
     }
 }
