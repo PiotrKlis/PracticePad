@@ -3,7 +3,7 @@ package com.piotr.practicepad.ui.main
 import android.content.Context
 import android.content.SharedPreferences
 
-class SharedPrefs() {
+class SharedPrefs {
 
     companion object {
         var prefs: SharedPreferences? = null

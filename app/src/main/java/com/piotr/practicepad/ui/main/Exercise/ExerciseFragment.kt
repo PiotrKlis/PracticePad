@@ -7,8 +7,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.piotr.practicepad.R
+import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSetData
+import kotlinx.android.synthetic.main.fragment_excercise_set.*
 
 class ExerciseFragment : Fragment() {
 
@@ -19,15 +20,19 @@ class ExerciseFragment : Fragment() {
     private lateinit var viewModel: ExerciseViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_exerciseset, container, false)
+        return inflater.inflate(R.layout.fragment_excercise_set, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ExerciseViewModel().javaClass)
-        viewModel.getExercises()?.observe(this, Observer<List<Exercise>>
+        viewModel.getExercises()?.observe(this, Observer<ExerciseSetData>
         {
-                exercises -> Toast.makeText(context, exercises?.get(0)?.title, Toast.LENGTH_LONG).show()
+                exercise -> renderElements(exercise)
         })
+    }
+
+    private fun renderElements(exercise: ExerciseSetData?) {
+        overall_time.setText(exercise?.exerciseDataList?.get(0)?.time.toString())
     }
 }

@@ -26,7 +26,7 @@ class ExerciseListFragment : Fragment(), ExerciseListCheckBoxListener {
         recycler_list.adapter = adapter
         val sets = viewModel.getExerciseSets()
         adapter?.setListener(this)
-        adapter?.setItems(sets, SharedPrefs.getActiveSet())
+        adapter?.setItems(sets)
         markActiveExercise()
     }
 
@@ -39,7 +39,6 @@ class ExerciseListFragment : Fragment(), ExerciseListCheckBoxListener {
     }
 
     override fun checkboxClick() {
-        adapter?.setSelectedExerciseSet(SharedPrefs.getActiveSet())
         adapter?.notifyDataSetChanged()
     }
 }

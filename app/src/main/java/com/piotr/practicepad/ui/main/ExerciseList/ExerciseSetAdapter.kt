@@ -16,20 +16,14 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
 
     private var onClickListener: ExerciseListCheckBoxListener? = null
     private var exerciseSetList: Array<ExerciseSetData> = emptyArray()
-    private var selectedExerciseSet: Int = 0
 
     fun setListener(listener: ExerciseListCheckBoxListener) {
         onClickListener = listener
     }
 
-    fun setItems(items: Array<ExerciseSetData>?, selectedExerciseSet: Int?) {
+    fun setItems(items: Array<ExerciseSetData>?) {
         this.exerciseSetList = items!!
-        this.selectedExerciseSet = selectedExerciseSet!!
         notifyDataSetChanged()
-    }
-
-    fun setSelectedExerciseSet(selectedSet: Int?) {
-        this.selectedExerciseSet = selectedSet!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -67,6 +61,6 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
     }
 
     fun shouldBeChecked(position: Int): Boolean {
-        return position == selectedExerciseSet
+        return position == SharedPrefs.getActiveSet()
     }
 }
