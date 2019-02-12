@@ -16,10 +16,10 @@ import kotlinx.android.synthetic.main.fragment_excercise_set.*
 class ExerciseFragment : Fragment() {
 
     var isTimerOn = false
-    var timerRunnable: Runnable? = null
-    var startTimeValue: Int = 0
     var currentTimeValue: Long = 0
     var countDownTimer: CountDownTimer? = null
+    val KEY_CURRENT_TIME_VALUE = "current_time_value"
+    var persistedTimerBundle: Bundle = Bundle()
 
     companion object {
         fun newInstance() = ExerciseFragment()
@@ -58,23 +58,31 @@ class ExerciseFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        stopTimer()
+        persistedTimerBundle.putLong(KEY_CURRENT_TIME_VALUE, currentTimeValue)
+    }
+
     private fun stopTimer() {
         countDownTimer?.cancel()
         isTimerOn = false
+        power.setImageResource(R.drawable.ic_play_circle_filled_black_24dp)
     }
 
     private fun startTimer() {
         countDownTimer = object : CountDownTimer(currentTimeValue, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 currentTimeValue = millisUntilFinished
-                updateCountDownText()
+                overall_time.text = convertIntoCorrectTimerFormat(millisUntilFinished)
             }
 
             override fun onFinish() {
                 isTimerOn = false
+                power.setImageResource(R.drawable.ic_play_circle_filled_black_24dp)
             }
         }.start()
-
+        power.setImageResource(R.drawable.ic_pause_circle_filled_black_24dp)
         isTimerOn = true
     }
 
@@ -99,22 +107,25 @@ class ExerciseFragment : Fragment() {
     }
 
     private fun initializeOverallTimer(exerciseList: List<ExerciseData>?) {
-        var seconds: Long = 0
-        if (exerciseList != null) {
-            for (i in exerciseList) {
-                val value = i.time
-                seconds += value
+        if (persistedTimerBundle.isEmpty) {
+            var seconds: Long = 0
+            if (exerciseList != null) {
+                for (i in exerciseList) {
+                    val value = i.time
+                    seconds += value
+                }
+                currentTimeValue = seconds
             }
-            currentTimeValue = seconds
+        } else {
+            currentTimeValue = persistedTimerBundle.getLong(KEY_CURRENT_TIME_VALUE)
         }
+        overall_time.text = convertIntoCorrectTimerFormat(currentTimeValue)
     }
 
-    private fun updateCountDownText() {
-        val minutes = (currentTimeValue / 1000).toInt() / 60
-        val seconds = (currentTimeValue / 1000).toInt() % 60
+    private fun convertIntoCorrectTimerFormat(time: Long): String {
+        val minutes = (time / 1000).toInt() / 60
+        val seconds = (time / 1000).toInt() % 60
 
-        val timeLeftFormatted = String.format("%02d:%02d", minutes, seconds)
-
-        overall_time.text = timeLeftFormatted
+        return String.format("%02d:%02d", minutes, seconds)
     }
 }
