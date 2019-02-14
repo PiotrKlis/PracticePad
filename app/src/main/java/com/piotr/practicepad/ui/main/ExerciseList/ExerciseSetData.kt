@@ -4,10 +4,9 @@ import com.piotr.practicepad.ui.main.Exercise.ExerciseData
 import com.piotr.practicepad.ui.main.Exercise.ExerciseData.*
 
 enum class ExerciseSetData(val id: Int, val title: String, val exerciseDataList: List<ExerciseData>) {
-    BEGINNER(0, "Beginner", getBeginnerSet()),
-    INTERMEDIATE(1, "Intermediate", getAdvancedSet()),
-    MASTER(2, "Master", getMasterSet()),
-    EMPTY(666, "EMPTY", getEmptySet());
+    BEGINNER(1, "Beginner", getBeginnerSet()),
+    INTERMEDIATE(2, "Intermediate", getAdvancedSet()),
+    MASTER(3, "Master", getMasterSet()),
 }
 
 private fun getBeginnerSet(): List<ExerciseData> {
@@ -20,8 +19,4 @@ private fun getAdvancedSet(): List<ExerciseData> {
 
 private fun getMasterSet(): List<ExerciseData> {
     return listOf(SIX_STROKE_ROLL, SEVEN_STROKE_ROLL, DOUBLES, TRIPLETS)
-}
-
-private fun getEmptySet(): List<ExerciseData> {
-    return listOf(EMPTY)
 }

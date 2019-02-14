@@ -4,12 +4,12 @@ import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSetData
 
 class ExerciseRepository {
 
-    fun getExercisesById(exerciseSetId: Int?): ExerciseSetData? {
+    fun getExerciseSetById(exerciseSetId: Int?): ExerciseSetData? {
         for (exerciseData in ExerciseSetData.values()) {
             if (exerciseData.id == exerciseSetId) {
                 return exerciseData
             }
         }
-        return ExerciseSetData.EMPTY
+        return ExerciseSetData.BEGINNER
     }
 }

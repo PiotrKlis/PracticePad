@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.fragment_exerciseset_list.*
 
 class ExerciseListFragment : Fragment(), ExerciseListCheckBoxListener {
 
-    private lateinit var viewModel: ExerciseSetViewModel
     private var adapter: ExerciseSetAdapter? = ExerciseSetAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -21,21 +20,12 @@ class ExerciseListFragment : Fragment(), ExerciseListCheckBoxListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ExerciseSetViewModel().javaClass)
+        val viewModel = ViewModelProviders.of(this).get(ExerciseSetViewModel().javaClass)
+        val sets = viewModel.getExerciseSets()
 
         recycler_list.adapter = adapter
-        val sets = viewModel.getExerciseSets()
         adapter?.setListener(this)
         adapter?.setItems(sets)
-        markActiveExercise()
-    }
-
-    private fun markActiveExercise() {
-
-    }
-
-    companion object {
-        fun newInstance() = ExerciseListFragment()
     }
 
     override fun checkboxClick() {

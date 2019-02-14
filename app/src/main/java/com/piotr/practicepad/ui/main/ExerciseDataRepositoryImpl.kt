@@ -1,6 +1,5 @@
 package com.piotr.practicepad.ui.main
 
-import com.piotr.practicepad.ui.main.Exercise.ExerciseData
 import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSetData
 
 class ExerciseDataRepositoryImpl : ExerciseDataRepository {
@@ -9,6 +8,11 @@ class ExerciseDataRepositoryImpl : ExerciseDataRepository {
     }
 
     override fun getActiveExerciseSet(id: Int): ExerciseSetData {
-        return ExerciseSetData.values().get(id)
+        for (exerciseData in ExerciseSetData.values()) {
+            if (exerciseData.id == id) {
+                return exerciseData
+            }
+        }
+        return ExerciseSetData.BEGINNER
     }
 }

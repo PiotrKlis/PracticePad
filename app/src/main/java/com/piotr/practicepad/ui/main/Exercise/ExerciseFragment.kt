@@ -21,10 +21,6 @@ class ExerciseFragment : Fragment() {
     val KEY_CURRENT_TIME_VALUE = "current_time_value"
     var persistedTimerBundle: Bundle = Bundle()
 
-    companion object {
-        fun newInstance() = ExerciseFragment()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_excercise_set, container, false)
     }
@@ -32,7 +28,7 @@ class ExerciseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val viewModel: ExerciseViewModel = ViewModelProviders.of(this).get(ExerciseViewModel().javaClass)
-        viewModel.getExercises()?.observe(this, Observer<ExerciseSetData>
+        viewModel.getActiveExerciseSet()?.observe(this, Observer<ExerciseSetData>
         { exercise -> renderElements(exercise?.exerciseDataList) })
     }
 

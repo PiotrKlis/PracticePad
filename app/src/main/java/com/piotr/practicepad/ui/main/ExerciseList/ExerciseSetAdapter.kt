@@ -27,8 +27,7 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.exercise_set_row, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.exercise_set_row, parent, false)
         return ViewHolder(view)
     }
 
@@ -53,10 +52,6 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
             checkBox.setOnClickListener {
                 SharedPrefs.setActiveSet(adapterPosition)
                 onClickListener?.checkboxClick() }
-        }
-
-        override fun toString(): String {
-            return super.toString() + " '" + content.text + "'"
         }
     }
 
