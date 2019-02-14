@@ -10,7 +10,7 @@ import com.piotr.practicepad.R
 import com.piotr.practicepad.ui.main.SharedPrefs
 
 
-import kotlinx.android.synthetic.main.fragment_exerciseset.view.*
+import kotlinx.android.synthetic.main.exercise_set_row.view.*
 
 class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>() {
 
@@ -28,7 +28,7 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_exerciseset, parent, false)
+            .inflate(R.layout.exercise_set_row, parent, false)
         return ViewHolder(view)
     }
 
