@@ -10,7 +10,6 @@ class SharedPrefs {
         val KEY_ACTIVE_SET = "active_set"
         val DEFAULT_SET: Int = 0
 
-
         fun initSharedPrefs(context: Context) {
             if (prefs == null) {
                 prefs = context.getSharedPreferences(KEY_ACTIVE_SET, 0)

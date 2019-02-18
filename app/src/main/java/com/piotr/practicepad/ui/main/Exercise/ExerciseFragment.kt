@@ -16,10 +16,10 @@ import kotlinx.android.synthetic.main.fragment_excercise_set.*
 class ExerciseFragment : Fragment() {
 
     var isTimerOn = false
-    var currentTimeValue: Long = 0
-    var countDownTimer: CountDownTimer? = null
-    val KEY_CURRENT_TIME_VALUE = "current_time_value"
-    var persistedTimerBundle: Bundle = Bundle()
+    var currentOverallTimeValue: Long = 0
+    var currentActiveExerciseTimeValue: Long = 0
+    var overallTimer: CountDownTimer? = null
+    var activeExerciseTimer: CountDownTimer? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_excercise_set, container, false)
@@ -28,16 +28,17 @@ class ExerciseFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val viewModel: ExerciseViewModel = ViewModelProviders.of(this).get(ExerciseViewModel().javaClass)
+
         viewModel.getActiveExerciseSet()?.observe(this, Observer<ExerciseSetData>
         { exercise -> renderElements(exercise?.exerciseDataList) })
     }
 
     private fun renderElements(exerciseList: List<ExerciseData>?) {
-        initializeOverallTimer(exerciseList)
+        initializeOverallTimeValue(exerciseList)
         initializeExercisesDone(exerciseList?.size)
         initializeNextExercise(exerciseList)
         initializeCurrentExerciseName(exerciseList)
-        initializeTimeLeftOfCurrentExercise(exerciseList)
+        initializeTimeLeftOfCurrentExerciseValue(exerciseList)
         initializeImageOfCurrentExercise(exerciseList)
         initializePowerButton()
     }
@@ -45,36 +46,24 @@ class ExerciseFragment : Fragment() {
     private fun initializePowerButton() {
         power.setOnClickListener {
             if (isTimerOn) {
-                isTimerOn = false
-                stopTimer()
+                stopTimers()
             } else {
-                isTimerOn = true
-                startTimer()
+                startOverallTimer()
+                startActiveExerciseTimer()
             }
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        stopTimer()
-        persistedTimerBundle.putLong(KEY_CURRENT_TIME_VALUE, currentTimeValue)
-    }
-
-    private fun stopTimer() {
-        countDownTimer?.cancel()
-        isTimerOn = false
-        power.setImageResource(R.drawable.ic_play_circle_filled_black_24dp)
-    }
-
-    private fun startTimer() {
-        countDownTimer = object : CountDownTimer(currentTimeValue, 1000) {
+    private fun startOverallTimer() {
+        overallTimer = object : CountDownTimer(currentOverallTimeValue, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                currentTimeValue = millisUntilFinished
+                currentOverallTimeValue = millisUntilFinished
                 overall_time.text = convertIntoCorrectTimerFormat(millisUntilFinished)
             }
 
             override fun onFinish() {
                 isTimerOn = false
+                overallTimer?.cancel()
                 power.setImageResource(R.drawable.ic_play_circle_filled_black_24dp)
             }
         }.start()
@@ -82,40 +71,77 @@ class ExerciseFragment : Fragment() {
         isTimerOn = true
     }
 
-    private fun initializeImageOfCurrentExercise(exerciseList: List<ExerciseData>?) {
+    private fun startActiveExerciseTimer() {
+        activeExerciseTimer = object : CountDownTimer(currentActiveExerciseTimeValue, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                currentActiveExerciseTimeValue = millisUntilFinished
+                current_exercise_time_left.text = convertIntoCorrectTimerFormat(millisUntilFinished)
+            }
 
+            override fun onFinish() {
+                isTimerOn = false
+                activeExerciseTimer?.cancel()
+                power.setImageResource(R.drawable.ic_play_circle_filled_black_24dp)
+            }
+        }.start()
+        power.setImageResource(R.drawable.ic_pause_circle_filled_black_24dp)
+        isTimerOn = true
     }
 
-    private fun initializeTimeLeftOfCurrentExercise(exerciseList: List<ExerciseData>?) {
+    override fun onPause() {
+        super.onPause()
+        stopTimers()
+    }
 
+    private fun stopTimers() {
+        overallTimer?.cancel()
+        activeExerciseTimer?.cancel()
+        isTimerOn = false
+        power.setImageResource(R.drawable.ic_play_circle_filled_black_24dp)
+    }
+
+
+    private fun initializeImageOfCurrentExercise(exerciseList: List<ExerciseData>?) {
+        if (exerciseList != null) {
+            //image.setImageResource()
+        }
     }
 
     private fun initializeCurrentExerciseName(exerciseList: List<ExerciseData>?) {
-
+        if (exerciseList != null) {
+            current_exercise_name.text = exerciseList[0].title
+        }
     }
 
     private fun initializeNextExercise(exerciseList: List<ExerciseData>?) {
-
+        if (exerciseList != null) {
+            next_exercise.text = exerciseList[1].title
+        }
     }
 
     private fun initializeExercisesDone(size: Int?) {
-
+        exercises_done.text = "0"
     }
 
-    private fun initializeOverallTimer(exerciseList: List<ExerciseData>?) {
-        if (persistedTimerBundle.isEmpty) {
-            var seconds: Long = 0
-            if (exerciseList != null) {
-                for (i in exerciseList) {
-                    val value = i.time
-                    seconds += value
-                }
-                currentTimeValue = seconds
-            }
-        } else {
-            currentTimeValue = persistedTimerBundle.getLong(KEY_CURRENT_TIME_VALUE)
+    private fun initializeTimeLeftOfCurrentExerciseValue(exerciseList: List<ExerciseData>?) {
+        if (exerciseList != null) {
+            val time = exerciseList[0].time
+            current_exercise_time_left.text = convertIntoCorrectTimerFormat(time)
+            currentActiveExerciseTimeValue = time
         }
-        overall_time.text = convertIntoCorrectTimerFormat(currentTimeValue)
+    }
+
+    private fun initializeOverallTimeValue(exerciseList: List<ExerciseData>?) {
+        var seconds: Long = 0
+        if (exerciseList != null) {
+            for (i in exerciseList) {
+                val value = i.time
+                seconds += value
+            }
+            currentOverallTimeValue = seconds
+        }
+
+        overall_time.text = convertIntoCorrectTimerFormat(currentOverallTimeValue)
     }
 
     private fun convertIntoCorrectTimerFormat(time: Long): String {
