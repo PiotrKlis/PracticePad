@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main
+package com.piotr.practicepad.ui.main.data
 
 import android.content.Context
 import android.content.SharedPreferences

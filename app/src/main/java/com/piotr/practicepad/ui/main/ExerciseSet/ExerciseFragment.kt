@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.Exercise
+package com.piotr.practicepad.ui.main.ExerciseSet
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -9,7 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.piotr.practicepad.R
-import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSetData
+import com.piotr.practicepad.ui.main.data.ExerciseSetData
+import com.piotr.practicepad.ui.main.data.ExerciseData
 import kotlinx.android.synthetic.main.fragment_excercise_set.*
 
 

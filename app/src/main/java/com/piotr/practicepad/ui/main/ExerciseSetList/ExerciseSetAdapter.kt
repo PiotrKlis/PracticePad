@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.ExerciseList
+package com.piotr.practicepad.ui.main.ExerciseSetList
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,21 +7,21 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import com.piotr.practicepad.R
-import com.piotr.practicepad.ui.main.SharedPrefs
+import com.piotr.practicepad.ui.main.data.SharedPrefs
 
 
 import kotlinx.android.synthetic.main.exercise_set_row.view.*
 
 class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>() {
 
-    private var onClickListener: ExerciseListCheckBoxListener? = null
-    private var exerciseSetList: Array<ExerciseSetData> = emptyArray()
+    private var onClickListener: CheckBoxListener? = null
+    private var exerciseSetList: List<ExerciseSet> = arrayListOf()
 
-    fun setListener(listener: ExerciseListCheckBoxListener) {
+    fun setListener(listener: CheckBoxListener) {
         onClickListener = listener
     }
 
-    fun setItems(items: Array<ExerciseSetData>?) {
+    fun setItems(items: List<ExerciseSet>?) {
         this.exerciseSetList = items!!
         notifyDataSetChanged()
     }
@@ -45,9 +45,9 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
         val content: TextView = view.content
         val checkBox: CheckBox = view.checkbox
 
-        fun setData(item: ExerciseSetData) {
+        fun setData(item: ExerciseSet) {
             number.text = item.id.toString()
-            content.text = item.name
+            content.text = item.title
             checkBox.isChecked = shouldBeChecked(adapterPosition)
             checkBox.setOnClickListener {
                 SharedPrefs.setActiveSet(adapterPosition)

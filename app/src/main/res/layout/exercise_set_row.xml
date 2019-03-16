@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:layout_margin="@dimen/text_margin"
-            tools:text="Przykladowy tekst"
+            tools:text="Example text"
             android:textAppearance="?attr/textAppearanceListItem"/>
 
     <CheckBox
