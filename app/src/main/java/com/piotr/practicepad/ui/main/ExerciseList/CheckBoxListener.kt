@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.ExerciseSetList
+package com.piotr.practicepad.ui.main.ExerciseList
 
 interface CheckBoxListener {
     fun checkboxClick()

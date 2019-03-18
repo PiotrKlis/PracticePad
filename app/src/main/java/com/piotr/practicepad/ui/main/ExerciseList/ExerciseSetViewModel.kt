@@ -1,9 +1,8 @@
-package com.piotr.practicepad.ui.main.ExerciseSetList
+package com.piotr.practicepad.ui.main.ExerciseList
 
 import android.arch.lifecycle.ViewModel
 import com.piotr.practicepad.ui.main.data.DataRepository
 import com.piotr.practicepad.ui.main.data.ExerciseDataRepositoryImpl
-import com.piotr.practicepad.ui.main.data.ExerciseSetData
 
 class ExerciseSetViewModel : ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.ExerciseSetList
+package com.piotr.practicepad.ui.main.ExerciseList
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

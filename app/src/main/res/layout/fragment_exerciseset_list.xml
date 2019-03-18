@@ -10,5 +10,5 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:context=".ui.main.ExerciseSetList.ExerciseListFragment"
+        tools:context=".ui.main.ExerciseList.ExerciseListFragment"
         tools:listitem="@layout/exercise_set_row"/>

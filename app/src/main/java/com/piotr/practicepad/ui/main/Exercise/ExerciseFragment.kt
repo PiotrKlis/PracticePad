@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.ExerciseSet
+package com.piotr.practicepad.ui.main.Exercise
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -9,8 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.piotr.practicepad.R
-import com.piotr.practicepad.ui.main.data.ExerciseSetData
-import com.piotr.practicepad.ui.main.data.ExerciseData
+import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
 import kotlinx.android.synthetic.main.fragment_excercise_set.*
 
 
@@ -30,11 +29,11 @@ class ExerciseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val viewModel: ExerciseViewModel = ViewModelProviders.of(this).get(ExerciseViewModel().javaClass)
 
-        viewModel.getActiveExerciseSet()?.observe(this, Observer<ExerciseSetData>
-        { exercise -> renderElements(exercise?.exerciseDataList) })
+        viewModel.getActiveExerciseSet()?.observe(this, Observer<ExerciseSet>
+        { exercise -> renderElements(exercise?.exerciseList) })
     }
 
-    private fun renderElements(exerciseList: List<ExerciseData>?) {
+    private fun renderElements(exerciseList: List<Exercise>?) {
         initializeOverallTimeValue(exerciseList)
         initializeExercisesDone(exerciseList?.size)
         initializeNextExercise(exerciseList)
@@ -102,19 +101,19 @@ class ExerciseFragment : Fragment() {
     }
 
 
-    private fun initializeImageOfCurrentExercise(exerciseList: List<ExerciseData>?) {
+    private fun initializeImageOfCurrentExercise(exerciseList: List<Exercise>?) {
         if (exerciseList != null) {
             //image.setImageResource()
         }
     }
 
-    private fun initializeCurrentExerciseName(exerciseList: List<ExerciseData>?) {
+    private fun initializeCurrentExerciseName(exerciseList: List<Exercise>?) {
         if (exerciseList != null) {
             current_exercise_name.text = exerciseList[0].title
         }
     }
 
-    private fun initializeNextExercise(exerciseList: List<ExerciseData>?) {
+    private fun initializeNextExercise(exerciseList: List<Exercise>?) {
         if (exerciseList != null) {
             next_exercise.text = exerciseList[1].title
         }
@@ -124,7 +123,7 @@ class ExerciseFragment : Fragment() {
         exercises_done.text = "0"
     }
 
-    private fun initializeTimeLeftOfCurrentExerciseValue(exerciseList: List<ExerciseData>?) {
+    private fun initializeTimeLeftOfCurrentExerciseValue(exerciseList: List<Exercise>?) {
         if (exerciseList != null) {
             val time = exerciseList[0].time
             current_exercise_time_left.text = convertIntoCorrectTimerFormat(time)
@@ -132,7 +131,7 @@ class ExerciseFragment : Fragment() {
         }
     }
 
-    private fun initializeOverallTimeValue(exerciseList: List<ExerciseData>?) {
+    private fun initializeOverallTimeValue(exerciseList: List<Exercise>?) {
         var seconds: Long = 0
         if (exerciseList != null) {
             for (i in exerciseList) {

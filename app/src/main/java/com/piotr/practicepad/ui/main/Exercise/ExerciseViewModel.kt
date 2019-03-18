@@ -1,8 +1,8 @@
-package com.piotr.practicepad.ui.main.ExerciseSet
+package com.piotr.practicepad.ui.main.Exercise
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.piotr.practicepad.ui.main.ExerciseSetList.ExerciseSet
+import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
 import com.piotr.practicepad.ui.main.data.SharedPrefs.Companion.getActiveSet
 import com.piotr.practicepad.ui.main.data.DataRepository
 import com.piotr.practicepad.ui.main.data.ExerciseDataRepositoryImpl

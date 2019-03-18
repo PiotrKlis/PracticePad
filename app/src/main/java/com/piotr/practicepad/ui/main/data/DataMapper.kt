@@ -1,7 +1,7 @@
 package com.piotr.practicepad.ui.main.data
 
-import com.piotr.practicepad.ui.main.ExerciseSet.Exercise
-import com.piotr.practicepad.ui.main.ExerciseSetList.ExerciseSet
+import com.piotr.practicepad.ui.main.Exercise.Exercise
+import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
 
 class DataMapper {
 
