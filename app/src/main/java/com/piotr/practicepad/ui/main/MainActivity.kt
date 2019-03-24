@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.piotr.practicepad.R
-import com.piotr.practicepad.ui.main.data.ExerciseData
 import kotlinx.android.synthetic.main.activity_bottom_navigation.*
 
 class MainActivity : AppCompatActivity() {
