@@ -1,6 +1,6 @@
-package com.piotr.practicepad.ui.main.data
+package com.piotr.practicepad.ui.main.data.db
 
-import com.piotr.practicepad.ui.main.data.ExerciseData.*
+import com.piotr.practicepad.ui.main.data.db.ExerciseData.*
 
 enum class ExerciseSetData(val id: Int, val title: String, val exerciseDataList: List<ExerciseData>) {
     BEGINNER(1, "Beginner", getBeginnerSet()),

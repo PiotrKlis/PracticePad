@@ -13,5 +13,5 @@
     <fragment android:id="@+id/exerciseSetFragment"
               android:name="com.piotr.practicepad.ui.main.Exercise.ExerciseFragment"
               android:label="ExerciseFragment"
-              tools:layout="@layout/fragment_excercise_set"/>
+              tools:layout="@layout/fragment_excercise"/>
 </navigation>

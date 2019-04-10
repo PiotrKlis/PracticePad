@@ -1,12 +1,13 @@
 package com.piotr.practicepad.ui.main.data
 
 import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
+import com.piotr.practicepad.ui.main.data.db.ExerciseSetData
 
-class ExerciseDataRepositoryImpl : DataRepository {
+class ExerciseDataRepository : DataRepository {
     val mapper: DataMapper = DataMapper()
 
-    override fun getActiveExerciseSet(id: Int?): ExerciseSet {
-
+    override fun getActiveExerciseSet(): ExerciseSet {
+        val id = SharedPrefs.getActiveSet()
         for (exerciseData in ExerciseSetData.values()) {
             if (exerciseData.id == id) {
                 return mapper.mapToExerciseSet(exerciseData)
