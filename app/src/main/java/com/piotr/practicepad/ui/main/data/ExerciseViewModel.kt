@@ -2,7 +2,11 @@ package com.piotr.practicepad.ui.main.data
 
 import android.arch.lifecycle.ViewModel
 import android.databinding.Bindable
+import android.databinding.BindingAdapter
+import android.databinding.ObservableBoolean
 import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
 import com.piotr.practicepad.R
 import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
 import com.piotr.practicepad.ui.main.utils.Helper
@@ -23,15 +27,25 @@ class ExerciseViewModel : ViewModel() {
 
     var nextExerciseName = getNextExerciseName().toString()
 
-    var isTimerOn: Boolean = false
+    var isTimerOn = ObservableBoolean(false)
 
-    fun runTimer(view : View) {
-        if (isTimerOn) {
-            isTimerOn = false
-            view.setBackgroundResource(R.drawable.ic_pause_circle_filled_black_24dp)
+    fun runTimer() {
+        if (isTimerOn.get()) {
+            isTimerOn.set(false)
         } else {
-            isTimerOn = true
-            view.setBackgroundResource(R.drawable.ic_play_circle_filled_black_24dp)
+            isTimerOn.set(true)
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        @BindingAdapter("android:background")
+        fun setImageButton(view: View, isTimerOn: Boolean) {
+            if (isTimerOn) {
+                view.setBackgroundResource(R.drawable.ic_pause_circle_filled_black_24dp)
+            } else {
+                view.setBackgroundResource(R.drawable.ic_play_circle_filled_black_24dp)
+            }
         }
     }
 

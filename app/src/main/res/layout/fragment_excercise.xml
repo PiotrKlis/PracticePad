@@ -151,12 +151,12 @@
                 android:id="@+id/power"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_media_play"
+                android:background="@{viewmodel.isTimerOn}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="16dp"
-                android:onClick="@{viewmodel::runTimer}"/>
+                android:onClick="@{() -> viewmodel.runTimer()}"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>
