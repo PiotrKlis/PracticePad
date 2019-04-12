@@ -1,33 +1,33 @@
 package com.piotr.practicepad.ui.main.data
 
 import android.arch.lifecycle.ViewModel
-import android.databinding.Bindable
-import android.databinding.BindingAdapter
-import android.databinding.ObservableBoolean
+import android.databinding.*
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import com.piotr.practicepad.R
+import com.piotr.practicepad.ui.main.Exercise.Exercise
 import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
 import com.piotr.practicepad.ui.main.utils.Helper
 
 class ExerciseViewModel : ViewModel() {
 
-    var list: ExerciseSet = ExerciseDataRepository().getActiveExerciseSet()
-    var exerciseList = list.exerciseList
-    var overallTimer = getOverallTime()
-    var exercisesDone = convertExercisesDone()
+    lateinit var exerciseSet: ExerciseSet
+    lateinit var exerciseSetTitle: String
+    val exerciseList = ArrayList<Exercise>()
+    val overallTime = ObservableField<String>()
+    val exercisesDone = ObservableField<String>()
+    val nextExerciseName = ObservableField<String>()
+    val currentExerciseName = ObservableField<String>()
+    val currentExerciseTimeLeft = ObservableField<String>()
+    val currentExerciseImage = ObservableField<Drawable>()
+    val isTimerOn = ObservableBoolean(false)
 
-    var currentExerciseNumber = 0
-    var currentOverallTimeValue: Long = 0
-    var currentExercise = exerciseList.get(currentExerciseNumber)
-    var currentExerciseName = currentExercise.title
-    var currentExerciseTime = Helper.convertIntoMinutesSeoconds(currentExercise.time)
-    var currentExerciseImage = currentExercise.image
+    fun fetchCurrentExerciseSet() {
+        exerciseSet = ExerciseDataRepository().getActiveExerciseSet()
 
-    var nextExerciseName = getNextExerciseName().toString()
-
-    var isTimerOn = ObservableBoolean(false)
+    }
 
     fun runTimer() {
         if (isTimerOn.get()) {
