@@ -1,21 +1,21 @@
 package com.piotr.practicepad.ui.main.data
 
 import android.arch.lifecycle.ViewModel
-import android.content.res.Resources
 import android.databinding.BindingAdapter
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
-import android.graphics.drawable.Drawable
+import android.os.CountDownTimer
 import android.view.View
 import com.piotr.practicepad.R
 import com.piotr.practicepad.ui.main.Exercise.Exercise
 import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
+import com.piotr.practicepad.ui.main.ExerciseTimer
+import com.piotr.practicepad.ui.main.SingleLiveEvent
 import com.piotr.practicepad.ui.main.utils.Helper
-import com.piotr.practicepad.ui.main.utils.StringProvider
-import javax.inject.Inject
 
 class ExerciseViewModel : ViewModel() {
-
+    var overallTimer: CountDownTimer? = null
+    var activeExerciseTimer: CountDownTimer? = null
     lateinit var exerciseSet: ExerciseSet
     lateinit var exerciseSetTitle: String
     var currentExerciseNumber: Int = 0
@@ -29,6 +29,7 @@ class ExerciseViewModel : ViewModel() {
     val currentExerciseTimeLeft = ObservableField<String>()
     val currentExerciseImage = ObservableField<Int>()
     val isTimerOn = ObservableBoolean(false)
+    val refreshViewEvent = SingleLiveEvent<Void>()
 
     fun fetchCurrentExerciseSet() {
         exerciseSet = ExerciseDataRepository().getActiveExerciseSet()
@@ -56,11 +57,17 @@ class ExerciseViewModel : ViewModel() {
         return exerciseList[currentExerciseNumber].title
     }
 
+    private fun getCurrentExerciseTime(): Long {
+        return exerciseList[currentExerciseNumber].time
+    }
+
     fun runTimer() {
         if (isTimerOn.get()) {
             isTimerOn.set(false)
+            startSetTimer(getCurrentExerciseTime())
         } else {
             isTimerOn.set(true)
+            ExerciseTimer().start(getCurrentExerciseTime())
         }
     }
 
@@ -91,6 +98,14 @@ class ExerciseViewModel : ViewModel() {
         return exerciseList.size
     }
 
+    fun onExerciseFinished() {
+        currentExerciseNumber += 1
+        if (currentExerciseNumber < getListSize()) {
+            ExerciseTimer().start(exerciseList[currentExerciseNumber].time)
+        }
+    }
+
+
     companion object {
         @JvmStatic
         @BindingAdapter("android:background")
@@ -107,6 +122,24 @@ class ExerciseViewModel : ViewModel() {
         fun setImage(view: View, currentExerciseImage: Int) {
             view.setBackgroundResource(currentExerciseImage)
         }
+    }
+
+    private fun startSetTimer(time: Long) {
+        overallTimer = object : CountDownTimer(time, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                overallTime.set(millisUntilFinished.toString())
+//                refreshViewEvent.call()
+            }
+
+            override fun onFinish() {
+                overallTimer?.cancel()
+            }
+        }.start()
+
+    }
+
+    fun stop() {
+
     }
 
 }

@@ -1,5 +1,6 @@
 package com.piotr.practicepad.ui.main.Exercise
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -22,6 +23,7 @@ class ExerciseFragment : Fragment() {
     var overallTimer: CountDownTimer? = null
     var activeExerciseTimer: CountDownTimer? = null
     lateinit var viewModel: ExerciseViewModel
+    lateinit var binding: ExerciseBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         viewModel = ViewModelProviders.of(this).get(ExerciseViewModel::class.java)
@@ -34,62 +36,11 @@ class ExerciseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetchCurrentExerciseSet()
         viewModel.renderData()
+        viewModel.refreshViewEvent.observe(this, Observer {
+            binding.executePendingBindings()
+        })
     }
 
-    private fun renderElements(exerciseList: List<Exercise>?) {
-        initializeOverallTimeValue(exerciseList)
-        initializeExercisesDone(exerciseList?.size)
-        initializeNextExercise(exerciseList)
-        initializeCurrentExerciseName(exerciseList)
-        initializeTimeLeftOfCurrentExerciseValue(exerciseList)
-        initializeImageOfCurrentExercise(exerciseList)
-        initializePowerButton()
-    }
-
-    private fun initializePowerButton() {
-        power.setOnClickListener {
-            if (isTimerOn) {
-                stopTimers()
-            } else {
-                startOverallTimer()
-                startActiveExerciseTimer()
-            }
-        }
-    }
-
-    private fun startOverallTimer() {
-        overallTimer = object : CountDownTimer(currentOverallTimeValue, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                currentOverallTimeValue = millisUntilFinished
-                overall_time.text = convertIntoCorrectTimerFormat(millisUntilFinished)
-            }
-
-            override fun onFinish() {
-                isTimerOn = false
-                overallTimer?.cancel()
-                power.setImageResource(R.drawable.ic_play_circle_filled_black_24dp)
-            }
-        }.start()
-        power.setImageResource(R.drawable.ic_pause_circle_filled_black_24dp)
-        isTimerOn = true
-    }
-
-    private fun startActiveExerciseTimer() {
-        activeExerciseTimer = object : CountDownTimer(currentActiveExerciseTimeValue, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                currentActiveExerciseTimeValue = millisUntilFinished
-                current_exercise_time_left.text = convertIntoCorrectTimerFormat(millisUntilFinished)
-            }
-
-            override fun onFinish() {
-                isTimerOn = false
-                activeExerciseTimer?.cancel()
-                power.setImageResource(R.drawable.ic_play_circle_filled_black_24dp)
-            }
-        }.start()
-        power.setImageResource(R.drawable.ic_pause_circle_filled_black_24dp)
-        isTimerOn = true
-    }
 
     override fun onPause() {
         super.onPause()
