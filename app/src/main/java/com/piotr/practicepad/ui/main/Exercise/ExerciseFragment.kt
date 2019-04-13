@@ -21,12 +21,19 @@ class ExerciseFragment : Fragment() {
     var currentActiveExerciseTimeValue: Long = 0
     var overallTimer: CountDownTimer? = null
     var activeExerciseTimer: CountDownTimer? = null
+    lateinit var viewModel: ExerciseViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val viewModel: ExerciseViewModel = ViewModelProviders.of(this).get(ExerciseViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(ExerciseViewModel::class.java)
         val binding: ExerciseBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_excercise, container, false)
         binding.viewmodel = viewModel
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchCurrentExerciseSet()
+        viewModel.renderData()
     }
 
     private fun renderElements(exerciseList: List<Exercise>?) {

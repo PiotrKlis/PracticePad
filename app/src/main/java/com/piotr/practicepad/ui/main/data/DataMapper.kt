@@ -23,7 +23,7 @@ class DataMapper {
         )
     }
 
-    private fun mapToExerciseList(list: List<ExerciseData>): List<Exercise> {
+    private fun mapToExerciseList(list: List<ExerciseData>): ArrayList<Exercise> {
         val exerciseList = ArrayList<Exercise>()
         for (item in list) {
             exerciseList.add(mapToExercise(item))
