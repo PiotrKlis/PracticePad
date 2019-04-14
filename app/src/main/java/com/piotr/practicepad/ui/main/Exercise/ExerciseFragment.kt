@@ -36,9 +36,6 @@ class ExerciseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetchCurrentExerciseSet()
         viewModel.renderData()
-        viewModel.refreshViewEvent.observe(this, Observer {
-            binding.executePendingBindings()
-        })
     }
 
 

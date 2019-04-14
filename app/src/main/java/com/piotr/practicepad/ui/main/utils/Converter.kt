@@ -2,32 +2,13 @@
 
 package com.piotr.practicepad.ui.main.utils
 
-import java.lang.Math.round
-
-fun fromTenthsToSeconds(tenths: Int): String {
-    return if (tenths < 600) {
-        String.format("%.1f", tenths / 10.0)
-    } else {
-        val minutes = (tenths / 10) / 60
-        val seconds = (tenths / 10) % 60
-        String.format("%d:%02d", minutes, seconds)
-    }
+fun secondsToMiliseconds(seconds: Long): Long {
+    return seconds * 1000
 }
 
-fun cleanSecondsString(seconds: String): Int {
-    // Remove letters and other characters
-    val filteredValue = seconds.replace(Regex("""[^\d:.]"""), "")
-    if (filteredValue.isEmpty()) return 0
-    val elements: List<Int> = filteredValue.split(":").map { it -> round(it.toDouble()).toInt() }
+fun convertIntoMinutesAndSeconds(time: Long): String {
+    val minutes = (time / 1000).toInt() / 60
+    val seconds = (time / 1000).toInt() % 60
 
-    var result: Int
-    return when {
-        elements.size > 2 -> 0
-        elements.size > 1 -> {
-            result = elements[0] * 60
-            result += elements[1]
-            result * 10
-        }
-        else -> elements[0] * 10
-    }
+    return String.format("%02d:%02d", minutes, seconds)
 }
