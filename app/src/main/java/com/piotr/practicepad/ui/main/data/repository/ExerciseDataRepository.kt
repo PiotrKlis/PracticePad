@@ -5,8 +5,7 @@ import com.piotr.practicepad.ui.main.data.db.SharedPrefs
 import com.piotr.practicepad.ui.main.data.db.ExerciseSetData
 
 class ExerciseDataRepository : DataRepository {
-    val mapper: DataMapper =
-        DataMapper()
+    val mapper: DataMapper = DataMapper()
 
     override fun getActiveExerciseSet(): ExerciseSet {
         val id = SharedPrefs.getActiveSet()
