@@ -16,7 +16,6 @@ class ExerciseViewModel : ViewModel() {
     var overallTimer: CountDownTimer? = null
     var currentExerciseTimer: CountDownTimer? = null
     lateinit var exerciseSet: ExerciseSet
-    lateinit var exerciseSetTitle: String
     var currentExerciseNumber: Int = 0
 
     var exerciseList = ArrayList<Exercise>()
@@ -27,6 +26,7 @@ class ExerciseViewModel : ViewModel() {
     val currentExerciseName = ObservableField<String>()
     val timeleft = ObservableField<String>()
     val currentExerciseImage = ObservableField<Int>()
+    val exerciseSetName = ObservableField<String>()
     val isTimerOn = ObservableBoolean(false)
     val refreshViewEvent = SingleLiveEvent<Void>()
 
@@ -45,6 +45,11 @@ class ExerciseViewModel : ViewModel() {
         currentExerciseName.set(getCurrentExerciseName())
         timeleft.set(getTimeLeft())
         currentExerciseImage.set(getImage())
+        exerciseSetName.set(getExerciseSetName())
+    }
+
+    private fun getExerciseSetName(): String {
+        return exerciseSet.title
     }
 
     private fun getImage(): Int {
@@ -57,7 +62,6 @@ class ExerciseViewModel : ViewModel() {
         currentOverallTime = Helper.secondsToMiliseconds(seconds)
         return Helper.convertIntoMinutesSeoconds(seconds)
     }
-
 
 
     private fun getTimeLeft(): String {
