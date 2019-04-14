@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 tools:text="5:00"
-                android:text="@{viewmodel.timeleft}"
+                android:text="@{viewmodel.currentExerciseTimeLeft}"
                 android:textSize="32sp"
                 app:layout_constraintTop_toBottomOf="@id/current_exercise_name"
                 app:layout_constraintStart_toStartOf="parent"

@@ -13,23 +13,25 @@ import com.piotr.practicepad.ui.main.data.repository.ExerciseDataRepository
 import com.piotr.practicepad.ui.main.utils.Helper
 
 class ExerciseViewModel : ViewModel() {
-    var overallTimer: CountDownTimer? = null
-    var currentExerciseTimer: CountDownTimer? = null
+    var overallSetTimer: CountDownTimer? = null
+    var exerciseTimer: CountDownTimer? = null
+    
     lateinit var exerciseSet: ExerciseSet
-    var currentExerciseNumber: Int = 0
-
     var exerciseList = ArrayList<Exercise>()
 
     val overallTime = ObservableField<String>()
+    val exerciseSetName = ObservableField<String>()
     val exercisesDone = ObservableField<String>()
     val nextExerciseName = ObservableField<String>()
+
     val currentExerciseName = ObservableField<String>()
-    val timeleft = ObservableField<String>()
+    val currentExerciseTimeLeft = ObservableField<String>()
     val currentExerciseImage = ObservableField<Int>()
-    val exerciseSetName = ObservableField<String>()
+
     val isTimerOn = ObservableBoolean(false)
     val refreshViewEvent = SingleLiveEvent<Void>()
 
+    var currentExerciseNumber: Int = 0
     var currentOverallTime: Long = 0
     var currentExerciseTime: Long = 0
 
@@ -39,13 +41,17 @@ class ExerciseViewModel : ViewModel() {
     }
 
     fun renderData() {
+        exerciseSetName.set(getExerciseSetName())
         overallTime.set(getOverallTime())
+        currentExerciseTimeLeft.set(getTimeLeft())
+        updateExerciseData()
+    }
+
+    private fun updateExerciseData() {
         exercisesDone.set(getExercisesDone())
         nextExerciseName.set(getNextExerciseName())
         currentExerciseName.set(getCurrentExerciseName())
-        timeleft.set(getTimeLeft())
         currentExerciseImage.set(getImage())
-        exerciseSetName.set(getExerciseSetName())
     }
 
     private fun getExerciseSetName(): String {
@@ -91,8 +97,13 @@ class ExerciseViewModel : ViewModel() {
     }
 
     fun runExerciseTimer() {
-        val time = exerciseList[currentExerciseNumber].time
-        startExerciseTimer(time)
+        if (currentExerciseNumber < exerciseList.size){
+            val time = exerciseList[currentExerciseNumber].time
+            updateExerciseData()
+            startExerciseTimer(time)
+        } else {
+            currentExerciseName.set("All done, congratulations!")
+        }
     }
 
     private fun getExercisesDone(): String {
@@ -102,10 +113,10 @@ class ExerciseViewModel : ViewModel() {
 
 
     private fun getNextExerciseName(): String {
-        return if (currentExerciseNumber + 1 <= exerciseList.size) {
-            exerciseList[currentExerciseNumber].title
+        return if (currentExerciseNumber + 1 < exerciseList.size) {
+            exerciseList[currentExerciseNumber + 1].title
         } else {
-            ""
+            "last one"
         }
     }
 
@@ -133,32 +144,32 @@ class ExerciseViewModel : ViewModel() {
     }
 
     private fun startSetTimer(time: Long) {
-        overallTimer = object : CountDownTimer(time, 1000) {
+        overallSetTimer = object : CountDownTimer(time, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 overallTime.set(Helper.convertIntoMinutesSeoconds(millisUntilFinished))
                 currentOverallTime = millisUntilFinished
             }
 
             override fun onFinish() {
-                overallTimer?.cancel()
+                overallSetTimer?.cancel()
                 isTimerOn.set(false)
             }
         }.start()
     }
 
     private fun stopSetTimer() {
-        overallTimer?.cancel()
+        overallSetTimer?.cancel()
     }
 
     private fun startExerciseTimer(time: Long) {
-        currentExerciseTimer = object : CountDownTimer(time, 1000) {
+        exerciseTimer = object : CountDownTimer(time, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                timeleft.set(Helper.convertIntoMinutesSeoconds(millisUntilFinished))
+                currentExerciseTimeLeft.set(Helper.convertIntoMinutesSeoconds(millisUntilFinished))
                 currentExerciseTime = millisUntilFinished
             }
 
             override fun onFinish() {
-                overallTimer?.cancel()
+                exerciseTimer?.cancel()
                 currentExerciseNumber += 1
                 runExerciseTimer()
             }
@@ -166,7 +177,7 @@ class ExerciseViewModel : ViewModel() {
     }
 
     private fun stopExerciseTimer() {
-        currentExerciseTimer?.cancel()
+        exerciseTimer?.cancel()
     }
 
     private fun sumSeconds(seconds: Long): Long {
