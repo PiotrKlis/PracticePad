@@ -86,6 +86,11 @@ class ExerciseViewModel : ViewModel() {
         }
     }
 
+    fun runExerciseTimer() {
+        val time = exerciseList[currentExerciseNumber].time
+        startExerciseTimer(time)
+    }
+
     private fun getExercisesDone(): String {
         val current = currentExerciseNumber + 1
         return "$current/${getListSize()}"
@@ -132,6 +137,7 @@ class ExerciseViewModel : ViewModel() {
 
             override fun onFinish() {
                 overallTimer?.cancel()
+                isTimerOn.set(false)
             }
         }.start()
     }
@@ -149,6 +155,8 @@ class ExerciseViewModel : ViewModel() {
 
             override fun onFinish() {
                 overallTimer?.cancel()
+                currentExerciseNumber += 1
+                runExerciseTimer()
             }
         }.start()
     }
