@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.data
+package com.piotr.practicepad.ui.main.data.repository
 
 import com.piotr.practicepad.ui.main.Exercise.Exercise
 import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet

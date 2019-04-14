@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.data
+package com.piotr.practicepad.ui.main
 
 import android.arch.lifecycle.ViewModel
 import android.databinding.BindingAdapter
@@ -9,13 +9,12 @@ import android.view.View
 import com.piotr.practicepad.R
 import com.piotr.practicepad.ui.main.Exercise.Exercise
 import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
-import com.piotr.practicepad.ui.main.ExerciseTimer
-import com.piotr.practicepad.ui.main.SingleLiveEvent
+import com.piotr.practicepad.ui.main.data.repository.ExerciseDataRepository
 import com.piotr.practicepad.ui.main.utils.Helper
 
 class ExerciseViewModel : ViewModel() {
     var overallTimer: CountDownTimer? = null
-    var activeExerciseTimer: CountDownTimer? = null
+    var currentExerciseTimer: CountDownTimer? = null
     lateinit var exerciseSet: ExerciseSet
     lateinit var exerciseSetTitle: String
     var currentExerciseNumber: Int = 0
@@ -26,10 +25,13 @@ class ExerciseViewModel : ViewModel() {
     val exercisesDone = ObservableField<String>()
     val nextExerciseName = ObservableField<String>()
     val currentExerciseName = ObservableField<String>()
-    val currentExerciseTimeLeft = ObservableField<String>()
+    val timeleft = ObservableField<String>()
     val currentExerciseImage = ObservableField<Int>()
     val isTimerOn = ObservableBoolean(false)
     val refreshViewEvent = SingleLiveEvent<Void>()
+
+    var currentOverallTime: Long = 0
+    var currentExerciseTime: Long = 0
 
     fun fetchCurrentExerciseSet() {
         exerciseSet = ExerciseDataRepository().getActiveExerciseSet()
@@ -41,7 +43,7 @@ class ExerciseViewModel : ViewModel() {
         exercisesDone.set(getExercisesDone())
         nextExerciseName.set(getNextExerciseName())
         currentExerciseName.set(getCurrentExerciseName())
-        currentExerciseTimeLeft.set(getTimeLeft())
+        timeleft.set(getTimeLeft())
         currentExerciseImage.set(getImage())
     }
 
@@ -49,35 +51,39 @@ class ExerciseViewModel : ViewModel() {
         return exerciseList[currentExerciseNumber].image
     }
 
+    private fun getOverallTime(): String {
+        var seconds: Long = 0
+        seconds = sumSeconds(seconds)
+        currentOverallTime = Helper.secondsToMiliseconds(seconds)
+        return Helper.convertIntoMinutesSeoconds(seconds)
+    }
+
+
+
     private fun getTimeLeft(): String {
-        return Helper.convertIntoMinutesSeoconds(exerciseList[currentExerciseNumber].time)
+        currentExerciseTime = exerciseList[currentExerciseNumber].time
+        return Helper.convertIntoMinutesSeoconds(currentOverallTime)
+    }
+
+    private fun fasfsa(i: Exercise): Long {
+        val value = i.time
+        return value
     }
 
     private fun getCurrentExerciseName(): String {
         return exerciseList[currentExerciseNumber].title
     }
 
-    private fun getCurrentExerciseTime(): Long {
-        return exerciseList[currentExerciseNumber].time
-    }
-
     fun runTimer() {
         if (isTimerOn.get()) {
             isTimerOn.set(false)
-            startSetTimer(getCurrentExerciseTime())
+            stopSetTimer()
+            stopExerciseTimer()
         } else {
             isTimerOn.set(true)
-            ExerciseTimer().start(getCurrentExerciseTime())
+            startSetTimer(currentOverallTime)
+            startExerciseTimer(currentExerciseTime)
         }
-    }
-
-    private fun getOverallTime(): String {
-        var seconds: Long = 0
-        for (i in exerciseList) {
-            val value = i.time
-            seconds += value
-        }
-        return Helper.convertIntoMinutesSeoconds(seconds)
     }
 
     private fun getExercisesDone(): String {
@@ -96,13 +102,6 @@ class ExerciseViewModel : ViewModel() {
 
     private fun getListSize(): Int {
         return exerciseList.size
-    }
-
-    fun onExerciseFinished() {
-        currentExerciseNumber += 1
-        if (currentExerciseNumber < getListSize()) {
-            ExerciseTimer().start(exerciseList[currentExerciseNumber].time)
-        }
     }
 
 
@@ -127,19 +126,44 @@ class ExerciseViewModel : ViewModel() {
     private fun startSetTimer(time: Long) {
         overallTimer = object : CountDownTimer(time, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                overallTime.set(millisUntilFinished.toString())
-//                refreshViewEvent.call()
+                overallTime.set(Helper.convertIntoMinutesSeoconds(millisUntilFinished))
+                currentOverallTime = millisUntilFinished
             }
 
             override fun onFinish() {
                 overallTimer?.cancel()
             }
         }.start()
-
     }
 
-    fun stop() {
+    private fun stopSetTimer() {
+        overallTimer?.cancel()
+    }
 
+    private fun startExerciseTimer(time: Long) {
+        currentExerciseTimer = object : CountDownTimer(time, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                timeleft.set(Helper.convertIntoMinutesSeoconds(millisUntilFinished))
+                currentExerciseTime = millisUntilFinished
+            }
+
+            override fun onFinish() {
+                overallTimer?.cancel()
+            }
+        }.start()
+    }
+
+    private fun stopExerciseTimer() {
+        currentExerciseTimer?.cancel()
+    }
+
+    private fun sumSeconds(seconds: Long): Long {
+        var seconds1 = seconds
+        for (i in exerciseList) {
+            val value = fasfsa(i)
+            seconds1 += value
+        }
+        return seconds1
     }
 
 }

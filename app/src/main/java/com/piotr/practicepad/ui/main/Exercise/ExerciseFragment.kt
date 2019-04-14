@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.ExerciseBinding
-import com.piotr.practicepad.ui.main.data.ExerciseViewModel
+import com.piotr.practicepad.ui.main.ExerciseViewModel
 import kotlinx.android.synthetic.main.fragment_excercise.*
 
 
