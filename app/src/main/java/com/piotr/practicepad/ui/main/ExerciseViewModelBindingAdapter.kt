@@ -3,15 +3,16 @@ package com.piotr.practicepad.ui.main
 import android.databinding.BindingAdapter
 import android.view.View
 import com.piotr.practicepad.R
+import com.piotr.practicepad.ui.main.ExerciseViewModel.State
 
 object ExerciseViewModelBindingAdapter {
     @JvmStatic
     @BindingAdapter("android:background")
-    fun setImageButton(view: View, isTimerOn: Boolean) {
-        if (isTimerOn) {
-            view.setBackgroundResource(R.drawable.ic_pause_circle_filled_black_24dp)
-        } else {
-            view.setBackgroundResource(R.drawable.ic_play_circle_filled_black_24dp)
+    fun setImageButton(view: View, isTimerOn: State) {
+        when (isTimerOn) {
+            State.ON -> view.setBackgroundResource(R.drawable.ic_pause_circle_filled_black_24dp)
+            State.OFF -> view.setBackgroundResource(R.drawable.ic_play_circle_filled_black_24dp)
+            State.RESTART-> view.setBackgroundColor(R.drawable.ic_home_black_24dp)
         }
     }
 

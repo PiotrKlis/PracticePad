@@ -1,7 +1,6 @@
 package com.piotr.practicepad.ui.main
 
 import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.os.CountDownTimer
 import com.piotr.practicepad.ui.main.Exercise.Exercise
@@ -24,7 +23,11 @@ class ExerciseViewModel : ViewModel() {
     val currentExerciseTimeLeft = ObservableField<Long>()
     val currentExerciseImage = ObservableField<Int>()
 
-    val isTimerOn = ObservableBoolean(false)
+    val isTimerOn = ObservableField<State>(State.OFF)
+
+    enum class State {
+        ON, OFF, RESTART
+    }
 
     var currentExerciseNumber: Int = 0
     var currentOverallTime: Long = 0
@@ -42,6 +45,28 @@ class ExerciseViewModel : ViewModel() {
         updateExerciseData()
     }
 
+    fun powerClick() {
+        when (isTimerOn.get()) {
+            State.ON -> {
+                isTimerOn.set(State.OFF)
+                stopSetTimer()
+                stopExerciseTimer()
+            }
+            State.OFF -> {
+                isTimerOn.set(State.ON)
+                startSetTimer(currentOverallTime)
+                startExerciseTimer(currentExerciseTime)
+            }
+            State.RESTART -> {
+                isTimerOn.set(State.ON)
+                currentExerciseNumber = 0
+                renderData()
+                startSetTimer(currentOverallTime)
+                startExerciseTimer(currentExerciseTime)
+            }
+        }
+    }
+
     private fun updateExerciseData() {
         exercisesDone.set(getExercisesDone())
         nextExerciseName.set(getNextExerciseName())
@@ -49,19 +74,7 @@ class ExerciseViewModel : ViewModel() {
         currentExerciseImage.set(getImage())
     }
 
-    fun runTimers() {
-        if (isTimerOn.get()) {
-            isTimerOn.set(false)
-            stopSetTimer()
-            stopExerciseTimer()
-        } else {
-            isTimerOn.set(true)
-            startSetTimer(currentOverallTime)
-            startExerciseTimer(currentExerciseTime)
-        }
-    }
-
-    fun runExerciseTimer() {
+    private fun runExerciseTimer() {
         if (currentExerciseNumber < exerciseList.size) {
             val time = exerciseList[currentExerciseNumber].time
             updateExerciseData()
@@ -80,7 +93,7 @@ class ExerciseViewModel : ViewModel() {
 
             override fun onFinish() {
                 overallSetTimer?.cancel()
-                isTimerOn.set(false)
+                isTimerOn.set(State.RESTART)
             }
         }.start()
     }
@@ -126,15 +139,6 @@ class ExerciseViewModel : ViewModel() {
         return exerciseList.size
     }
 
-    private fun sumSeconds(): Long {
-        var seconds: Long = 0
-        for (i in exerciseList) {
-            val value = i.time
-            seconds += value
-        }
-        return seconds
-    }
-
     private fun getExerciseSetName(): String {
         return exerciseSet.title
     }
@@ -149,7 +153,6 @@ class ExerciseViewModel : ViewModel() {
         return seconds
     }
 
-
     private fun getTimeLeft(): Long {
         currentExerciseTime = exerciseList[currentExerciseNumber].time
         return currentExerciseTime
@@ -157,5 +160,14 @@ class ExerciseViewModel : ViewModel() {
 
     private fun getCurrentExerciseName(): String {
         return exerciseList[currentExerciseNumber].title
+    }
+
+    private fun sumSeconds(): Long {
+        var seconds: Long = 0
+        for (i in exerciseList) {
+            val value = i.time
+            seconds += value
+        }
+        return seconds
     }
 }
