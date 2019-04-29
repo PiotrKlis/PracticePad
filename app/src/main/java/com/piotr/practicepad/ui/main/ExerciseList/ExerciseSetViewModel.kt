@@ -1,6 +1,6 @@
 package com.piotr.practicepad.ui.main.ExerciseList
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.ui.main.data.repository.DataRepository
 import com.piotr.practicepad.ui.main.data.repository.ExerciseDataRepository
 

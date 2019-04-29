@@ -1,7 +1,7 @@
 package com.piotr.practicepad.ui.main
 
-import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableField
+import androidx.lifecycle.ViewModel
+import androidx.databinding.ObservableField
 import android.os.CountDownTimer
 import com.piotr.practicepad.ui.main.Exercise.Exercise
 import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet

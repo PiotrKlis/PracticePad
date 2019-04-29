@@ -2,7 +2,7 @@ package com.piotr.practicepad.ui.main.utils
 
 import android.annotation.SuppressLint
 import android.os.Build
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import org.junit.Test
 
 import org.junit.Assert.*

@@ -1,6 +1,6 @@
 package com.piotr.practicepad.ui.main
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.view.View
 import com.piotr.practicepad.R
 import com.piotr.practicepad.ui.main.ExerciseViewModel.State

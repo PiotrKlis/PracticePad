@@ -1,7 +1,7 @@
 package com.piotr.practicepad.ui.main.utils
 
 import android.content.Context
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 
 interface StringProvider {
     fun getStringForId(@StringRes stringRes: Int): String?

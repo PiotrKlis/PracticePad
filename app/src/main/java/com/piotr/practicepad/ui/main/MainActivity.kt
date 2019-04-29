@@ -1,18 +1,52 @@
 package com.piotr.practicepad.ui.main
 
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.plusAssign
+import androidx.navigation.ui.setupWithNavController
 import com.piotr.practicepad.R
-import kotlinx.android.synthetic.main.activity_bottom_navigation.*
+import com.piotr.practicepad.databinding.MainActivityBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: MainActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-        val navController = findNavController(this, R.id.nav_host)
-        setupWithNavController(bottom_navigation, navController)
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host)!!
+//        val navigator = KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.exerciseSetFragment)
+//        val navController = findNavController(this, R.id.nav_host)
+//
+//        navController.navigatorProvider.addNavigator(navigator)
+//        setupWithNavController(bottom_navigation, navController)
+
+        //
+
+        binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host)!!
+        val navigator = KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.nav_host)
+        val navController = findNavController(R.id.nav_host)
+        navController.navigatorProvider.addNavigator(navigator)
+        navController.setGraph(R.navigation.nav_graph)
+        binding.bottomNavigation.setupWithNavController(navController)
     }
+
+    /*
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        val navController = findNavController(R.id.nav_host_fragment)
+
+        // get fragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
+
+        // setup custom navigator
+        val navigator = KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.nav_host_fragment)
+        navController.navigatorProvider += navigator
+
+        // set navigation graph
+        navController.setGraph(R.navigation.nav_graph)
+
+        binding.bottomNav.setupWithNavController(navController)*/
 }

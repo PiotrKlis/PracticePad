@@ -5,12 +5,12 @@
             android:id="@+id/nav_graph"
             app:startDestination="@id/exerciseSetFragment">
 
-    <fragment android:id="@+id/exerciseSetListFragment"
+    <keep_state_fragment android:id="@+id/exerciseSetListFragment"
               android:name="com.piotr.practicepad.ui.main.ExerciseList.ExerciseListFragment"
               android:label="fragment_exerciseset_list"
               tools:layout="@layout/fragment_exerciseset_list"/>
 
-    <fragment android:id="@+id/exerciseSetFragment"
+    <keep_state_fragment android:id="@+id/exerciseSetFragment"
               android:name="com.piotr.practicepad.ui.main.Exercise.ExerciseFragment"
               android:label="ExerciseFragment"
               tools:layout="@layout/fragment_excercise"/>
