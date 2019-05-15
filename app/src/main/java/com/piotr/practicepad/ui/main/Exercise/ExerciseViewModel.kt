@@ -1,8 +1,8 @@
 package com.piotr.practicepad.ui.main
 
-import androidx.lifecycle.ViewModel
-import androidx.databinding.ObservableField
 import android.os.CountDownTimer
+import androidx.databinding.ObservableField
+import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.ui.main.Exercise.Exercise
 import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
 import com.piotr.practicepad.ui.main.data.repository.ExerciseDataRepository
@@ -14,13 +14,21 @@ class ExerciseViewModel : ViewModel() {
     lateinit var exerciseSet: ExerciseSet
     var exerciseList = ArrayList<Exercise>()
 
-    val overallTime = ObservableField<Long>()
+    fun isExerciseNumberInSize(): Boolean = currentExerciseNumber < exerciseList.size
+    fun isNextExerciseNumberInSize(): Boolean = currentExerciseNumber + 1 < exerciseList.size
+
+
     val exerciseSetName = ObservableField<String>()
     val exercisesDone = ObservableField<String>()
-    val nextExerciseName = ObservableField<String>()
+    val overallTime = ObservableField<Long>()
+    var currentOverallTime: Long = 0
 
+    val nextExerciseName = ObservableField<String>()
     val currentExerciseName = ObservableField<String>()
     val currentExerciseTimeLeft = ObservableField<Long>()
+    var currentExerciseNumber: Int = 0
+    var currentExerciseTime: Long = 0
+
     val currentExerciseImage = ObservableField<Int>()
 
     val isTimerOn = ObservableField<State>(State.OFF)
@@ -28,10 +36,6 @@ class ExerciseViewModel : ViewModel() {
     enum class State {
         ON, OFF, RESTART
     }
-
-    var currentExerciseNumber: Int = 0
-    var currentOverallTime: Long = 0
-    var currentExerciseTime: Long = 0
 
     fun fetchCurrentExerciseSet() {
         exerciseSet = ExerciseDataRepository().getActiveExerciseSet()
@@ -122,13 +126,16 @@ class ExerciseViewModel : ViewModel() {
     }
 
     private fun getExercisesDone(): String {
-        val current = currentExerciseNumber + 1
-        return "$current/${getListSize()}"
+        return if (isExerciseNumberInSize()) {
+            "${currentExerciseNumber+1}/${getListSize()}"
+        } else {
+            "$currentExerciseNumber/${getListSize()}"
+        }
     }
 
 
     private fun getNextExerciseName(): String {
-        return if (currentExerciseNumber + 1 < exerciseList.size) {
+        return if (isNextExerciseNumberInSize()) {
             exerciseList[currentExerciseNumber + 1].title
         } else {
             "last one"
@@ -144,7 +151,11 @@ class ExerciseViewModel : ViewModel() {
     }
 
     private fun getImage(): Int {
-        return exerciseList[currentExerciseNumber].image
+        return if (isExerciseNumberInSize()) {
+            exerciseList[currentExerciseNumber].image
+        } else {
+            exerciseList[currentExerciseNumber - 1].image
+        }
     }
 
     private fun getOverallTime(): Long {
@@ -154,12 +165,19 @@ class ExerciseViewModel : ViewModel() {
     }
 
     private fun getTimeLeft(): Long {
-        currentExerciseTime = exerciseList[currentExerciseNumber].time
-        return currentExerciseTime
+        return if (isExerciseNumberInSize()) {
+            exerciseList[currentExerciseNumber].time
+        } else {
+            0
+        }
     }
 
     private fun getCurrentExerciseName(): String {
-        return exerciseList[currentExerciseNumber].title
+        return if (isExerciseNumberInSize()) {
+            exerciseList[currentExerciseNumber].title
+        } else {
+            "Last Exercise"
+        }
     }
 
     private fun sumSeconds(): Long {
