@@ -3,12 +3,13 @@ package com.piotr.practicepad.ui.main.data.db
 import android.content.Context
 import android.content.SharedPreferences
 
+private const val KEY_ACTIVE_SET = "active_set"
+private const val DEFAULT_SET: Int = 0
+
 class SharedPrefs {
 
     companion object {
-        var prefs: SharedPreferences? = null
-        val KEY_ACTIVE_SET = "active_set"
-        val DEFAULT_SET: Int = 0
+        private var prefs: SharedPreferences? = null
 
         fun initSharedPrefs(context: Context) {
             if (prefs == null) {

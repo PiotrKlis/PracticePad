@@ -9,7 +9,7 @@ import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
 
 @Navigator.Name("keep_state_fragment") // `keep_state_fragment` is used in navigation xml
-public class KeepStateNavigator(
+class KeepStateNavigator(
     private val context: Context,
     private val manager: FragmentManager, // Should pass childFragmentManager.
     private val containerId: Int

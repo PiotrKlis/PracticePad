@@ -30,6 +30,33 @@ class TestTest {
         return ""
     }
 
+    fun high(str: String) : String {
+        var list = str.split(" ")
+        var highestScore = 0
+        var wordScore = 0
+        var result = list[0]
+        for (item in list) {
+            for (index in  0.. item.length-1) {
+                var letter = item.substring(index, index + 1).toCharArray()[0].toInt() - 96
+                wordScore += letter
+            }
+            if (wordScore > highestScore) {
+                highestScore = wordScore
+                result = item
+            }
+            wordScore = 0
+        }
+        return result
+    }
+
+    @Test
+    fun testHighest() {
+        assertEquals("volcano", high("what time are we climbing up the volcano"))
+        assertEquals("abcd", high("abcd"))
+        assertEquals("taxi", high("man i need a taxi up to ubud"))
+        assertEquals("semynak", high("take me to semynak"))
+    }
+
     @Test
     fun testFixed() {
         assertEquals(
