@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/exerciseSetFragment">
+
+    <keep_state_fragment android:id="@+id/exerciseSetListFragment"
+              android:name="com.piotr.practicepad.ui.main.ExerciseList.ExerciseListFragment"
+              android:label="fragment_exerciseset_list"
+              tools:layout="@layout/fragment_exerciseset_list"/>
+
+    <keep_state_fragment android:id="@+id/exerciseSetFragment"
+              android:name="com.piotr.practicepad.ui.main.Exercise.ExerciseFragment"
+              android:label="ExerciseFragment"
+              tools:layout="@layout/fragment_excercise"/>
+</navigation>
