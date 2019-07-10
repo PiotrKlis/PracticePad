@@ -111,7 +111,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@{viewmodel.currentExerciseImage}"
-                tools:background="@drawable/single_stroke_roll"
+                app:srcCompat="@mipmap/ic_launcher"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/current_exercise_time_left"
@@ -119,8 +119,8 @@
 
         <ImageButton
                 android:id="@+id/power"
-                android:layout_width="80dp"
-                android:layout_height="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@{viewmodel.isTimerOn}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
