@@ -9,9 +9,7 @@ class DataMapper {
 
     fun mapToExerciseSetList(list: Array<ExerciseSetData>): List<ExerciseSet> {
         val mappedList: ArrayList<ExerciseSet> = arrayListOf()
-        for (item in list) {
-            mappedList.add(mapToExerciseSet(item))
-        }
+        list.map { mappedList.add(mapToExerciseSet(it)) }
         return mappedList
     }
 
@@ -25,9 +23,7 @@ class DataMapper {
 
     private fun mapToExerciseList(list: List<ExerciseData>): ArrayList<Exercise> {
         val exerciseList = ArrayList<Exercise>()
-        for (item in list) {
-            exerciseList.add(mapToExercise(item))
-        }
+        list.map { exerciseList.add(mapToExercise(it)) }
         return exerciseList
     }
 

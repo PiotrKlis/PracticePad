@@ -4,19 +4,23 @@ import android.os.CountDownTimer
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.ui.main.Exercise.Exercise
+import com.piotr.practicepad.ui.main.ExerciseList.DummyData
 import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
 import com.piotr.practicepad.ui.main.data.repository.ExerciseDataRepository
 
 class ExerciseViewModel : ViewModel() {
-    var overallSetTimer: CountDownTimer? = null
+    var setTimer: CountDownTimer? = null
     var exerciseTimer: CountDownTimer? = null
 
-    lateinit var exerciseSet: ExerciseSet
+    // Current Exercise
+    // Current Exercise Set
+    // Timer
+
+    var exerciseSet: ExerciseSet = DummyData.getEmptyExerciseSet()
     var exerciseList = ArrayList<Exercise>()
 
     fun isExerciseNumberInSize(): Boolean = currentExerciseNumber < exerciseList.size
     fun isNextExerciseNumberInSize(): Boolean = currentExerciseNumber + 1 < exerciseList.size
-
 
     val exerciseSetName = ObservableField<String>()
     val exercisesDone = ObservableField<String>()
@@ -31,13 +35,13 @@ class ExerciseViewModel : ViewModel() {
 
     val currentExerciseImage = ObservableField<Int>()
 
-    val isTimerOn = ObservableField<State>(State.OFF)
+    val isTimerOn = ObservableField(State.OFF)
 
     enum class State {
         ON, OFF, RESTART
     }
 
-    fun fetchCurrentExerciseSet() {
+    fun fetchData() {
         exerciseSet = ExerciseDataRepository().getActiveExerciseSet()
         exerciseList = exerciseSet.exerciseList
     }
@@ -89,21 +93,21 @@ class ExerciseViewModel : ViewModel() {
     }
 
     private fun startSetTimer(time: Long) {
-        overallSetTimer = object : CountDownTimer(time, 1000) {
+        setTimer = object : CountDownTimer(time, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 overallTime.set(millisUntilFinished)
                 currentOverallTime = millisUntilFinished
             }
 
             override fun onFinish() {
-                overallSetTimer?.cancel()
+                setTimer?.cancel()
                 isTimerOn.set(State.RESTART)
             }
         }.start()
     }
 
     private fun stopSetTimer() {
-        overallSetTimer?.cancel()
+        setTimer?.cancel()
     }
 
     private fun startExerciseTimer(time: Long) {
