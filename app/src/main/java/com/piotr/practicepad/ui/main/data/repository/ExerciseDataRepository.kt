@@ -18,6 +18,8 @@ class ExerciseDataRepository : DataRepository {
     }
 
     override fun getAllExerciseSets(): List<ExerciseSet> {
-        return mapper.mapToExerciseSetList(ExerciseSetData.values())
+        return ExerciseSetData
+            .values()
+            .let { mapper.mapToExerciseSetList(it) }
     }
 }
