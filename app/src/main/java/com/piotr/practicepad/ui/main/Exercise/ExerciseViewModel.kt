@@ -8,8 +8,11 @@ import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.ui.main.Exercise.Exercise
 import com.piotr.practicepad.ui.main.Exercise.ExerciseSetState
 import com.piotr.practicepad.ui.main.Exercise.ExerciseState
+import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
 import com.piotr.practicepad.ui.main.data.repository.ExerciseDataRepository
 import com.piotr.practicepad.ui.main.utils.Event
+
+private const val FIRST_ITEM = 0
 
 class ExerciseViewModel : ViewModel() {
     var setTimer: CountDownTimer? = null
@@ -32,7 +35,7 @@ class ExerciseViewModel : ViewModel() {
         get() = mutableExerciseSetEvent
 
     val isTimerOn = ObservableField(State.OFF)
-
+    private lateinit var exerciseSet: ExerciseSet
     enum class State {
         ON, OFF, RESTART
     }
@@ -43,16 +46,24 @@ class ExerciseViewModel : ViewModel() {
     }
 
     fun fetchData() {
+        exerciseSet = ExerciseDataRepository().getActiveExerciseSet()
+
         ExerciseDataRepository().getActiveExerciseSet().let {
             mutableExerciseSetState.value =
                 ExerciseSetState(
                     it.title,
                     getOverallTime(it.exerciseList),
-                    getNextExerciseName(it.exerciseList, 1),
-                    getExercisesDone()
+                    getNextExerciseName(it.exerciseList, FIRST_ITEM),
+                    getExercisesDone(it.exerciseList)
+                )
+
+            mutableExerciseState.value =
+                ExerciseState(
+                    it.exerciseList[FIRST_ITEM].time,
+                    it.exerciseList[FIRST_ITEM].title,
+                    it.exerciseList[FIRST_ITEM].image
                 )
         }
-        exerciseList = exerciseSet.exerciseStateList
     }
 
     private fun getOverallTime(exerciseList: ArrayList<Exercise>): Long {
@@ -72,19 +83,14 @@ class ExerciseViewModel : ViewModel() {
     }
 
     //TODO: Binding adapter?
-    private fun getExercisesDone(): String {
-        return if (isExerciseNumberInSize()) {
-            "${currentExerciseNumber + 1}/${getListSize()}"
-        } else {
-            "$currentExerciseNumber/${getListSize()}"
-        }
-    }
+    private fun getExercisesDone(exerciseList: ArrayList<Exercise>): String {
+        val index = mutableExerciseSetState.value!!.currentExerciseIndex
 
-    fun renderData() {
-        exerciseSetName.set(getExerciseSetName())
-        overallTime.set(getOverallTime(it.exerciseStateList))
-        currentExerciseTimeLeft.set(getTimeLeft())
-        updateExerciseData()
+        return if (exerciseList.size < index) {
+            "${mutableExerciseSetState.value?.currentExerciseIndex?.plus(1)}/${exerciseList.size}"
+        } else {
+            "$mutableExerciseSetState.value?.currentExerciseIndex?/${exerciseList.size}"
+        }
     }
 
     fun powerClick() {
@@ -96,39 +102,23 @@ class ExerciseViewModel : ViewModel() {
             }
             State.OFF -> {
                 isTimerOn.set(State.ON)
-                startSetTimer(currentOverallTime)
-                startExerciseTimer(currentExerciseTime)
+                startSetTimer()
+                startExerciseTimer()
             }
             State.RESTART -> {
                 isTimerOn.set(State.ON)
-                currentExerciseNumber = 0
-                renderData()
-                startSetTimer(currentOverallTime)
-                startExerciseTimer(currentExerciseTime)
+                mutableExerciseSetState.value?.let { mutableExerciseSetState.postValue(it.copy(currentExerciseIndex = 0)) }
+                fetchData()
+                startSetTimer(exerciseSet.exerciseList[mutableExerciseSetState.value?.currentExerciseIndex!!].time)
+                startExerciseTimer(exerciseSet.exerciseList[mutableExerciseSetState.value?.currentExerciseIndex!!].time)
             }
-        }
-    }
-
-    private fun updateExerciseData() {
-        exercisesDone.set(getExercisesDone())
-        nextExerciseName.set(getNextExerciseName(it.exerciseList))
-        currentExerciseName.set(getCurrentExerciseName())
-        currentExerciseImage.set(getImage())
-    }
-
-    private fun runExerciseTimer() {
-        if (currentExerciseNumber < exerciseList.size) {
-            val time = exerciseList[currentExerciseNumber].time
-            updateExerciseData()
-            startExerciseTimer(time)
-        } else {
-            currentExerciseName.set("All done, congratulations!")
         }
     }
 
     private fun startSetTimer(time: Long) {
         setTimer = object : CountDownTimer(time, 1000) {
             override fun onTick(millisUntilFinished: Long) {
+                mutableExerciseSetState.value?.let { exerciseSetState -> exerciseSetState. mutableExerciseSetState.postValue(it.copy()) }
                 overallTime.set(millisUntilFinished)
                 currentOverallTime = millisUntilFinished
             }
@@ -143,6 +133,14 @@ class ExerciseViewModel : ViewModel() {
     private fun stopSetTimer() {
         setTimer?.cancel()
     }
+
+    private fun stopExerciseTimer() {
+        exerciseTimer?.cancel()
+    }
+
+
+
+
 
     private fun startExerciseTimer(time: Long) {
         exerciseTimer = object : CountDownTimer(time, 1000) {
@@ -159,46 +157,6 @@ class ExerciseViewModel : ViewModel() {
         }.start()
     }
 
-    private fun stopExerciseTimer() {
-        exerciseTimer?.cancel()
-    }
-
-    private fun isExerciseNumberInSize(): Boolean =
-        exerciseSetState.value.let { exerciseSetState -> } currentExerciseNumber < exerciseList . size
-                private
-
-    fun isNextExerciseNumberInSize(): Boolean = currentExerciseNumber + 1 < exerciseList.size
 
 
-    private fun getListSize(): Int {
-        return exerciseList.size
-    }
-
-    private fun getExerciseSetName(): String {
-        return exerciseSet.title
-    }
-
-    private fun getImage(): Int {
-        return if (isExerciseNumberInSize()) {
-            exerciseList[currentExerciseNumber].image
-        } else {
-            exerciseList[currentExerciseNumber - 1].image
-        }
-    }
-
-    private fun getTimeLeft(): Long {
-        return if (isExerciseNumberInSize()) {
-            exerciseList[currentExerciseNumber].time
-        } else {
-            0
-        }
-    }
-
-    private fun getCurrentExerciseName(): String {
-        return if (isExerciseNumberInSize()) {
-            exerciseList[currentExerciseNumber].title
-        } else {
-            "Last ExerciseState"
-        }
-    }
 }
