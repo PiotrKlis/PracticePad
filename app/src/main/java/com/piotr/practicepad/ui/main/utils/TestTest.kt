@@ -51,7 +51,7 @@ class TestTest {
 
     @Test
     fun testHighest() {
-        assertEquals("volcano", high("what time are we climbing up the volcano"))
+        assertEquals("volcano", high("what timeLeft are we climbing up the volcano"))
         assertEquals("abcd", high("abcd"))
         assertEquals("taxi", high("man i need a taxi up to ubud"))
         assertEquals("semynak", high("take me to semynak"))
