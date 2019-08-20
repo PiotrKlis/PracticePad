@@ -5,9 +5,9 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.piotr.practicepad.ExerciseList.ExerciseSet
 import com.piotr.practicepad.data.repository.ExerciseDataRepository
 import com.piotr.practicepad.utils.Event
+import com.piotr.practicepad.utils.NonNullMutableLiveData
 
 private const val FIRST_ITEM = 0
 
@@ -16,10 +16,10 @@ class ExerciseViewModel : ViewModel() {
     private lateinit var exerciseTimer: CountDownTimer
 
     //TODO: https://stackoverflow.com/questions/46132520/nullability-and-livedata-with-kotlin?rq=1
-    private val mutableExerciseState = MutableLiveData<ExerciseState>()
+    private val mutableExerciseState = NonNullMutableLiveData(ExerciseState())
     private val mutableExerciseEvent = MutableLiveData<Event<ExerciseState>>()
 
-    private val mutableExerciseSetState = MutableLiveData<ExerciseSetState>()
+    private val mutableExerciseSetState = NonNullMutableLiveData(ExerciseSetState())
     private val mutableExerciseSetEvent = MutableLiveData<Event<ExerciseSetState>>()
 
     val exerciseState: LiveData<ExerciseState>
@@ -33,27 +33,20 @@ class ExerciseViewModel : ViewModel() {
         get() = mutableExerciseSetEvent
 
     val isTimerOn = ObservableField(State.OFF)
-    private lateinit var exerciseSet: ExerciseSet
 
     enum class State {
         ON, OFF, RESTART
     }
 
-    init {
-        mutableExerciseSetState.value = ExerciseSetState()
-        mutableExerciseState.value = ExerciseState()
-    }
-
-    fun fetchData() {
-        exerciseSet = ExerciseDataRepository().getActiveExerciseSet()
-
+    fun startNewExerciseSet() {
         ExerciseDataRepository().getActiveExerciseSet().let {
             mutableExerciseSetState.value =
                 ExerciseSetState(
                     it.title,
                     getOverallTime(it.exerciseList),
                     getNextExerciseName(it.exerciseList, FIRST_ITEM),
-                    getExercisesDone(it.exerciseList)
+                    getExercisesDone(it.exerciseList),
+                    FIRST_ITEM
                 )
 
             mutableExerciseState.value =
@@ -65,13 +58,16 @@ class ExerciseViewModel : ViewModel() {
         }
     }
 
+    fun getExerciseListSize() {
+
+    }
+
     private fun getOverallTime(exerciseList: ArrayList<Exercise>): String {
         return exerciseList
             .map { it.time }
             .sum()
             .convertIntoMinutesAndSeconds()
     }
-
 
     private fun getNextExerciseName(exerciseList: ArrayList<Exercise>, index: Int): String {
         var result = "Last one"
@@ -87,13 +83,13 @@ class ExerciseViewModel : ViewModel() {
         val index = getCurrentIndex()
 
         return if (exerciseList.size < index) {
-            "${mutableExerciseSetState.value?.currentExerciseIndex?.plus(1)}/${exerciseList.size}"
+            "${mutableExerciseSetState.value.currentExerciseIndex.plus(1)}/${exerciseList.size}"
         } else {
-            "$mutableExerciseSetState.value?.currentExerciseIndex?/${exerciseList.size}"
+            "${mutableExerciseSetState.value.currentExerciseIndex}/${exerciseList.size}"
         }
     }
 
-    private fun getCurrentIndex(): Int = mutableExerciseSetState.value?.currentExerciseIndex
+    private fun getCurrentIndex(): Int = mutableExerciseSetState.value.currentExerciseIndex
 
     fun powerClick() {
         when (isTimerOn.get()) {
@@ -109,9 +105,8 @@ class ExerciseViewModel : ViewModel() {
             }
             State.RESTART -> {
                 isTimerOn.set(State.ON)
-                mutableExerciseSetState.value?.let { mutableExerciseSetState.postValue(it.copy(currentExerciseIndex = 0)) }
-                fetchData()
-                startSetTimer(exerciseSet.exerciseList[mutableExerciseSetState.value?.currentExerciseIndex!!].time)
+                startNewExerciseSet()
+                startSetTimer(mutableExerciseSetState.value.timeLeft)
                 startExerciseTimer(exerciseSet.exerciseList[mutableExerciseSetState.value?.currentExerciseIndex!!].time)
             }
         }
@@ -188,3 +183,5 @@ private fun Long.convertIntoMinutesAndSeconds(): String {
 
     return String.format("%02d:%02d", minutes, seconds)
 }
+
+
