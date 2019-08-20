@@ -1,8 +1,8 @@
-package com.piotr.practicepad.ui.main.data.repository
+package com.piotr.practicepad.data.repository
 
-import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
-import com.piotr.practicepad.ui.main.data.db.ExerciseSetData
-import com.piotr.practicepad.ui.main.data.db.SharedPrefs
+import com.piotr.practicepad.ExerciseList.ExerciseSet
+import com.piotr.practicepad.data.db.ExerciseSetData
+import com.piotr.practicepad.data.db.SharedPrefs
 
 class ExerciseDataRepository : DataRepository {
     private val mapper: DataMapper = DataMapper()

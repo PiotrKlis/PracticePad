@@ -7,7 +7,7 @@
 
         <variable
                 name="viewmodel"
-                type="com.piotr.practicepad.ui.main.ExerciseViewModel"/>
+                type="com.piotr.practicepad.Exercise.ExerciseViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,16 +1,13 @@
-package com.piotr.practicepad.ui.main
+package com.piotr.practicepad.Exercise
 
 import android.os.CountDownTimer
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.piotr.practicepad.ui.main.Exercise.Exercise
-import com.piotr.practicepad.ui.main.Exercise.ExerciseSetState
-import com.piotr.practicepad.ui.main.Exercise.ExerciseState
-import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
-import com.piotr.practicepad.ui.main.data.repository.ExerciseDataRepository
-import com.piotr.practicepad.ui.main.utils.Event
+import com.piotr.practicepad.ExerciseList.ExerciseSet
+import com.piotr.practicepad.data.repository.ExerciseDataRepository
+import com.piotr.practicepad.utils.Event
 
 private const val FIRST_ITEM = 0
 

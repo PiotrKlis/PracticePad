@@ -1,9 +1,9 @@
-package com.piotr.practicepad.ui.main
+package com.piotr.practicepad.Exercise
 
 import androidx.databinding.BindingAdapter
 import android.view.View
 import com.piotr.practicepad.R
-import com.piotr.practicepad.ui.main.ExerciseViewModel.State
+import com.piotr.practicepad.Exercise.ExerciseViewModel.State
 
 object ExerciseViewModelBindingAdapter {
     @JvmStatic

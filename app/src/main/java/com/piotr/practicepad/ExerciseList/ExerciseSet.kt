@@ -1,5 +1,5 @@
-package com.piotr.practicepad.ui.main.ExerciseList
+package com.piotr.practicepad.ExerciseList
 
-import com.piotr.practicepad.ui.main.Exercise.Exercise
+import com.piotr.practicepad.Exercise.Exercise
 
 data class ExerciseSet(val id: Int, val title: String, val exerciseList: ArrayList<Exercise>)

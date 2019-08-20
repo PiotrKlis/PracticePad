@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.ExerciseList
+package com.piotr.practicepad.ExerciseList
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import com.piotr.practicepad.R
-import com.piotr.practicepad.ui.main.data.db.SharedPrefs
+import com.piotr.practicepad.data.db.SharedPrefs
 
 
 import kotlinx.android.synthetic.main.exercise_set_row.view.*

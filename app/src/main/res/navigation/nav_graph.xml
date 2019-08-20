@@ -6,12 +6,12 @@
             app:startDestination="@id/exerciseSetFragment">
 
     <keep_state_fragment android:id="@+id/exerciseSetListFragment"
-              android:name="com.piotr.practicepad.ui.main.ExerciseList.ExerciseListFragment"
+              android:name="com.piotr.practicepad.ExerciseList.ExerciseListFragment"
               android:label="fragment_exerciseset_list"
               tools:layout="@layout/fragment_exerciseset_list"/>
 
     <keep_state_fragment android:id="@+id/exerciseSetFragment"
-              android:name="com.piotr.practicepad.ui.main.Exercise.ExerciseFragment"
+              android:name="com.piotr.practicepad.Exercise.ExerciseFragment"
               android:label="ExerciseFragment"
               tools:layout="@layout/fragment_excercise"/>
 </navigation>

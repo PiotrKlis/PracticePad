@@ -1,11 +1,10 @@
-package com.piotr.practicepad.ui.main
+package com.piotr.practicepad
 
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.plusAssign
-import androidx.navigation.ui.setupWithNavController
+import com.piotr.practicepad.KeepStateNavigator
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.MainActivityBinding
 

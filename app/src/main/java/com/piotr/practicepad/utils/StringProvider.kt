@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.utils
+package com.piotr.practicepad.utils
 
 import android.content.Context
 import androidx.annotation.StringRes

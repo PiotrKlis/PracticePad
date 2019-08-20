@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.Exercise
+package com.piotr.practicepad.Exercise
 
 import androidx.lifecycle.ViewModelProviders
 import androidx.databinding.DataBindingUtil
@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExcerciseBinding
-import com.piotr.practicepad.ui.main.ExerciseViewModel
 
 
 class ExerciseFragment : Fragment() {

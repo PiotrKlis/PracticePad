@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.utils
+package com.piotr.practicepad.utils
 
 import android.annotation.SuppressLint
 import android.os.Build
