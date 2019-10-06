@@ -1,11 +1,11 @@
 package com.piotr.practicepad.ui.main.ExerciseList
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.piotr.practicepad.R
 import kotlinx.android.synthetic.main.fragment_exerciseset_list.*
 
@@ -34,4 +34,8 @@ class ExerciseListFragment : Fragment(), CheckBoxListener {
     override fun checkboxClick() {
         adapter.notifyDataSetChanged()
     }
+}
+
+interface CheckBoxListener {
+    fun checkboxClick()
 }
