@@ -21,8 +21,8 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
         onClickListener = listener
     }
 
-    fun setItems(items: List<ExerciseSet>?) {
-        this.exerciseSetList = items!!
+    fun setItems(items: List<ExerciseSet>) {
+        this.exerciseSetList = items
         notifyDataSetChanged()
     }
 
@@ -32,7 +32,7 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = exerciseSetList.get(position)
+        val item = exerciseSetList[position]
         holder.setData(item)
     }
 
@@ -41,9 +41,9 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val number: TextView = view.item_number
-        val content: TextView = view.content
-        val checkBox: CheckBox = view.checkbox
+        private val number: TextView = view.item_number
+        private val content: TextView = view.content
+        private val checkBox: CheckBox = view.checkbox
 
         fun setData(item: ExerciseSet) {
             number.text = item.id.toString()
