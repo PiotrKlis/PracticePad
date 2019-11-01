@@ -1,4 +1,4 @@
-package com.piotr.practicepad.Exercise
+package com.piotr.practicepad.exercise
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import com.piotr.practicepad.R
 
 class ExerciseFragment : Fragment() {
 
-    lateinit var viewModel: ExerciseViewModel
+    private lateinit var viewModel: ExerciseViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         viewModel = ViewModelProviders.of(this).get(ExerciseViewModel::class.java)

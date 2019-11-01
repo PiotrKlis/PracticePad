@@ -1,7 +1,7 @@
 package com.piotr.practicepad.data.repository
 
-import com.piotr.practicepad.Exercise.ExerciseState
-import com.piotr.practicepad.ExerciseList.ExerciseSet
+import com.piotr.practicepad.exercise.Exercise
+import com.piotr.practicepad.exerciseList.ExerciseSet
 import com.piotr.practicepad.data.db.ExerciseData
 import com.piotr.practicepad.data.db.ExerciseSetData
 
@@ -21,13 +21,13 @@ class DataMapper {
         )
     }
 
-    private fun mapToExerciseList(list: List<ExerciseData>): ArrayList<ExerciseState> {
-        val exerciseList = ArrayList<ExerciseState>()
+    private fun mapToExerciseList(list: List<ExerciseData>): ArrayList<Exercise> {
+        val exerciseList = ArrayList<Exercise>()
         list.map { exerciseList.add(mapToExercise(it)) }
         return exerciseList
     }
 
-    private fun mapToExercise(item: ExerciseData): ExerciseState {
-        return ExerciseState(item.time, item.title, item.image)
+    private fun mapToExercise(item: ExerciseData): Exercise {
+        return Exercise(item.time, item.title, item.image)
     }
 }

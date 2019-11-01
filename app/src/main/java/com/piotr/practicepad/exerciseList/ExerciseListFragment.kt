@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ExerciseList
+package com.piotr.practicepad.exerciseList
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle

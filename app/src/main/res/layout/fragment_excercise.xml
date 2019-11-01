@@ -9,7 +9,7 @@
 		
 		<variable
 			name="viewmodel"
-			type="com.piotr.practicepad.Exercise.ExerciseViewModel" />
+			type="com.piotr.practicepad.exercise.ExerciseViewModel" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,8 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			tools:text="@{viewmodel.exerciseSetState.exerciseSetName}" />
+			/>
+<!--			tools:text="@{viewmodel.exerciseSetState.exerciseSetName}" -->
 		
 		<TextView
 			android:id="@+id/overall_time"
@@ -49,14 +50,13 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
 			android:gravity="center"
-			app:exercisesDone="{@viewmodel.exerciseSetState.currentExerciseIndex}"
-			app:exerciseSetListSize="{}"
 			android:textSize="24sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/next_exercise"
 			app:layout_constraintTop_toBottomOf="@id/exercise_set_name"
 			tools:text="3/15" />
+<!--			app:exercisesDone="{@viewmodel.exerciseSetState}"-->
 		
 		<TextView
 			android:id="@+id/next_exercise"
@@ -64,7 +64,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
 			android:gravity="center"
-			android:text="@{`Next: ` + viewmodel.nextExerciseName}"
+			android:text="@{`Next: ` + viewmodel.exerciseState.title}"
 			android:textSize="24sp"
 			app:layout_constraintEnd_toStartOf="@+id/exercises_done"
 			app:layout_constraintHorizontal_bias="0.5"
@@ -88,7 +88,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="16dp"
 			android:gravity="center"
-			android:text="@{viewmodel.currentExerciseName}"
+			android:text="@{viewmodel.exerciseState.title}"
 			android:textSize="48sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +101,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
 			android:gravity="center"
-			android:text="@{Converter.convertIntoMinutesAndSeconds(viewmodel.currentExerciseTimeLeft)}"
+			android:text="@{Converter.convertIntoMinutesAndSeconds(viewmodel.exerciseState.timeLeft)}"
 			android:textSize="32sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +114,7 @@
 			android:layout_height="0dp"
 			android:layout_marginTop="8dp"
 			android:layout_marginBottom="16dp"
-			android:background="@{viewmodel.currentExerciseImage}"
+			android:background="@{viewmodel.exerciseState.image}"
 			app:layout_constraintBottom_toTopOf="@id/power"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -126,11 +126,11 @@
 			android:layout_width="80dp"
 			android:layout_height="60dp"
 			android:layout_marginBottom="16dp"
-			android:background="@{viewmodel.isTimerOn}"
 			android:onClick="@{() -> viewmodel.powerClick()}"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent" />
+<!--			app:setImageButton="@{viewmodel.isTimerOn}"-->
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

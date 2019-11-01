@@ -1,6 +1,6 @@
 package com.piotr.practicepad.data.repository
 
-import com.piotr.practicepad.ExerciseList.ExerciseSet
+import com.piotr.practicepad.exerciseList.ExerciseSet
 import com.piotr.practicepad.data.db.ExerciseSetData
 import com.piotr.practicepad.data.db.SharedPrefs
 

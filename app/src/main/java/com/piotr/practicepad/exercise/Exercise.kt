@@ -1,4 +1,4 @@
-package com.piotr.practicepad.Exercise
+package com.piotr.practicepad.exercise
 
 import com.piotr.practicepad.R
 
