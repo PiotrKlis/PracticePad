@@ -5,8 +5,6 @@
 	
 	<data>
 		
-		<import type="com.piotr.practicepad.utils.Converter" />
-		
 		<variable
 			name="viewmodel"
 			type="com.piotr.practicepad.exercise.ExerciseViewModel" />
@@ -29,17 +27,16 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			tools:text="@{viewmodel.exerciseSetState.name}" />
+			tools:text="Exercise Set Name" />
 		
 		<TextView
 			android:id="@+id/overall_time"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
-			android:text="@{Converter.convertIntoMinutesAndSeconds(viewmodel.exerciseSetState.timeLeft)}"
 			android:textSize="24sp"
+			app:timeLeft="@{viewmodel.exerciseSetState.timeLeft}"
 			app:layout_constraintEnd_toStartOf="@+id/next_exercise"
-			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/exercise_set_name"
 			tools:text="30:00" />
@@ -51,11 +48,12 @@
 			android:layout_marginTop="8dp"
 			android:gravity="center"
 			android:textSize="24sp"
-			app:exercisesDone="@{viewmodel.exerciseSetState}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/next_exercise"
 			app:layout_constraintTop_toBottomOf="@id/exercise_set_name"
+			app:currentIndex="@{viewmodel.exerciseSetState.currentExerciseIndex}"
+			app:exercisesLeft="@{viewmodel.exerciseSetState.exercisesLeft}"
 			tools:text="3/15" />
 		
 		<TextView
@@ -101,11 +99,11 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
 			android:gravity="center"
-			android:text="@{Converter.convertIntoMinutesAndSeconds(viewmodel.exerciseState.timeLeft)}"
 			android:textSize="32sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/current_exercise_name"
+			app:timeLeft="@{viewmodel.exerciseState.timeLeft}"
 			tools:text="5:00" />
 		
 		<ImageView
@@ -130,7 +128,8 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:setImageButton="@{viewmodel.isTimerOn}" />
+			app:setImageButton="@{viewmodel.isTimerOn}"
+			tools:src="@drawable/ic_play_circle_filled_black_24dp" />
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

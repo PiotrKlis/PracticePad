@@ -1,13 +1,13 @@
 package com.piotr.practicepad.exercise
 
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.data.repository.ExerciseDataRepository
 import com.piotr.practicepad.utils.Event
-import com.piotr.practicepad.utils.NonNullMutableLiveData
 
 private const val FIRST_ITEM = 0
 
@@ -15,11 +15,12 @@ class ExerciseViewModel : ViewModel() {
     private lateinit var setTimer: CountDownTimer
     private lateinit var exerciseTimer: CountDownTimer
 
-    //TODO: https://stackoverflow.com/questions/46132520/nullability-and-livedata-with-kotlin?rq=1
-    private val mutableExerciseState = NonNullMutableLiveData(ExerciseState())
+    private val mutableExerciseState =
+        MutableLiveData<ExerciseState>().apply { value = ExerciseState() }
     private val mutableExerciseEvent = MutableLiveData<Event<ExerciseState>>()
 
-    private val mutableExerciseSetState = NonNullMutableLiveData(ExerciseSetState())
+    private val mutableExerciseSetState =
+        MutableLiveData<ExerciseSetState>().apply { value = ExerciseSetState() }
     private val mutableExerciseSetEvent = MutableLiveData<Event<ExerciseSetState>>()
 
     val exerciseState: LiveData<ExerciseState>
@@ -39,22 +40,47 @@ class ExerciseViewModel : ViewModel() {
     }
 
     fun startNewExerciseSet() {
-        ExerciseDataRepository().getActiveExerciseSet().let {
-            mutableExerciseSetState.value =
+        ExerciseDataRepository().getActiveExerciseSet().let { activeExerciseSet ->
+            Log.d("AAA ACTIVE", activeExerciseSet.toString())
+            mutableExerciseSetState.postValue(
                 ExerciseSetState(
-                    it.title,
-                    getOverallTime(it.exerciseList),
-                    getNextExerciseName(it.exerciseList, FIRST_ITEM),
-                    getExercisesDone(it.exerciseList),
-                    FIRST_ITEM
+                    name = activeExerciseSet.title,
+                    timeLeft = getOverallTime(activeExerciseSet.exerciseList),
+                    nextName = getNextExerciseName(activeExerciseSet.exerciseList, FIRST_ITEM),
+                    currentExerciseIndex = FIRST_ITEM,
+                    exerciseList = activeExerciseSet.exerciseList
                 )
+            )
 
-            mutableExerciseState.value =
+            mutableExerciseState.postValue(
                 ExerciseState(
-                    it.exerciseList[FIRST_ITEM].time,
-                    it.exerciseList[FIRST_ITEM].title,
-                    it.exerciseList[FIRST_ITEM].image
+                    timeLeft = activeExerciseSet.exerciseList[FIRST_ITEM].time,
+                    title = activeExerciseSet.exerciseList[FIRST_ITEM].title,
+                    image = activeExerciseSet.exerciseList[FIRST_ITEM].image
                 )
+            )
+            Log.d("AAA SET", exerciseSetState.value.toString())
+        }
+    }
+
+    fun powerClick() {
+        when (isTimerOn.get()) {
+            State.ON -> {
+                isTimerOn.set(State.OFF)
+                stopSetTimer()
+                stopExerciseTimer()
+            }
+            State.OFF -> {
+                isTimerOn.set(State.ON)
+//                startSetTimer()
+//                startExerciseTimer()
+            }
+            State.RESTART -> {
+                isTimerOn.set(State.ON)
+                startNewExerciseSet()
+                startSetTimer()
+                startExerciseTimer()
+            }
         }
     }
 
@@ -73,49 +99,11 @@ class ExerciseViewModel : ViewModel() {
         return result
     }
 
-    //TODO: Binding adapter?
-    private fun getExercisesDone(exerciseList: ArrayList<Exercise>): Int {
-        return getCurrentIndex()
-
-//        return if (exerciseList.size < index) {
-//            "${mutableExerciseSetState.value.currentExerciseIndex.plus(1)}/${exerciseList.size}"
-//        } else {
-//            "${mutableExerciseSetState.value.currentExerciseIndex}/${exerciseList.size}"
-//        }
-    }
-
-    private fun getCurrentIndex(): Int = mutableExerciseSetState.value.currentExerciseIndex
-
-    fun powerClick() {
-        when (isTimerOn.get()) {
-            State.ON -> {
-                isTimerOn.set(State.OFF)
-                stopSetTimer()
-                stopExerciseTimer()
-            }
-            State.OFF -> {
-                isTimerOn.set(State.ON)
-                startSetTimer()
-                startExerciseTimer()
-            }
-            State.RESTART -> {
-                isTimerOn.set(State.ON)
-                startNewExerciseSet()
-                startSetTimer()
-                startExerciseTimer()
-            }
-        }
-    }
-
     private fun startSetTimer() {
-        setTimer = object : CountDownTimer(mutableExerciseSetState.value.timeLeft, 1000) {
+        setTimer = object : CountDownTimer(mutableExerciseSetState.value?.timeLeft ?: 0, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                mutableExerciseSetState.value.let {
-                    mutableExerciseSetState.postValue(
-                        it.copy(
-                            timeLeft = millisUntilFinished
-                        )
-                    )
+                mutableExerciseSetState.value?.let {
+                    mutableExerciseSetState.postValue(it.copy(timeLeft = millisUntilFinished))
                 }
             }
 
@@ -131,25 +119,25 @@ class ExerciseViewModel : ViewModel() {
     }
 
     private fun startExerciseTimer() {
-        exerciseTimer = object : CountDownTimer(mutableExerciseState.value.timeLeft, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                mutableExerciseState.value.let { mutableExerciseState.postValue(it.copy(timeLeft = millisUntilFinished)) }
-            }
-
-            override fun onFinish() {
-                exerciseTimer.cancel()
-                mutableExerciseSetState.value.let {
-                    mutableExerciseSetState.postValue(it.copy(currentExerciseIndex = it.currentExerciseIndex + 1))
-                    mutableExerciseSetState.postValue(
-                        it.copy(
-                            nextName = getNextExerciseName(
-                                mutableExerciseSetState.value.exerciseList,
-                                it.currentExerciseIndex
-                            ),
-                            exercisesLeft = getExercisesDone(mutableExerciseSetState.value.exerciseList)
-                        )
-                    )
+        mutableExerciseState.value?.let { exerciseState ->
+            exerciseTimer = object : CountDownTimer(exerciseState.timeLeft, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    mutableExerciseState.postValue(exerciseState.copy(timeLeft = millisUntilFinished))
                 }
+
+                override fun onFinish() {
+                    exerciseTimer.cancel()
+                    mutableExerciseSetState.value?.let { exerciseSetState ->
+                        mutableExerciseSetState.postValue(
+                            exerciseSetState.copy(
+                                currentExerciseIndex = exerciseSetState.currentExerciseIndex + 1,
+                                nextName = getNextExerciseName(
+                                    exerciseSetState.exerciseList,
+                                    exerciseSetState.currentExerciseIndex
+                                ),
+                                exercisesLeft = exerciseSetState.currentExerciseIndex
+                            )
+                        )
 
 //                mutableExerciseState.value.let {
 //                    mutableExerciseState.postValue(
@@ -161,30 +149,14 @@ class ExerciseViewModel : ViewModel() {
 //                    )
 //                }
 
-                startExerciseTimer()
-            }
-        }.start()
-    }
-
-    private fun getCurrentExerciseIndex(): Int {
-        return if (mutableExerciseSetState.value != null) {
-            mutableExerciseSetState.value?.currentExerciseIndex
-        } else {
-            0
+                        startExerciseTimer()
+                    }
+                }
+            }.start()
         }
     }
 
     private fun stopExerciseTimer() {
         exerciseTimer.cancel()
     }
-
 }
-
-private fun Long.convertIntoMinutesAndSeconds(): String {
-    val minutes = (this / 1000).toInt() / 60
-    val seconds = (this / 1000).toInt() % 60
-
-    return String.format("%02d:%02d", minutes, seconds)
-}
-
-

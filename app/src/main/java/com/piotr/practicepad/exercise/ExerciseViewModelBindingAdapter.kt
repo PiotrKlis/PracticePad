@@ -20,12 +20,21 @@ object ExerciseViewModelBindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("exercisesDone")
-    fun exercisesDone(view: TextView, exerciseSetState: ExerciseSetState) {
-        view.text = if (exerciseSetState.exercisesLeft > LAST_ONE) {
-            "${exerciseSetState.currentExerciseIndex.plus(1)}/${exerciseSetState.exerciseList.size}"
+    @BindingAdapter(value = ["bind:exercisesLeft", "bind:currentIndex"])
+    fun exercisesDone(view: TextView, exercisesLeft: Long, currentIndex: Int) {
+        view.text = if (exercisesLeft > LAST_ONE) {
+            "${currentIndex.plus(1)}/${exercisesLeft}"
         } else {
-            "${exerciseSetState.currentExerciseIndex}/${exerciseSetState.exerciseList.size}"
+            "${currentIndex}/${exercisesLeft}"
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("timeLeft")
+    fun timeLeft(view: TextView, time: Long) {
+        val minutes = (time / 1000).toInt() / 60
+        val seconds = (time / 1000).toInt() % 60
+
+        view.text = String.format("%02d:%02d", minutes, seconds)
     }
 }
