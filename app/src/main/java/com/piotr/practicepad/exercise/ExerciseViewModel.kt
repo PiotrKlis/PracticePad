@@ -151,16 +151,15 @@ class ExerciseViewModel : ViewModel() {
                     )
                 }
 
-                mutableExerciseState.value.let {
-                    mutableExerciseState.postValue(it.copy())
-                }
-
-                mutableExerciseState.value =
-                    ExerciseState(
-                        timeLeft = mutableExerciseSetState.value.exerciseList[FIRST_ITEM].time,
-                        title = mutableExerciseSetState.value.exerciseList[FIRST_ITEM].title,
-                        image = mutableExerciseSetState.value.exerciseList[FIRST_ITEM].image
-                    )
+//                mutableExerciseState.value.let {
+//                    mutableExerciseState.postValue(
+//                        it.copy(
+//                            timeLeft = mutableExerciseSetState.value.exerciseList[FIRST_ITEM].time,
+//                            title = mutableExerciseSetState.value.exerciseList[FIRST_ITEM].title,
+//                            image = mutableExerciseSetState.value.exerciseList[FIRST_ITEM].image
+//                        )
+//                    )
+//                }
 
                 startExerciseTimer()
             }

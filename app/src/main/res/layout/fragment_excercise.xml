@@ -24,12 +24,12 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="16dp"
 			android:gravity="center_horizontal"
+			android:text="@{viewmodel.exerciseSetState.name}"
 			android:textSize="32sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			/>
-<!--			tools:text="@{viewmodel.exerciseSetState.exerciseSetName}" -->
+			tools:text="@{viewmodel.exerciseSetState.name}" />
 		
 		<TextView
 			android:id="@+id/overall_time"
@@ -51,12 +51,12 @@
 			android:layout_marginTop="8dp"
 			android:gravity="center"
 			android:textSize="24sp"
+			app:exercisesDone="@{viewmodel.exerciseSetState}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/next_exercise"
 			app:layout_constraintTop_toBottomOf="@id/exercise_set_name"
 			tools:text="3/15" />
-<!--			app:exercisesDone="{@viewmodel.exerciseSetState}"-->
 		
 		<TextView
 			android:id="@+id/next_exercise"
@@ -129,8 +129,8 @@
 			android:onClick="@{() -> viewmodel.powerClick()}"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent" />
-<!--			app:setImageButton="@{viewmodel.isTimerOn}"-->
+			app:layout_constraintStart_toStartOf="parent"
+			app:setImageButton="@{viewmodel.isTimerOn}" />
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
