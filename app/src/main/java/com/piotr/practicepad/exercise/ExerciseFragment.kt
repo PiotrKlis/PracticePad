@@ -20,9 +20,12 @@ class ExerciseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding: FragmentExcerciseBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_excercise, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewmodel = viewModel
+        val binding: FragmentExcerciseBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_excercise, container, false)
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            viewmodel = viewModel
+        }
         return binding.root
     }
 
