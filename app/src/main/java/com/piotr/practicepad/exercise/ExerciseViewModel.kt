@@ -15,14 +15,6 @@ class ExerciseViewModel : ViewModel() {
     private lateinit var setTimer: CountDownTimer
     private lateinit var exerciseTimer: CountDownTimer
 
-    private val mutableExerciseState =
-        MutableLiveData<ExerciseState>().apply { value = ExerciseState() }
-    private val mutableExerciseEvent = MutableLiveData<Event<ExerciseState>>()
-
-    private val mutableExerciseSetState =
-        MutableLiveData<ExerciseSetState>().apply { value = ExerciseSetState() }
-    private val mutableExerciseSetEvent = MutableLiveData<Event<ExerciseSetState>>()
-
     val exerciseState: LiveData<ExerciseState>
         get() = mutableExerciseState
     val exerciseEvent: LiveData<Event<ExerciseState>>
@@ -33,10 +25,21 @@ class ExerciseViewModel : ViewModel() {
     val exerciseSetEvent: LiveData<Event<ExerciseSetState>>
         get() = mutableExerciseSetEvent
 
+    private val mutableExerciseState = MutableLiveData<ExerciseState>()
+    private val mutableExerciseEvent = MutableLiveData<Event<ExerciseState>>()
+
+    private val mutableExerciseSetState = MutableLiveData<ExerciseSetState>()
+    private val mutableExerciseSetEvent = MutableLiveData<Event<ExerciseSetState>>()
+
     val isTimerOn = ObservableField(State.OFF)
 
     enum class State {
         ON, OFF, RESTART
+    }
+
+    init {
+        mutableExerciseState.value = ExerciseState()
+        mutableExerciseSetState.value = ExerciseSetState()
     }
 
     fun startNewExerciseSet() {
@@ -60,6 +63,18 @@ class ExerciseViewModel : ViewModel() {
                 )
             )
             Log.d("AAA SET", exerciseSetState.value.toString())
+            Log.d("AAA MUTABLE", mutableExerciseSetState.value.toString())
+        }
+    }
+
+    fun refresh() {
+        mutableExerciseSetState.value?.let {
+            mutableExerciseSetState.postValue(it.copy())
+            Log.d("AAA mutableSet ", it.toString())
+        }
+        mutableExerciseState.value?.let {
+            mutableExerciseState.postValue(it.copy())
+            Log.d("AAA mutable", it.toString())
         }
     }
 

@@ -20,11 +20,15 @@ class ExerciseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProviders.of(this).get(ExerciseViewModel::class.java)
-        val binding: FragmentExcerciseBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_excercise, container, false)
+        val binding: FragmentExcerciseBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_excercise, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = viewModel
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(ExerciseViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
