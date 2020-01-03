@@ -47,7 +47,7 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
 
         fun setData(item: ExerciseSet) {
             number.text = item.id.toString()
-            content.text = item.title
+            content.text = item.name
             checkBox.isChecked = shouldBeChecked(adapterPosition)
             checkBox.setOnClickListener {
                 SharedPrefs.setActiveSet(adapterPosition)

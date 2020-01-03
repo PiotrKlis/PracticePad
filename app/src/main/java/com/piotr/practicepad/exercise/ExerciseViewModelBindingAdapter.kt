@@ -6,8 +6,6 @@ import androidx.databinding.BindingAdapter
 import com.piotr.practicepad.R
 import com.piotr.practicepad.exercise.ExerciseViewModel.State
 
-private const val LAST_ONE = 1
-
 object ExerciseViewModelBindingAdapter {
     @JvmStatic
     @BindingAdapter("setImageButton")
@@ -15,18 +13,14 @@ object ExerciseViewModelBindingAdapter {
         when (isTimerOn) {
             State.ON -> view.setBackgroundResource(R.drawable.ic_pause_circle_filled_black_24dp)
             State.OFF -> view.setBackgroundResource(R.drawable.ic_play_circle_filled_black_24dp)
-            State.RESTART -> view.setBackgroundColor(R.drawable.ic_home_black_24dp)
+            State.RESTART -> view.setBackgroundResource(R.drawable.ic_home_black_24dp)
         }
     }
 
     @JvmStatic
-    @BindingAdapter(value = ["bind:exercisesLeft", "bind:currentIndex"])
-    fun exercisesDone(view: TextView, exercisesLeft: Long, currentIndex: Int) {
-        view.text = if (exercisesLeft > LAST_ONE) {
-            "${currentIndex.plus(1)}/${exercisesLeft}"
-        } else {
-            "${currentIndex}/${exercisesLeft}"
-        }
+    @BindingAdapter("exercisesLeft")
+    fun exercisesDone(view: TextView, exercisesLeft: Pair<Int, Int>) {
+        view.text = "${exercisesLeft.first + 1}/${exercisesLeft.second}"
     }
 
     @JvmStatic

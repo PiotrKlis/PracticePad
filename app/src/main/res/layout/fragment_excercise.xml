@@ -4,7 +4,6 @@
 	xmlns:tools="http://schemas.android.com/tools">
 	
 	<data>
-		
 		<variable
 			name="viewmodel"
 			type="com.piotr.practicepad.exercise.ExerciseViewModel" />
@@ -22,7 +21,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="16dp"
 			android:gravity="center_horizontal"
-			android:text="@{viewmodel.exerciseSetState.name}"
+			android:text="@{viewmodel.state.setName}"
 			android:textSize="32sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -35,10 +34,10 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
 			android:textSize="24sp"
-			app:timeLeft="@{viewmodel.exerciseSetState.timeLeft}"
 			app:layout_constraintEnd_toStartOf="@+id/next_exercise"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/exercise_set_name"
+			app:timeLeft="@{viewmodel.state.setTimeLeft}"
 			tools:text="30:00" />
 		
 		<TextView
@@ -48,12 +47,10 @@
 			android:layout_marginTop="8dp"
 			android:gravity="center"
 			android:textSize="24sp"
+			app:exercisesLeft="@{viewmodel.state.exercisesLeft}"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/next_exercise"
 			app:layout_constraintTop_toBottomOf="@id/exercise_set_name"
-			app:currentIndex="@{viewmodel.exerciseSetState.currentExerciseIndex}"
-			app:exercisesLeft="@{viewmodel.exerciseSetState.exercisesLeft}"
 			tools:text="3/15" />
 		
 		<TextView
@@ -62,10 +59,9 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
 			android:gravity="center"
-			android:text="@{`Next: ` + viewmodel.exerciseState.title}"
+			android:text="@{`Next: ` + viewmodel.state.nextExerciseName}"
 			android:textSize="24sp"
 			app:layout_constraintEnd_toStartOf="@+id/exercises_done"
-			app:layout_constraintHorizontal_bias="0.5"
 			app:layout_constraintStart_toEndOf="@+id/overall_time"
 			app:layout_constraintTop_toBottomOf="@id/exercise_set_name"
 			tools:text="Next: Double stroke roll" />
@@ -86,7 +82,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="16dp"
 			android:gravity="center"
-			android:text="@{viewmodel.exerciseState.title}"
+			android:text="@{viewmodel.state.exerciseName}"
 			android:textSize="48sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +99,7 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/current_exercise_name"
-			app:timeLeft="@{viewmodel.exerciseState.timeLeft}"
+			app:timeLeft="@{viewmodel.state.exerciseTimeLeft}"
 			tools:text="5:00" />
 		
 		<ImageView
@@ -112,7 +108,7 @@
 			android:layout_height="0dp"
 			android:layout_marginTop="8dp"
 			android:layout_marginBottom="16dp"
-			android:background="@{viewmodel.exerciseState.image}"
+			android:background="@{viewmodel.state.exerciseImage}"
 			app:layout_constraintBottom_toTopOf="@id/power"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
