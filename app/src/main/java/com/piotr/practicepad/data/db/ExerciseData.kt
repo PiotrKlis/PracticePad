@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.data.db
+package com.piotr.practicepad.data.db
 
 import com.piotr.practicepad.R
 

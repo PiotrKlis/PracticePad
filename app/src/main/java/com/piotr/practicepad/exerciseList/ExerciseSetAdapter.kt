@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.ExerciseList
+package com.piotr.practicepad.exerciseList
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import com.piotr.practicepad.R
-import com.piotr.practicepad.ui.main.data.db.SharedPrefs
+import com.piotr.practicepad.data.db.SharedPrefs
 
 
 import kotlinx.android.synthetic.main.exercise_set_row.view.*
@@ -47,7 +47,7 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
 
         fun setData(item: ExerciseSet) {
             number.text = item.id.toString()
-            content.text = item.title
+            content.text = item.name
             checkBox.isChecked = shouldBeChecked(adapterPosition)
             checkBox.setOnClickListener {
                 SharedPrefs.setActiveSet(adapterPosition)

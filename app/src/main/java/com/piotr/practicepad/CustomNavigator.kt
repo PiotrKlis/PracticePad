@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main
+package com.piotr.practicepad
 
 import android.content.Context
 import android.os.Bundle

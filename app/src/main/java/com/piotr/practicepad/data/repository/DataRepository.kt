@@ -1,6 +1,6 @@
-package com.piotr.practicepad.ui.main.data.repository
+package com.piotr.practicepad.data.repository
 
-import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
+import com.piotr.practicepad.exerciseList.ExerciseSet
 
 interface DataRepository {
     fun getAllExerciseSets(): List<ExerciseSet>

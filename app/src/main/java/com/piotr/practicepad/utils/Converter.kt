@@ -1,6 +1,6 @@
 @file:JvmName("Converter")
 
-package com.piotr.practicepad.ui.main.utils
+package com.piotr.practicepad.utils
 
 fun secondsToMiliseconds(seconds: Long): Long {
     return seconds * 1000

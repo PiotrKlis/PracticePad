@@ -1,8 +1,8 @@
-package com.piotr.practicepad.ui.main.data.repository
+package com.piotr.practicepad.data.repository
 
-import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
-import com.piotr.practicepad.ui.main.data.db.ExerciseSetData
-import com.piotr.practicepad.ui.main.data.db.SharedPrefs
+import com.piotr.practicepad.exerciseList.ExerciseSet
+import com.piotr.practicepad.data.db.ExerciseSetData
+import com.piotr.practicepad.data.db.SharedPrefs
 
 class ExerciseDataRepository : DataRepository {
     private val mapper: DataMapper = DataMapper()
@@ -18,6 +18,8 @@ class ExerciseDataRepository : DataRepository {
     }
 
     override fun getAllExerciseSets(): List<ExerciseSet> {
-        return mapper.mapToExerciseSetList(ExerciseSetData.values())
+        return ExerciseSetData
+            .values()
+            .let { mapper.mapToExerciseSetList(it) }
     }
 }

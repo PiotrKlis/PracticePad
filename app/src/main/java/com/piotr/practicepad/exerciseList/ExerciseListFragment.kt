@@ -1,4 +1,4 @@
-package com.piotr.practicepad.ui.main.ExerciseList
+package com.piotr.practicepad.exerciseList
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -34,8 +34,4 @@ class ExerciseListFragment : Fragment(), CheckBoxListener {
     override fun checkboxClick() {
         adapter.notifyDataSetChanged()
     }
-}
-
-interface CheckBoxListener {
-    fun checkboxClick()
 }

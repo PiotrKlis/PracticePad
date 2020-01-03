@@ -1,9 +1,9 @@
-package com.piotr.practicepad.ui.main.data.repository
+package com.piotr.practicepad.data.repository
 
-import com.piotr.practicepad.ui.main.Exercise.Exercise
-import com.piotr.practicepad.ui.main.ExerciseList.ExerciseSet
-import com.piotr.practicepad.ui.main.data.db.ExerciseData
-import com.piotr.practicepad.ui.main.data.db.ExerciseSetData
+import com.piotr.practicepad.exercise.Exercise
+import com.piotr.practicepad.exerciseList.ExerciseSet
+import com.piotr.practicepad.data.db.ExerciseData
+import com.piotr.practicepad.data.db.ExerciseSetData
 
 class DataMapper {
 
