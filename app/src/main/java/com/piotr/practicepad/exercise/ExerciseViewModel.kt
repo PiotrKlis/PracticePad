@@ -15,25 +15,10 @@ class ExerciseViewModel : ViewModel() {
         get() = mutableExerciseState
     val isTimerOn = ObservableField(State.OFF)
 
-//    val setTimerState: LiveData<Timers.SetTimerState>
-//        get() = mutableSetTimerState
-//
-//    val exerciseTimerState: LiveData<Timers.ExerciseTimerState>
-//        get() = mutableExerciseTimerState
-
     enum class State {
         ON, OFF, RESTART
     }
 
-    //    sealed class Timers {
-//        data class SetTimerState(val time: Long = 0L)
-//        data class ExerciseTimerState(val time: Long = 0L)
-//    }
-//
-//    private val mutableSetTimerState =
-//        MutableLiveData<Timers.SetTimerState>().apply { value = Timers.SetTimerState() }
-//    private val mutableExerciseTimerState =
-//        MutableLiveData<Timers.ExerciseTimerState>().apply { value = Timers.ExerciseTimerState() }
     private val mutableExerciseState =
         MutableLiveData<ExerciseState>().apply { value = ExerciseState() }
 
@@ -58,16 +43,6 @@ class ExerciseViewModel : ViewModel() {
                     exerciseTimeLeft = activeExerciseSet.exerciseList[FIRST_ITEM].time
                 )
             )
-//            mutableSetTimerState.postValue(
-//                Timers.SetTimerState(
-//                    time = getOverallTime(
-//                        activeExerciseSet.exerciseList
-//                    )
-//                )
-//            )
-//            mutableExerciseTimerState.postValue(
-//                Timers.ExerciseTimerState(time = activeExerciseSet.exerciseList[FIRST_ITEM].time)
-//            )
         }
     }
 
@@ -154,8 +129,6 @@ class ExerciseViewModel : ViewModel() {
                                 exerciseImage = state.exerciseList[state.currentExerciseIndex + 1].image,
                                 exerciseTimeLeft = state.exerciseList[state.currentExerciseIndex + 1].time
                             )
-//                        mutableExerciseTimerState.value =
-//                            Timers.ExerciseTimerState(time = exerciseState.exerciseList[exerciseState.currentExerciseIndex + 1].time)
                         startExerciseTimer()
                     }
                 }
