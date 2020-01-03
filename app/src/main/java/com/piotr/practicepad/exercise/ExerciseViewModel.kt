@@ -27,7 +27,7 @@ class ExerciseViewModel : ViewModel() {
 
     fun startNewExerciseSet() {
         ExerciseDataRepository().getActiveExerciseSet().let { activeExerciseSet ->
-            mutableExerciseState.postValue(
+            mutableExerciseState.value =
                 ExerciseState(
                     setName = activeExerciseSet.name,
                     setTimeLeft = getOverallTime(activeExerciseSet.exerciseList),
@@ -42,7 +42,6 @@ class ExerciseViewModel : ViewModel() {
                     exerciseList = activeExerciseSet.exerciseList,
                     exerciseTimeLeft = activeExerciseSet.exerciseList[FIRST_ITEM].time
                 )
-            )
         }
     }
 
