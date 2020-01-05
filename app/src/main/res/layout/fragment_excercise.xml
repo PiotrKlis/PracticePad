@@ -84,7 +84,7 @@
 			android:layout_marginTop="16dp"
 			android:gravity="center"
 			android:text="@{viewmodel.state.exerciseName}"
-			android:textSize="48sp"
+			android:textSize="32sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="@id/view"
@@ -103,18 +103,18 @@
 			app:timeLeft="@{viewmodel.state.exerciseTimeLeft}"
 			tools:text="5:00" />
 		
-		<ImageView
+		<androidx.appcompat.widget.AppCompatImageView
 			android:id="@+id/image"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
 			android:layout_marginTop="8dp"
 			android:layout_marginBottom="16dp"
-			android:background="@{viewmodel.state.exerciseImage}"
+			app:imageResource="@{viewmodel.state.exerciseImage}"
 			app:layout_constraintBottom_toTopOf="@id/power"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/current_exercise_time_left"
-			tools:background="@drawable/single_stroke_roll" />
+			tools:src="@drawable/single_stroke_roll" />
 		
 		<ImageButton
 			android:id="@+id/power"

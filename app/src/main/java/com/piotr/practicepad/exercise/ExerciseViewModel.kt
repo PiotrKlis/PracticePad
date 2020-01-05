@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.data.repository.ExerciseDataRepository
+import com.piotr.practicepad.exerciseList.ExerciseSet
 
 private const val FIRST_ITEM = 0
 private const val ONE_SECOND = 1000L
@@ -24,24 +25,28 @@ class ExerciseViewModel : ViewModel() {
 
     private lateinit var setTimer: CountDownTimer
     private lateinit var exerciseTimer: CountDownTimer
+    private var savedState = ExerciseSet()
 
     fun startNewExerciseSet() {
         ExerciseDataRepository().getActiveExerciseSet().let { activeExerciseSet ->
-            mutableExerciseState.value =
-                ExerciseState(
-                    setName = activeExerciseSet.name,
-                    setTimeLeft = getOverallTime(activeExerciseSet.exerciseList),
-                    exerciseImage = activeExerciseSet.exerciseList[FIRST_ITEM].image,
-                    exerciseName = activeExerciseSet.exerciseList[FIRST_ITEM].name,
-                    nextExerciseName = getNextExerciseName(
-                        activeExerciseSet.exerciseList,
-                        FIRST_ITEM
-                    ),
-                    exercisesLeft = Pair(FIRST_ITEM, activeExerciseSet.exerciseList.size),
-                    currentExerciseIndex = FIRST_ITEM,
-                    exerciseList = activeExerciseSet.exerciseList,
-                    exerciseTimeLeft = activeExerciseSet.exerciseList[FIRST_ITEM].time
-                )
+            if (savedState != activeExerciseSet) {
+                mutableExerciseState.value =
+                    ExerciseState(
+                        setName = activeExerciseSet.name,
+                        setTimeLeft = getOverallTime(activeExerciseSet.exerciseList),
+                        exerciseImage = activeExerciseSet.exerciseList[FIRST_ITEM].image,
+                        exerciseName = activeExerciseSet.exerciseList[FIRST_ITEM].name,
+                        nextExerciseName = getNextExerciseName(
+                            activeExerciseSet.exerciseList,
+                            FIRST_ITEM
+                        ),
+                        exercisesLeft = Pair(FIRST_ITEM, activeExerciseSet.exerciseList.size),
+                        currentExerciseIndex = FIRST_ITEM,
+                        exerciseList = activeExerciseSet.exerciseList,
+                        exerciseTimeLeft = activeExerciseSet.exerciseList[FIRST_ITEM].time
+                    )
+                savedState = activeExerciseSet
+            }
         }
     }
 
@@ -136,6 +141,15 @@ class ExerciseViewModel : ViewModel() {
     }
 
     private fun stopExerciseTimer() {
+
         exerciseTimer.cancel()
+    }
+
+    fun pauseTimers() {
+        if (isTimerOn.get() == State.ON) {
+            isTimerOn.set(State.OFF)
+            stopSetTimer()
+            stopExerciseTimer()
+        }
     }
 }
