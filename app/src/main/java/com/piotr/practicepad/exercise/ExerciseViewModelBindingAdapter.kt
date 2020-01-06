@@ -1,6 +1,7 @@
 package com.piotr.practicepad.exercise
 
-import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.piotr.practicepad.R
@@ -9,11 +10,11 @@ import com.piotr.practicepad.exercise.ExerciseViewModel.State
 object ExerciseViewModelBindingAdapter {
     @JvmStatic
     @BindingAdapter("setImageButton")
-    fun setImageButton(view: View, isTimerOn: State) {
+    fun setImageButton(view: ImageButton, isTimerOn: State) {
         when (isTimerOn) {
             State.ON -> view.setBackgroundResource(R.drawable.ic_pause_circle_filled_black_24dp)
             State.OFF -> view.setBackgroundResource(R.drawable.ic_play_circle_filled_black_24dp)
-            State.RESTART -> view.setBackgroundResource(R.drawable.ic_home_black_24dp)
+            State.RESTART -> view.setBackgroundResource(R.drawable.ic_replay_black_24dp)
         }
     }
 
