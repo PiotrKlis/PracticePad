@@ -30,6 +30,7 @@ class ExerciseViewModel : ViewModel() {
     fun startNewExerciseSet() {
         ExerciseDataRepository().getActiveExerciseSet().let { activeExerciseSet ->
             if (savedState != activeExerciseSet) {
+                isTimerOn.set(State.OFF)
                 mutableExerciseState.value =
                     ExerciseState(
                         setName = activeExerciseSet.name,
@@ -64,10 +65,30 @@ class ExerciseViewModel : ViewModel() {
             }
             State.RESTART -> {
                 isTimerOn.set(State.ON)
-                startNewExerciseSet()
+                restart()
                 startSetTimer()
                 startExerciseTimer()
             }
+        }
+    }
+
+    private fun restart() {
+        ExerciseDataRepository().getActiveExerciseSet().let { activeExerciseSet ->
+            mutableExerciseState.value =
+                ExerciseState(
+                    setName = activeExerciseSet.name,
+                    setTimeLeft = getOverallTime(activeExerciseSet.exerciseList),
+                    exerciseImage = activeExerciseSet.exerciseList[FIRST_ITEM].image,
+                    exerciseName = activeExerciseSet.exerciseList[FIRST_ITEM].name,
+                    nextExerciseName = getNextExerciseName(
+                        activeExerciseSet.exerciseList,
+                        FIRST_ITEM
+                    ),
+                    exercisesLeft = Pair(FIRST_ITEM, activeExerciseSet.exerciseList.size),
+                    currentExerciseIndex = FIRST_ITEM,
+                    exerciseList = activeExerciseSet.exerciseList,
+                    exerciseTimeLeft = activeExerciseSet.exerciseList[FIRST_ITEM].time
+                )
         }
     }
 
