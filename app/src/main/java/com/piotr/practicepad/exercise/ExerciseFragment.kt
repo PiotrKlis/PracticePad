@@ -1,6 +1,9 @@
 package com.piotr.practicepad.exercise
 
+import android.content.Context
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExcerciseBinding
+import java.util.*
 
 
 class ExerciseFragment : Fragment() {
@@ -32,7 +36,8 @@ class ExerciseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.startNewExerciseSet()
+        val mediaPlayer = MediaPlayer.create(context, R.raw.low_seiko_sq50)
+        viewModel.startNewExerciseSet(mediaPlayer)
     }
 
     override fun onPause() {

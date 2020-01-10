@@ -2,10 +2,10 @@ package com.piotr.practicepad.data.db
 
 import com.piotr.practicepad.data.db.ExerciseData.*
 
-enum class ExerciseSetData(val id: Int, val title: String, val exerciseDataList: List<ExerciseData>) {
-    BEGINNER(0, "Beginner", getBeginnerSet()),
-    INTERMEDIATE(1, "Intermediate", getAdvancedSet()),
-    MASTER(2, "Master", getMasterSet()),
+enum class ExerciseSetData(val id: Int, val title: String, val exerciseDataList: List<ExerciseData>, val tempo: Int) {
+    BEGINNER(0, "Beginner", getBeginnerSet(), 100),
+    INTERMEDIATE(1, "Intermediate", getAdvancedSet(), 80),
+    MASTER(2, "Master", getMasterSet(), 120)
 }
 
 private fun getBeginnerSet(): List<ExerciseData> {

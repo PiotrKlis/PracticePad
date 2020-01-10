@@ -5,5 +5,6 @@ import com.piotr.practicepad.exercise.Exercise
 data class ExerciseSet(
     val id: Int = 0,
     val name: String = "",
-    val exerciseList: ArrayList<Exercise> = arrayListOf()
+    val exerciseList: ArrayList<Exercise> = arrayListOf(),
+    val tempo: Int = 0
 )

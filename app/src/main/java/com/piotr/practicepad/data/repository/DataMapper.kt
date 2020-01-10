@@ -17,7 +17,8 @@ class DataMapper {
         return ExerciseSet(
             exerciseSetData.id,
             exerciseSetData.title,
-            mapToExerciseList(exerciseSetData.exerciseDataList)
+            mapToExerciseList(exerciseSetData.exerciseDataList),
+            exerciseSetData.tempo
         )
     }
 
