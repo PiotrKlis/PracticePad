@@ -31,7 +31,7 @@ class ExerciseViewModel : ViewModel() {
     private lateinit var setTimer: CountDownTimer
     private lateinit var exerciseTimer: CountDownTimer
     private lateinit var mediaPlayer: MediaPlayer
-
+    private lateinit var couroutine: Job
     private var savedState = ExerciseSet()
 
     fun startNewExerciseSet(mediaPlayerro: MediaPlayer) {
@@ -67,6 +67,7 @@ class ExerciseViewModel : ViewModel() {
                 isTimerOn.set(State.OFF)
                 stopSetTimer()
                 stopExerciseTimer()
+                stopMetronome()
             }
             State.OFF -> {
                 isTimerOn.set(State.ON)
@@ -130,6 +131,7 @@ class ExerciseViewModel : ViewModel() {
             override fun onFinish() {
                 setTimer.cancel()
                 isTimerOn.set(State.RESTART)
+                stopMetronome()
             }
         }.start()
     }
@@ -189,26 +191,25 @@ class ExerciseViewModel : ViewModel() {
     private fun startMetronome() {
         mutableExerciseState.value?.let {
             val tickPeriod = (60.0 / it.tempo * 1000.0).toLong()
-            startCoroutineTimer(delayMillis = 0, repeatMillis = tickPeriod) {
+            startCoroutineTimer(repeatMillis = tickPeriod) {
                 mediaPlayer.start()
             }
         }
     }
-}
 
-fun startCoroutineTimer(delayMillis: Long = 0, repeatMillis: Long = 0, action: () -> Unit) =
-    GlobalScope.launch {
-        delay(delayMillis)
-        if (repeatMillis > 0) {
-            while (true) {
-                action()
-                delay(repeatMillis)
-            }
-        } else {
-            action()
-        }
+    private fun stopMetronome() {
+        couroutine.cancel()
     }
 
+    fun startCoroutineTimer(repeatMillis: Long, action: () -> Unit) {
+        couroutine = GlobalScope.launch {
+                while (true) {
+                    action()
+                    delay(repeatMillis)
+            }
+        }
+    }
+}
 //
 //    fun start(context: Context) {
 //        _currentContext = context

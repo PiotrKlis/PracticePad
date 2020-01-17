@@ -73,7 +73,7 @@
 			android:layout_width="0dp"
 			android:layout_height="1dp"
 			android:layout_marginTop="16dp"
-			android:background="@color/black_ish"
+			android:background="@color/white"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/next_exercise" />
@@ -85,7 +85,7 @@
 			android:layout_marginTop="16dp"
 			android:gravity="center"
 			android:text="@{viewmodel.state.exerciseName}"
-			android:textSize="24sp"
+			android:textSize="32sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="@id/view"
@@ -95,9 +95,9 @@
 			android:id="@+id/current_exercise_time_left"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="8dp"
+			android:layout_marginTop="16dp"
 			android:gravity="center"
-			android:textSize="24sp"
+			android:textSize="32sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/current_exercise_name"
@@ -105,10 +105,11 @@
 			tools:text="5:00" />
 		
 		<androidx.appcompat.widget.AppCompatImageView
+			android:background="@color/white"
 			android:id="@+id/image"
 			android:layout_width="0dp"
 			android:layout_height="0dp"
-			android:layout_marginTop="8dp"
+			android:layout_marginTop="16dp"
 			android:layout_marginBottom="16dp"
 			app:imageResource="@{viewmodel.state.exerciseImage}"
 			app:layout_constraintBottom_toTopOf="@id/power"
