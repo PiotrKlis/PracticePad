@@ -2,16 +2,14 @@ package com.piotr.practicepad.exercise
 
 import android.media.MediaPlayer
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.data.repository.ExerciseDataRepository
 import com.piotr.practicepad.exerciseList.ExerciseSet
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import java.util.*
 
 private const val FIRST_ITEM = 0
 private const val ONE_SECOND = 1000L
@@ -31,7 +29,7 @@ class ExerciseViewModel : ViewModel() {
     private lateinit var setTimer: CountDownTimer
     private lateinit var exerciseTimer: CountDownTimer
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var couroutine: Job
+    private lateinit var timer: Timer
     private var savedState = ExerciseSet()
 
     fun startNewExerciseSet(mediaPlayerro: MediaPlayer) {
@@ -100,7 +98,8 @@ class ExerciseViewModel : ViewModel() {
                     exercisesLeft = Pair(FIRST_ITEM, activeExerciseSet.exerciseList.size),
                     currentExerciseIndex = FIRST_ITEM,
                     exerciseList = activeExerciseSet.exerciseList,
-                    exerciseTimeLeft = activeExerciseSet.exerciseList[FIRST_ITEM].time
+                    exerciseTimeLeft = activeExerciseSet.exerciseList[FIRST_ITEM].time,
+                    tempo = activeExerciseSet.tempo
                 )
         }
     }
@@ -176,7 +175,6 @@ class ExerciseViewModel : ViewModel() {
     }
 
     private fun stopExerciseTimer() {
-
         exerciseTimer.cancel()
     }
 
@@ -189,24 +187,21 @@ class ExerciseViewModel : ViewModel() {
     }
 
     private fun startMetronome() {
+        timer = Timer()
         mutableExerciseState.value?.let {
             val tickPeriod = (60.0 / it.tempo * 1000.0).toLong()
-            startCoroutineTimer(repeatMillis = tickPeriod) {
-                mediaPlayer.start()
-            }
+            timer.schedule(object : TimerTask() {
+                override fun run() {
+                    Log.d("AAA", tickPeriod.toString())
+                    mediaPlayer.start()
+                }
+
+            }, 0, tickPeriod)
         }
     }
 
     private fun stopMetronome() {
-        couroutine.cancel()
-    }
-
-    fun startCoroutineTimer(repeatMillis: Long, action: () -> Unit) {
-        couroutine = GlobalScope.launch {
-                while (true) {
-                    action()
-                    delay(repeatMillis)
-            }
-        }
+        mediaPlayer.pause()
+        timer.cancel()
     }
 }
