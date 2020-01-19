@@ -2,7 +2,6 @@ package com.piotr.practicepad.exercise
 
 import android.media.MediaPlayer
 import android.os.CountDownTimer
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -192,7 +191,6 @@ class ExerciseViewModel : ViewModel() {
             val tickPeriod = (60.0 / it.tempo * 1000.0).toLong()
             timer.schedule(object : TimerTask() {
                 override fun run() {
-                    Log.d("AAA", tickPeriod.toString())
                     mediaPlayer.start()
                 }
 

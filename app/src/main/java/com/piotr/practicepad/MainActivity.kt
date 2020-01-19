@@ -22,10 +22,5 @@ class MainActivity : AppCompatActivity() {
         navController.navigatorProvider.addNavigator(navigator)
         navController.setGraph(R.navigation.nav_graph)
         binding.bottomNavigation.setupWithNavController(navController)
-        supportActionBar?.apply {
-            title = "PRACTICE PAD"
-            displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-            setCustomView(R.layout.action_bar)
-        }
     }
 }
