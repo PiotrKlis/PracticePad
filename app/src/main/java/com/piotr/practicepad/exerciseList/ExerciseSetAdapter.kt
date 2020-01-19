@@ -41,12 +41,10 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val number: TextView = view.item_number
         private val content: TextView = view.content
         private val checkBox: CheckBox = view.checkbox
 
         fun setData(item: ExerciseSet) {
-            number.text = item.id.toString()
             content.text = item.name
             checkBox.isChecked = shouldBeChecked(adapterPosition)
             checkBox.setOnClickListener {
