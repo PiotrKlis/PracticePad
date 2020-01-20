@@ -14,8 +14,8 @@
 		android:id="@+id/layout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:orientation="vertical"
-		android:background="@color/grey_top">
+		android:background="@color/grey_top"
+		android:orientation="vertical">
 		
 		<TextView
 			android:id="@+id/exercise_set_name"
@@ -105,17 +105,18 @@
 			tools:text="5:00" />
 		
 		<androidx.appcompat.widget.AppCompatImageView
-			android:background="@color/white"
 			android:id="@+id/image"
 			android:layout_width="0dp"
-			android:layout_height="0dp"
-			android:layout_marginTop="16dp"
-			android:layout_marginBottom="16dp"
+			android:layout_height="wrap_content"
+			android:adjustViewBounds="true"
+			android:background="@color/white"
+			app:layout_constraintVertical_bias="0.25"
 			app:imageResource="@{viewmodel.state.exerciseImage}"
-			app:layout_constraintBottom_toTopOf="@id/power"
+			android:layout_marginTop="32dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/current_exercise_time_left"
+			app:layout_constraintBottom_toTopOf="@id/power"
 			tools:src="@drawable/single_stroke_roll" />
 		
 		<ImageButton
