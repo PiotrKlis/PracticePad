@@ -1,9 +1,9 @@
 package com.piotr.practicepad.data.repository
 
-import com.piotr.practicepad.exercise.Exercise
-import com.piotr.practicepad.exerciseList.ExerciseSet
 import com.piotr.practicepad.data.db.ExerciseData
 import com.piotr.practicepad.data.db.ExerciseSetData
+import com.piotr.practicepad.exercise.Exercise
+import com.piotr.practicepad.exerciseList.ExerciseSet
 
 class DataMapper {
 
@@ -29,6 +29,6 @@ class DataMapper {
     }
 
     private fun mapToExercise(item: ExerciseData): Exercise {
-        return Exercise(item.time, item.title, item.image)
+        return Exercise(item.time, item.exerciseData.title, item.exerciseData.image)
     }
 }

@@ -2,7 +2,7 @@ package com.piotr.practicepad.data.db
 
 import com.piotr.practicepad.R
 
-enum class ExerciseData(val time: Long, val title: String, val image: Int) {
+enum class ExerciseEnum(val time: Long, val title: String, val image: Int) {
     SINGLE_STROKE_ROLL(4000, "Single Stroke Roll", R.drawable.single_stroke_roll),
     SINGLE_STROKE_FOUR(6000, "Single Stroke Four", R.drawable.single_stroke_four),
     SINGLE_STROKE_SEVEN(7000, "Single Stroke Seven", R.drawable.single_stroke_seven),
@@ -16,3 +16,5 @@ enum class ExerciseData(val time: Long, val title: String, val image: Int) {
     TRIPLETS(4000, "Triplets", R.drawable.triple_stroke_roll),
     EMPTY(6000, "EMPTY", R.drawable.empty)
 }
+
+data class ExerciseData(val time: Long, val exerciseData: ExerciseEnum)
