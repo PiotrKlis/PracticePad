@@ -34,6 +34,19 @@ private fun getMasterSet(): List<ExerciseData> {
         ExerciseData(4000, DOUBLE_STROKE_OPEN_ROLL))
 }
 
+private fun getShortWarmUp(): List<ExerciseData> = listOf(
+
+)
+private fun getMediumWarmUp(): List<ExerciseData> = listOf()
+private fun getLongWarmUp(): List<ExerciseData> = listOf()
+private fun getEverydayPractice(): List<ExerciseData> = listOf()
+private fun getLeftHandPressure(): List<ExerciseData> = listOf()
+private fun getRightHandPressure(): List<ExerciseData> = listOf()
+private fun getSpeedBuilding(): List<ExerciseData> = listOf()
+private fun getLongPractice(): List<ExerciseData> = listOf()
+private fun getThousandSingles(): List<ExerciseData> = listOf()
+private fun getThousandDoubles(): List<ExerciseData> = listOf()
+
 /*
 - Short warm-up, 3 min, tempo 110
 - Warm-up, 5 min, tempo 100
