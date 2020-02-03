@@ -33,3 +33,16 @@ private fun getMasterSet(): List<ExerciseData> {
         ExerciseData(4000, TRIPLE_STROKE_ROLL),
         ExerciseData(4000, DOUBLE_STROKE_OPEN_ROLL))
 }
+
+/*
+- Short warm-up, 3 min, tempo 110
+- Warm-up, 5 min, tempo 100
+- Long warm-up, 10 min, tempo 90
+- Every day practice, 30 min, tempo 100
+- Left hand pressure
+- Right hand pressure
+- Speed builduing
+- Long practice - 45 min
+- 1000 singles
+- 2000 doubles
+* */
