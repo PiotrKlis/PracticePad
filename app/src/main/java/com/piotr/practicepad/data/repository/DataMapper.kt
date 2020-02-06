@@ -29,6 +29,8 @@ class DataMapper {
     }
 
     private fun mapToExercise(item: ExerciseData): Exercise {
-        return Exercise(item.time, item.exerciseData.title, item.exerciseData.image)
+        return Exercise(item.time.toMiliseconds(), item.exerciseData.title, item.exerciseData.image)
     }
 }
+
+private fun Long.toMiliseconds(): Long = this * 1000L

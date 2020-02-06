@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
+        //TODO Do something with force unwrap
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host)!!
         val navigator =
             KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.nav_host)
@@ -24,3 +25,17 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setupWithNavController(navController)
     }
 }
+
+/*
+* TODO
+*  - When exercise is on, switching to other tab does not kill a metronome
+*  - Create at least 6 valid Exercise Sets
+*  - Test the app
+*  - Design adjustment
+*  - Test on other devices
+*  - Refactor (Dagger)
+*  - MVP?
+*  - Figure out from where get good quality Exercise pictures
+*  - Create your own exercise set
+*  - Firebase integration (auto-new-sets-upload)
+* */

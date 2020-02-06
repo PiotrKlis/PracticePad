@@ -10,7 +10,8 @@ enum class ExerciseSetData(
 ) {
     BEGINNER(0, "Beginner", getBeginnerSet(), 100),
     INTERMEDIATE(1, "Intermediate", getAdvancedSet(), 80),
-    MASTER(2, "Master", getMasterSet(), 120)
+    MASTER(2, "Master", getMasterSet(), 120),
+    EVERY_DAY(3, "Every Day Practice", everyDayPractice, 100)
 }
 
 private fun getBeginnerSet(): List<ExerciseData> {
@@ -34,9 +35,16 @@ private fun getMasterSet(): List<ExerciseData> {
         ExerciseData(4000, DOUBLE_STROKE_OPEN_ROLL))
 }
 
-private fun getShortWarmUp(): List<ExerciseData> = listOf(
-
+private val everyDayPractice = listOf(
+    ExerciseData(60, SINGLE_STROKE_ROLL),
+    ExerciseData(120, DOUBLES),
+    ExerciseData(90, TRIPLETS),
+    ExerciseData(120, SINGLE_STROKE_ROLL),
+    ExerciseData(180, DOUBLES),
+    ExerciseData(90, SINGLE_STROKE_ROLL),
+    ExerciseData(90, SINGLE_PARADIDDLE)
 )
+
 private fun getMediumWarmUp(): List<ExerciseData> = listOf()
 private fun getLongWarmUp(): List<ExerciseData> = listOf()
 private fun getEverydayPractice(): List<ExerciseData> = listOf()
