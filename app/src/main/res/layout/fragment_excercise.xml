@@ -21,7 +21,7 @@
 			android:id="@+id/exercise_set_name"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="16dp"
+			android:layout_marginTop="32dp"
 			android:gravity="center_horizontal"
 			android:text="@{viewmodel.state.setName}"
 			android:textSize="24sp"
@@ -69,7 +69,7 @@
 			tools:text="Next: Double stroke roll" />
 		
 		<View
-			android:id="@+id/view"
+			android:id="@+id/top_line"
 			android:layout_width="0dp"
 			android:layout_height="1dp"
 			android:layout_marginTop="16dp"
@@ -82,25 +82,26 @@
 			android:id="@+id/current_exercise_name"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="16dp"
-			android:gravity="center"
 			android:text="@{viewmodel.state.exerciseName}"
 			android:textSize="32sp"
+			app:layout_constraintBottom_toTopOf="@+id/current_exercise_time_left"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="@id/view"
+			app:layout_constraintTop_toBottomOf="@+id/top_line"
+			android:layout_marginTop="32dp"
+			app:layout_constraintVertical_chainStyle="packed"
 			tools:text="Exercise Name" />
 		
 		<TextView
 			android:id="@+id/current_exercise_time_left"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="16dp"
 			android:gravity="center"
+			android:layout_marginTop="8dp"
 			android:textSize="32sp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/current_exercise_name"
+			app:layout_constraintTop_toBottomOf="@+id/current_exercise_name"
 			app:timeLeft="@{viewmodel.state.exerciseTimeLeft}"
 			tools:text="5:00" />
 		
@@ -110,14 +111,23 @@
 			android:layout_height="wrap_content"
 			android:adjustViewBounds="true"
 			android:background="@color/white"
-			app:layout_constraintVertical_bias="0.25"
 			app:imageResource="@{viewmodel.state.exerciseImage}"
-			android:layout_marginTop="32dp"
+			app:layout_constraintBottom_toTopOf="@id/bottom_line"
 			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintVertical_bias="0.25"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/current_exercise_time_left"
-			app:layout_constraintBottom_toTopOf="@id/power"
 			tools:src="@drawable/single_stroke_roll" />
+		
+		<View
+			android:id="@+id/bottom_line"
+			android:layout_width="0dp"
+			android:layout_height="1dp"
+			android:layout_marginBottom="16dp"
+			android:background="@color/white"
+			app:layout_constraintBottom_toTopOf="@id/power"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
 		
 		<ImageButton
 			android:id="@+id/power"
