@@ -182,6 +182,7 @@ class ExerciseViewModel : ViewModel() {
             isTimerOn.set(State.OFF)
             stopSetTimer()
             stopExerciseTimer()
+            stopMetronome()
         }
     }
 
