@@ -15,14 +15,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
-        //TODO Do something with force unwrap
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host)!!
-        val navigator =
-            KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.nav_host)
-        val navController = findNavController(R.id.nav_host)
-        navController.navigatorProvider.addNavigator(navigator)
-        navController.setGraph(R.navigation.nav_graph)
-        binding.bottomNavigation.setupWithNavController(navController)
+        supportFragmentManager.findFragmentById(R.id.nav_host)?.let {fragment ->
+            val navigator = KeepStateNavigator(this, fragment.childFragmentManager, R.id.nav_host)
+            val navController = findNavController(R.id.nav_host)
+            navController.navigatorProvider.addNavigator(navigator)
+            navController.setGraph(R.navigation.nav_graph)
+            binding.bottomNavigation.setupWithNavController(navController)
+        }
     }
 }
 
