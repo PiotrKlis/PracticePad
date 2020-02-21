@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
 /*
 * TODO
-*  - When exercise is on, switching to other tab does not kill a metronome
 *  - Create at least 6 valid Exercise Sets
 *  - Test the app
 *  - Design adjustment

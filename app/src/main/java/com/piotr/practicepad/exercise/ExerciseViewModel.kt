@@ -190,7 +190,7 @@ class ExerciseViewModel : ViewModel() {
         timer = Timer()
         mutableExerciseState.value?.let {
             val tickPeriod = (60.0 / it.tempo * 1000.0).toLong()
-            timer.schedule(object : TimerTask() {
+            timer.scheduleAtFixedRate(object : TimerTask() {
                 override fun run() {
                     mediaPlayer.start()
                 }
