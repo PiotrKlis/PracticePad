@@ -7,7 +7,7 @@ interface StringProvider {
     fun getStringForId(@StringRes stringRes: Int): String?
 }
 
-class AndroidStringProvider(var _context: Context) : StringProvider {
+class AndroidStringProvider(_context: Context) : StringProvider {
 
     companion object {
         fun initializeStringProvider(context: Context) {
@@ -15,7 +15,7 @@ class AndroidStringProvider(var _context: Context) : StringProvider {
         }
     }
 
-    var context: Context? = null
+    private var context: Context? = null
 
     init {
         this.context = _context
