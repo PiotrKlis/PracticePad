@@ -9,11 +9,14 @@ import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.data.repository.ExerciseDataRepository
 import com.piotr.practicepad.exerciseList.ExerciseSet
 import java.util.*
+import javax.inject.Inject
 
 private const val FIRST_ITEM = 0
 private const val ONE_SECOND = 1000L
 
-class ExerciseViewModel : ViewModel() {
+class ExerciseViewModel @Inject constructor(
+    private val mediaPlayer: MediaPlayer
+) : ViewModel() {
     val state: LiveData<ExerciseState>
         get() = mutableExerciseState
     val isTimerOn = ObservableField(State.OFF)
@@ -27,12 +30,10 @@ class ExerciseViewModel : ViewModel() {
 
     private lateinit var setTimer: CountDownTimer
     private lateinit var exerciseTimer: CountDownTimer
-    private lateinit var mediaPlayer: MediaPlayer
     private lateinit var timer: Timer
     private var savedState = ExerciseSet()
 
-    fun startNewExerciseSet(mediaPlayerro: MediaPlayer) {
-        mediaPlayer = mediaPlayerro
+    fun startNewExerciseSet() {
 
         ExerciseDataRepository().getActiveExerciseSet().let { activeExerciseSet ->
             if (savedState != activeExerciseSet) {
