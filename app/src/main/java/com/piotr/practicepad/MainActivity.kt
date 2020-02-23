@@ -17,7 +17,11 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
-        supportFragmentManager.findFragmentById(R.id.nav_host)?.let {fragment ->
+        setNavigation()
+    }
+
+    private fun setNavigation() {
+        supportFragmentManager.findFragmentById(R.id.nav_host)?.let { fragment ->
             val navigator = KeepStateNavigator(this, fragment.childFragmentManager, R.id.nav_host)
             val navController = findNavController(R.id.nav_host)
             navController.navigatorProvider.addNavigator(navigator)

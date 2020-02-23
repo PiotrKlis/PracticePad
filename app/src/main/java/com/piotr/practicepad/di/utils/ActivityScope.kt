@@ -1,4 +1,4 @@
-package com.piotr.practicepad
+package com.piotr.practicepad.di.utils
 
 import javax.inject.Scope
 

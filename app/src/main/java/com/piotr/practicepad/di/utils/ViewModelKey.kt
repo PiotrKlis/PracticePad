@@ -1,4 +1,4 @@
-package com.piotr.practicepad
+package com.piotr.practicepad.di.utils
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

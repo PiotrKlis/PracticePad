@@ -1,4 +1,4 @@
-package com.piotr.practicepad
+package com.piotr.practicepad.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

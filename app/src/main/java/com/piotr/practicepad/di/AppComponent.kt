@@ -1,11 +1,10 @@
-package com.piotr.practicepad
+package com.piotr.practicepad.di
 
-import android.content.Context
-import androidx.lifecycle.ViewModelProvider
-import dagger.Binds
+import com.piotr.practicepad.PracticePad
+import com.piotr.practicepad.di.modules.ActivityBindingModule
+import com.piotr.practicepad.di.modules.AppModule
+import com.piotr.practicepad.di.modules.ViewModelFactoryModule
 import dagger.Component
-import dagger.Module
-import dagger.Provides
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import javax.inject.Singleton
@@ -25,15 +24,3 @@ interface AppComponent : AndroidInjector<PracticePad> {
 }
 
 
-@Module
-abstract class ViewModelFactoryModule {
-    @Binds
-    internal abstract fun bindViewModelFactory(factory: ViewModelFactory):
-            ViewModelProvider.Factory
-}
-
-@Module
-class AppModule {
-    @Provides
-    fun provideContext(application: PracticePad): Context = application
-}
