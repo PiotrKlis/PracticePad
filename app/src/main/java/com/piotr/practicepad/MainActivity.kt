@@ -15,7 +15,6 @@ class MainActivity : DaggerAppCompatActivity() {
     private lateinit var binding: MainActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         supportFragmentManager.findFragmentById(R.id.nav_host)?.let {fragment ->
