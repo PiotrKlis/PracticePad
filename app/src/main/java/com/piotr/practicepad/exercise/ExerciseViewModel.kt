@@ -2,12 +2,14 @@ package com.piotr.practicepad.exercise
 
 import android.media.MediaPlayer
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.data.repository.ExerciseDataRepository
 import com.piotr.practicepad.exerciseList.ExerciseSet
+import com.piotr.practicepad.utils.secondsToMiliseconds
 import java.util.*
 import javax.inject.Inject
 
@@ -19,6 +21,10 @@ class ExerciseViewModel @Inject constructor(
 ) : ViewModel() {
     val state: LiveData<ExerciseState>
         get() = mutableExerciseState
+    val exerciseTimerState: LiveData<ExerciseTimer>
+        get() = mutableExerciseTimer
+    val exerciseSetTimerState: LiveData<ExerciseSetTimer>
+        get() = mutableExerciseSetTimer
     val isTimerOn = ObservableField(State.OFF)
 
     enum class State {
@@ -27,6 +33,10 @@ class ExerciseViewModel @Inject constructor(
 
     private val mutableExerciseState =
         MutableLiveData<ExerciseState>().apply { value = ExerciseState() }
+    private val mutableExerciseTimer =
+        MutableLiveData<ExerciseTimer>().apply { value = ExerciseTimer() }
+    private val mutableExerciseSetTimer =
+        MutableLiveData<ExerciseSetTimer>().apply { value = ExerciseSetTimer() }
 
     private lateinit var setTimer: CountDownTimer
     private lateinit var exerciseTimer: CountDownTimer
@@ -34,7 +44,6 @@ class ExerciseViewModel @Inject constructor(
     private var savedState = ExerciseSet()
 
     fun startNewExerciseSet() {
-
         ExerciseDataRepository().getActiveExerciseSet().let { activeExerciseSet ->
             if (savedState != activeExerciseSet) {
                 isTimerOn.set(State.OFF)
@@ -54,6 +63,10 @@ class ExerciseViewModel @Inject constructor(
                         exerciseTimeLeft = activeExerciseSet.exerciseList[FIRST_ITEM].time,
                         tempo = activeExerciseSet.tempo
                     )
+                mutableExerciseTimer.value =
+                    ExerciseTimer(activeExerciseSet.exerciseList[FIRST_ITEM].time)
+                mutableExerciseSetTimer.value =
+                    ExerciseSetTimer(getOverallTime(activeExerciseSet.exerciseList))
                 savedState = activeExerciseSet
             }
         }
@@ -101,6 +114,8 @@ class ExerciseViewModel @Inject constructor(
                     exerciseTimeLeft = activeExerciseSet.exerciseList[FIRST_ITEM].time,
                     tempo = activeExerciseSet.tempo
                 )
+            mutableExerciseSetTimer.value = ExerciseSetTimer(getOverallTime(activeExerciseSet.exerciseList))
+            mutableExerciseTimer.value = ExerciseTimer(activeExerciseSet.exerciseList[FIRST_ITEM].time)
         }
     }
 
@@ -119,20 +134,20 @@ class ExerciseViewModel @Inject constructor(
     }
 
     private fun startSetTimer() {
-        setTimer = object :
-            CountDownTimer(mutableExerciseState.value?.setTimeLeft ?: ONE_SECOND, ONE_SECOND) {
-            override fun onTick(millisUntilFinished: Long) {
-                mutableExerciseState.value?.let { state ->
-                    mutableExerciseState.value = state.copy(setTimeLeft = millisUntilFinished)
-                }
-            }
-
-            override fun onFinish() {
-                setTimer.cancel()
-                isTimerOn.set(State.RESTART)
-                stopMetronome()
-            }
-        }.start()
+//        setTimer = object :
+//            CountDownTimer(mutableExerciseSetTimer.value?.timeLeft ?: ONE_SECOND, ONE_SECOND) {
+//            override fun onTick(milisUntilFinished: Long) {
+//                mutableExerciseSetTimer.value?.let { state ->
+//                    mutableExerciseSetTimer.value = state.copy(timeLeft = milisUntilFinished)
+//                }
+//            }
+//
+//            override fun onFinish() {
+//                setTimer.cancel()
+//                isTimerOn.set(State.RESTART)
+//                stopMetronome()
+//            }
+//        }.start()
     }
 
     private fun stopSetTimer() {
@@ -141,11 +156,10 @@ class ExerciseViewModel @Inject constructor(
 
     private fun startExerciseTimer() {
         exerciseTimer = object :
-            CountDownTimer(mutableExerciseState.value?.exerciseTimeLeft ?: ONE_SECOND, ONE_SECOND) {
-            override fun onTick(millisUntilFinished: Long) {
-                mutableExerciseState.value?.let { state ->
-                    mutableExerciseState.value = state.copy(exerciseTimeLeft = millisUntilFinished)
-                }
+            CountDownTimer(mutableExerciseTimer.value?.timeLeft ?: ONE_SECOND, ONE_SECOND) {
+            override fun onTick(milisUntilFinished: Long) {
+//                Log.d("AAA", milisUntilFinished.toString())
+                    mutableExerciseTimer.postValue(ExerciseTimer(timeLeft = milisUntilFinished))
             }
 
             override fun onFinish() {
@@ -167,6 +181,7 @@ class ExerciseViewModel @Inject constructor(
                                 exerciseImage = state.exerciseList[state.currentExerciseIndex + 1].image,
                                 exerciseTimeLeft = state.exerciseList[state.currentExerciseIndex + 1].time
                             )
+                        mutableExerciseTimer.value = ExerciseTimer(state.exerciseList[state.currentExerciseIndex + 1].time)
                         startExerciseTimer()
                     }
                 }
@@ -188,16 +203,16 @@ class ExerciseViewModel @Inject constructor(
     }
 
     private fun startMetronome() {
-        timer = Timer()
-        mutableExerciseState.value?.let {
-            val tickPeriod = (60.0 / it.tempo * 1000.0).toLong()
-            timer.scheduleAtFixedRate(object : TimerTask() {
-                override fun run() {
-                    mediaPlayer.start()
-                }
-
-            }, 0, tickPeriod)
-        }
+//        timer = Timer()
+//        mutableExerciseState.value?.let {
+//            val tickPeriod = (60.0 / it.tempo * 1000.0).toLong()
+//            timer.scheduleAtFixedRate(object : TimerTask() {
+//                override fun run() {
+//                    mediaPlayer.start()
+//                }
+//
+//            }, 0, tickPeriod)
+//        }
     }
 
     private fun stopMetronome() {
@@ -205,3 +220,4 @@ class ExerciseViewModel @Inject constructor(
         timer.cancel()
     }
 }
+

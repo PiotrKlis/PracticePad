@@ -15,53 +15,53 @@ enum class ExerciseSetData(
 }
 
 private val everyDayPractice = listOf(
-    ExerciseData(60, SINGLE_STROKE_ROLL),
-    ExerciseData(120, DOUBLES),
-    ExerciseData(90, TRIPLETS),
-    ExerciseData(120, SINGLE_STROKE_ROLL),
-    ExerciseData(180, DOUBLES),
-    ExerciseData(90, SINGLE_STROKE_ROLL),
-    ExerciseData(90, SINGLE_PARADIDDLE)
+    ExerciseData(6, SINGLE_STROKE_ROLL),
+    ExerciseData(12, DOUBLES),
+    ExerciseData(9, TRIPLETS),
+    ExerciseData(12, SINGLE_STROKE_ROLL),
+    ExerciseData(18, DOUBLES),
+    ExerciseData(9, SINGLE_STROKE_ROLL),
+    ExerciseData(9, SINGLE_PARADIDDLE)
 )
 
 private val shortWarmUp = listOf(
-    ExerciseData(30, SINGLE_STROKE_ROLL),
-    ExerciseData(30, DOUBLES),
-    ExerciseData(30, SINGLE_PARADIDDLE),
-    ExerciseData(30, SINGLE_PARADIDDLE_DIDDLE),
-    ExerciseData(30, TRIPLE_PARADIDDLE),
-    ExerciseData(30, SINGLE_STROKE_ROLL),
-    ExerciseData(30, DOUBLES),
-    ExerciseData(30, SINGLE_PARADIDDLE),
-    ExerciseData(30, SINGLE_PARADIDDLE_DIDDLE),
-    ExerciseData(30, TRIPLE_PARADIDDLE)
+    ExerciseData(3, SINGLE_STROKE_ROLL),
+    ExerciseData(3, DOUBLES),
+    ExerciseData(3, SINGLE_PARADIDDLE),
+    ExerciseData(3, SINGLE_PARADIDDLE_DIDDLE),
+    ExerciseData(3, TRIPLE_PARADIDDLE),
+    ExerciseData(3, SINGLE_STROKE_ROLL),
+    ExerciseData(3, DOUBLES),
+    ExerciseData(3, SINGLE_PARADIDDLE),
+    ExerciseData(3, SINGLE_PARADIDDLE_DIDDLE),
+    ExerciseData(3, TRIPLE_PARADIDDLE)
 )
 
 private val flamExercises = listOf(
-    ExerciseData(30, FLAM),
-    ExerciseData(60, FLAM_ACCENT),
-    ExerciseData(60, FLAM_TAP),
-    ExerciseData(60, FLAMACUE),
-    ExerciseData(60, FLAM_PARADIDDLE),
-    ExerciseData(60, SINGLE_FLAMMED_MILL),
-    ExerciseData(60, FLAM_PARADIDDLE_DIDDLE),
-    ExerciseData(60, PATAFLAFLA),
-    ExerciseData(30, SWISS_ARMY_TRIPLET),
-    ExerciseData(60, INVERTED_FLAM_TAP),
-    ExerciseData(60, FLAM_DRAG)
+    ExerciseData(3, FLAM),
+    ExerciseData(6, FLAM_ACCENT),
+    ExerciseData(6, FLAM_TAP),
+    ExerciseData(6, FLAMACUE),
+    ExerciseData(6, FLAM_PARADIDDLE),
+    ExerciseData(6, SINGLE_FLAMMED_MILL),
+    ExerciseData(6, FLAM_PARADIDDLE_DIDDLE),
+    ExerciseData(6, PATAFLAFLA),
+    ExerciseData(3, SWISS_ARMY_TRIPLET),
+    ExerciseData(6, INVERTED_FLAM_TAP),
+    ExerciseData(6, FLAM_DRAG)
 )
 
 private val dragExercises = listOf(
-    ExerciseData(30, DRAG),
-    ExerciseData(45, SINGLE_DRAG_TAP),
-    ExerciseData(45, DOUBLE_DRAG_TAP),
-    ExerciseData(60, LESSON_25),
-    ExerciseData(60, SINGLE_DRAGADIDDLE),
-    ExerciseData(45, DRAG_PARADIDDLE_1),
-    ExerciseData(45, DRAG_PARADIDDLE_2),
-    ExerciseData(45, SINGLE_RATAMACUE),
-    ExerciseData(45, DOUBLE_RATAMACUE),
-    ExerciseData(45, TRIPLE_RATAMACUE)
+    ExerciseData(3, DRAG),
+    ExerciseData(4, SINGLE_DRAG_TAP),
+    ExerciseData(4, DOUBLE_DRAG_TAP),
+    ExerciseData(6, LESSON_25),
+    ExerciseData(6, SINGLE_DRAGADIDDLE),
+    ExerciseData(4, DRAG_PARADIDDLE_1),
+    ExerciseData(4, DRAG_PARADIDDLE_2),
+    ExerciseData(4, SINGLE_RATAMACUE),
+    ExerciseData(4, DOUBLE_RATAMACUE),
+    ExerciseData(4, TRIPLE_RATAMACUE)
 )
 
 private fun getMediumWarmUp(): List<ExerciseData> = listOf()

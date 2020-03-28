@@ -1,11 +1,12 @@
 package com.piotr.practicepad.exercise
 
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.piotr.practicepad.R
 import com.piotr.practicepad.exercise.ExerciseViewModel.State
+import com.piotr.practicepad.extensions.toMinutes
+import com.piotr.practicepad.extensions.toSeconds
 
 object ExerciseViewModelBindingAdapter {
     @JvmStatic
@@ -27,9 +28,6 @@ object ExerciseViewModelBindingAdapter {
     @JvmStatic
     @BindingAdapter("timeLeft")
     fun timeLeft(view: TextView, time: Long) {
-        val minutes = (time / 1000).toInt() / 60
-        val seconds = (time / 1000).toInt() % 60
-
-        view.text = String.format("%02d:%02d", minutes, seconds)
+        view.text = String.format("%02d:%02d", time.toMinutes(), time.toSeconds())
     }
 }

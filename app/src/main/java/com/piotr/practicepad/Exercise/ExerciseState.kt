@@ -14,3 +14,7 @@ data class ExerciseState(
     val exerciseTimeLeft: Long = 0L,
     val tempo: Int = 0
 )
+
+data class ExerciseTimer(val timeLeft: Long = 0)
+data class ExerciseSetTimer(val timeLeft: Long = 0
+)
