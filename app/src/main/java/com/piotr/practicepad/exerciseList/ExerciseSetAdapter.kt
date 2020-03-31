@@ -1,25 +1,21 @@
 package com.piotr.practicepad.exerciseList
 
-import androidx.recyclerview.widget.RecyclerView
+
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.piotr.practicepad.R
-import com.piotr.practicepad.data.db.SharedPrefs
-
-
 import kotlinx.android.synthetic.main.exercise_set_row.view.*
 
-class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>() {
-
-    private var onClickListener: CheckBoxListener? = null
+class ExerciseSetAdapter(
+    private val checkboxClick: (Int) -> Unit,
+    private val shouldCheckboxBeChecked: (Int) -> Boolean
+) : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>() {
     private var exerciseSetList: List<ExerciseSet> = arrayListOf()
-
-    fun setListener(listener: CheckBoxListener) {
-        onClickListener = listener
-    }
 
     fun setItems(items: List<ExerciseSet>) {
         this.exerciseSetList = items
@@ -27,7 +23,8 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.exercise_set_row, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.exercise_set_row, parent, false)
         return ViewHolder(view)
     }
 
@@ -46,14 +43,11 @@ class ExerciseSetAdapter : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>()
 
         fun setData(item: ExerciseSet) {
             content.text = item.name
-            checkBox.isChecked = shouldBeChecked(adapterPosition)
+            Log.d("AAA", item.id.toString())
+            checkBox.isChecked = shouldCheckboxBeChecked(item.id)
             checkBox.setOnClickListener {
-                SharedPrefs.setActiveSet(adapterPosition)
-                onClickListener?.checkboxClick() }
+                checkboxClick.invoke(item.id)
+            }
         }
-    }
-
-    fun shouldBeChecked(position: Int): Boolean {
-        return position == SharedPrefs.getActiveSet()
     }
 }

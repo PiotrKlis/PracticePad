@@ -9,8 +9,8 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(
         modules = [
             ExerciseModule::class,
-            MediaPlayerModule::class
-        ]
+            MediaPlayerModule::class,
+            ExerciseListModule::class]
     )
     abstract fun mainActivity(): MainActivity
 }

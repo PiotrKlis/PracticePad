@@ -1,15 +1,12 @@
 package com.piotr.practicepad.exerciseList
 
 import androidx.lifecycle.ViewModel
-import com.piotr.practicepad.data.repository.DataRepository
-import com.piotr.practicepad.data.repository.ExerciseDataRepository
+import com.piotr.practicepad.data.repository.ExerciseSetRepository
+import javax.inject.Inject
 
-class ExerciseSetViewModel : ViewModel() {
-
-    private var exerciseDataRepository: DataRepository =
-        ExerciseDataRepository()
-
+class ExerciseSetViewModel @Inject constructor(private val exerciseSetRepository: ExerciseSetRepository) :
+    ViewModel() {
     fun getExerciseSets(): List<ExerciseSet> {
-        return exerciseDataRepository.getAllExerciseSets()
+        return exerciseSetRepository.getAll()
     }
 }

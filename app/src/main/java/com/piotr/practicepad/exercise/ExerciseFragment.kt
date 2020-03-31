@@ -24,22 +24,31 @@ class ExerciseFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View {
         viewModel = viewModelProvider(viewModelFactory)
+        return getBinding(inflater, container).root
+    }
+
+    private fun getBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentExcerciseBinding {
         val binding: FragmentExcerciseBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_excercise, container, false)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewmodel = viewModel
         }
-        return binding.root
+        return binding
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.startNewExerciseSet()
+        viewModel.renderExerciseSet()
     }
 
     override fun onPause() {
         viewModel.pauseTimers()
         super.onPause()
     }
+
+
 }

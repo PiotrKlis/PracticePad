@@ -9,6 +9,14 @@
 			name="viewmodel"
 			type="com.piotr.practicepad.exercise.ExerciseViewModel" />
 		
+		<variable
+			name="exerciseTimer"
+			type="com.piotr.practicepad.timers.ExerciseTimer" />
+		
+		<variable
+			name="exerciseSetTimer"
+			type="com.piotr.practicepad.timers.ExerciseSetTimer" />
+	
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +48,7 @@
 			app:layout_constraintEnd_toStartOf="@+id/next_exercise"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/exercise_set_name"
-			app:timeLeft="@{viewmodel.exerciseSetTimerState.timeLeft}"
+			app:timeLeft="@{exerciseSetTimer.data}"
 			tools:text="30:00" />
 		
 		<TextView
@@ -103,7 +111,7 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/current_exercise_name"
-			app:timeLeft="@{viewmodel.exerciseTimerState.timeLeft}"
+			app:timeLeft="@{exerciseTimer.data}"
 			tools:text="5:00" />
 		
 		<androidx.appcompat.widget.AppCompatImageView
