@@ -12,7 +12,7 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_exerciseset_list.*
 import javax.inject.Inject
 
-class ExerciseListFragment : DaggerFragment() {
+class ExerciseListFragment : DaggerFragment(), CheckBoxHandler {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -21,8 +21,7 @@ class ExerciseListFragment : DaggerFragment() {
     private lateinit var viewModel: ExerciseSetViewModel
     private var adapter: ExerciseSetAdapter =
         ExerciseSetAdapter(
-            ::checkboxClick,
-            ::shouldBeChecked
+            this
         )
 
     override fun onCreateView(
@@ -40,12 +39,10 @@ class ExerciseListFragment : DaggerFragment() {
         adapter.setItems(viewModel.getExerciseSets())
     }
 
-    private fun checkboxClick(id: Int) {
+    override fun click(id: Int) {
         sharedPrefs.setActiveSetId(id)
         adapter.notifyDataSetChanged()
     }
 
-    private fun shouldBeChecked(id: Int): Boolean {
-        return id == sharedPrefs.getActiveSetId()
-    }
+    override fun shouldBeChecked(id: Int): Boolean = id == sharedPrefs.getActiveSetId()
 }

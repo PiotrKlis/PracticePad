@@ -1,7 +1,6 @@
 package com.piotr.practicepad.exerciseList
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,7 @@ import com.piotr.practicepad.R
 import kotlinx.android.synthetic.main.exercise_set_row.view.*
 
 class ExerciseSetAdapter(
-    private val checkboxClick: (Int) -> Unit,
-    private val shouldCheckboxBeChecked: (Int) -> Boolean
+    private val checkBoxHandler: CheckBoxHandler
 ) : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>() {
     private var exerciseSetList: List<ExerciseSet> = arrayListOf()
 
@@ -29,8 +27,7 @@ class ExerciseSetAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = exerciseSetList[position]
-        holder.setData(item)
+        holder.setData(exerciseSetList[position])
     }
 
     override fun getItemCount(): Int {
@@ -43,10 +40,9 @@ class ExerciseSetAdapter(
 
         fun setData(item: ExerciseSet) {
             content.text = item.name
-            Log.d("AAA", item.id.toString())
-            checkBox.isChecked = shouldCheckboxBeChecked(item.id)
+            checkBox.isChecked = checkBoxHandler.shouldBeChecked(item.id)
             checkBox.setOnClickListener {
-                checkboxClick.invoke(item.id)
+                checkBoxHandler.click(item.id)
             }
         }
     }
