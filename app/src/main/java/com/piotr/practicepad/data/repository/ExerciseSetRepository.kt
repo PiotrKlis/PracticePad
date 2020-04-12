@@ -2,15 +2,15 @@ package com.piotr.practicepad.data.repository
 
 import com.piotr.practicepad.exerciseList.ExerciseSet
 import com.piotr.practicepad.data.db.ExerciseSetData
-import com.piotr.practicepad.data.db.ActiveSetSharedPrefs
+import com.piotr.practicepad.data.db.SharedPrefs
 import javax.inject.Inject
 
-class ExerciseSetRepository @Inject constructor(private val activeSetSharedPrefs: ActiveSetSharedPrefs) {
+class ExerciseSetRepository @Inject constructor(private val sharedPrefs: SharedPrefs) {
     private val setListMapper: ExerciseSetListMapper = ExerciseSetListMapper()
     private val exerciseSetMapper: ExerciseSetMapper = ExerciseSetMapper()
 
     fun getActiveSet(): ExerciseSet {
-        val id = activeSetSharedPrefs.getActiveSetId()
+        val id = sharedPrefs.getActiveSetId()
         return ExerciseSetData
             .values()
             .find { it.id == id }

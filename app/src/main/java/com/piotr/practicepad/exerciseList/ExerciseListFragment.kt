@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.piotr.practicepad.R
-import com.piotr.practicepad.data.db.ActiveSetSharedPrefs
+import com.piotr.practicepad.data.db.SharedPrefs
 import com.piotr.practicepad.extensions.viewModelProvider
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_exerciseset_list.*
@@ -17,7 +17,7 @@ class ExerciseListFragment : DaggerFragment(), CheckBoxHandler {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
-    lateinit var sharedPrefs: ActiveSetSharedPrefs
+    lateinit var sharedPrefs: SharedPrefs
     private lateinit var viewModel: ExerciseSetViewModel
     private var adapter: ExerciseSetAdapter =
         ExerciseSetAdapter(

@@ -2,10 +2,8 @@ package com.piotr.practicepad.di.modules
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.media.MediaPlayer
 import com.piotr.practicepad.PracticePad
-import com.piotr.practicepad.data.db.ActiveSetSharedPrefs
-import com.piotr.practicepad.metronome.Metronome
+import com.piotr.practicepad.data.db.SharedPrefs
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -21,6 +19,6 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideActiveSetSharedPreferences(sharedPreferences: SharedPreferences) = ActiveSetSharedPrefs(sharedPreferences)
+    fun provideActiveSetSharedPreferences(sharedPreferences: SharedPreferences) = SharedPrefs(sharedPreferences)
     
 }

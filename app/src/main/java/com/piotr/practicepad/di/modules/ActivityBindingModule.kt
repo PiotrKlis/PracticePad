@@ -10,7 +10,8 @@ abstract class ActivityBindingModule {
         modules = [
             ExerciseModule::class,
             MediaPlayerModule::class,
-            ExerciseListModule::class]
+            ExerciseListModule::class,
+            TimerModule::class]
     )
     abstract fun mainActivity(): MainActivity
 }

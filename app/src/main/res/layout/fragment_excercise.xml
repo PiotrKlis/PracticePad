@@ -11,11 +11,11 @@
 		
 		<variable
 			name="exerciseTimer"
-			type="com.piotr.practicepad.timers.ExerciseTimer" />
+		type="com.piotr.practicepad.timers.ExerciseTimer" />
 		
 		<variable
 			name="exerciseSetTimer"
-			type="com.piotr.practicepad.timers.ExerciseSetTimer" />
+			type="com.piotr.practicepad.timers.ExerciseSetTimerViewModel" />
 	
 	</data>
 	

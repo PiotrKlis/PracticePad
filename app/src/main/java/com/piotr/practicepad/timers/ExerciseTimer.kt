@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 
 private const val ONE_SECOND = 1000L
 
-class ExerciseTimer(time: Long) : CountDownTimer(time, ONE_SECOND) {
+class ExerciseTimer(private val time: Long) : CountDownTimer(time, ONE_SECOND) {
     val data: LiveData<Long>
         get() = mutableData
     private val mutableData = MutableLiveData<Long>().apply { value = time }
