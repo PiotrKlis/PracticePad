@@ -10,4 +10,9 @@
             android:id="@+id/exerciseSetListFragment"
             android:icon="@drawable/ic_dashboard_black_24dp"
             android:title="@string/title_list_of_exercises"/>
+    
+    <item
+        android:id="@+id/testFragment"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="test_fragment"/>
 </menu>
