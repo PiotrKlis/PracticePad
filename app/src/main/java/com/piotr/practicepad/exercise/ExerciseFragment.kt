@@ -55,6 +55,7 @@ class ExerciseFragment : DaggerFragment() {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewmodel = exerciseViewModel
+            exerciseSetTimer = exerciseSetTimerViewModel
         }
         return binding
     }
