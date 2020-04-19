@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.piotr.practicepad.exercise.PracticeState.State.*
 
 class PracticeState {
-    val state: LiveData<State>
-        get() = mutableState
+    val state: LiveData<State> get() = mutableState
     private val mutableState = MutableLiveData<State>()
 
     init {

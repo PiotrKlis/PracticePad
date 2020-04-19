@@ -14,13 +14,12 @@ private const val FIRST_ITEM = 0
 
 class ExerciseViewModel @Inject constructor(private val exerciseSetRepository: ExerciseSetRepository) :
     ViewModel() {
-    val event: LiveData<Event<ExerciseEvent>>
-        get() = mutableEvent
-    val state: LiveData<ExerciseState>
-        get() = mutableState
+    val event: LiveData<Event<ExerciseEvent>> get() = mutableEvent
+    val state: LiveData<ExerciseState> get() = mutableState
 
     private val mutableState = MutableLiveData<ExerciseState>().apply { value = ExerciseState() }
     private val mutableEvent = MutableLiveData<Event<ExerciseEvent>>()
+    private val practiceState = PracticeState()
     private var currentExerciseSetId: Int? = null
 
     fun renderExerciseSet() {
@@ -32,12 +31,12 @@ class ExerciseViewModel @Inject constructor(private val exerciseSetRepository: E
         }
     }
 
-    fun powerClick() {
-        when (PracticeState().state.value) {
-            ON -> mutableEvent.value = Event(ExerciseEvent.PowerClick(ON))
-            OFF -> mutableEvent.value = Event(ExerciseEvent.PowerClick(OFF))
+    fun powerClick(state: PracticeState.State) {
+        when (state) {
+            ON -> mutableEvent.value = Event(ExerciseEvent.PowerClick(OFF))
+            OFF -> mutableEvent.value = Event(ExerciseEvent.PowerClick(ON))
             RESTART -> {
-                mutableEvent.value = Event(ExerciseEvent.PowerClick(RESTART))
+                mutableEvent.value = Event(ExerciseEvent.PowerClick(ON))
                 restart()
             }
         }
