@@ -7,4 +7,6 @@ data class ExerciseSet(
     val name: String = "",
     val exerciseList: ArrayList<Exercise> = arrayListOf(),
     val tempo: Int = 0
-)
+) {
+  fun shouldStartNewTimer(position: Int): Boolean = position != exerciseList.size - 1
+}
