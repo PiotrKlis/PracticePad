@@ -1,16 +1,19 @@
 package com.piotr.practicepad.di.modules
 
-import androidx.lifecycle.ViewModel
-import com.piotr.practicepad.di.utils.ViewModelKey
-import com.piotr.practicepad.timers.ExerciseSetTimerViewModel
-import dagger.Binds
+import com.piotr.practicepad.data.repository.ExerciseSetRepository
+import com.piotr.practicepad.timers.ExerciseSetTimer
+import com.piotr.practicepad.timers.ExerciseTimer
 import dagger.Module
-import dagger.multibindings.IntoMap
+import dagger.Provides
 
 @Module
-abstract class TimerModule {
-    @Binds
-    @IntoMap
-    @ViewModelKey(ExerciseSetTimerViewModel::class)
-    abstract fun bindsTimerViewModel(viewModelExerciseSet: ExerciseSetTimerViewModel): ViewModel
+class TimerModule {
+
+    @Provides
+    fun bindsExerciseSetTimer(exerciseSetRepository: ExerciseSetRepository): ExerciseSetTimer =
+        ExerciseSetTimer(exerciseSetRepository)
+
+    @Provides
+    fun bindsExerciseTimer(exerciseSetRepository: ExerciseSetRepository): ExerciseTimer =
+        ExerciseTimer(exerciseSetRepository)
 }

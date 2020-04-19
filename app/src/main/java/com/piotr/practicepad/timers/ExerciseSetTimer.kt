@@ -1,48 +1,47 @@
 package com.piotr.practicepad.timers
 
 import android.os.CountDownTimer
-import androidx.databinding.ObservableField
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
-import com.piotr.practicepad.exercise.ExerciseViewModel.Statetos
+import com.piotr.practicepad.exercise.PracticeState.State
+import com.piotr.practicepad.exercise.PracticeState.State.*
 import com.piotr.practicepad.extensions.getOverallTime
 import javax.inject.Inject
 
 private const val ONE_SECOND = 1000L
 
-class ExerciseSetTimerViewModel @Inject constructor(private val exerciseSetRepository: ExerciseSetRepository) :
-    ViewModel() {
-    val data = ObservableField(0L)
+class ExerciseSetTimer @Inject constructor(private val exerciseSetRepository: ExerciseSetRepository) {
+    val data: LiveData<Long> get() = mutableData
+    private val mutableData: MutableLiveData<Long> =
+        MutableLiveData<Long>().apply { exerciseSetRepository.getActiveSet().exerciseList.getOverallTime() }
 
-    //    private val mutableData = MutableLiveData<TestLong>()
-    private var timeros: CountDownTimer? = null
-
-    init {
-        data.set(exerciseSetRepository.getActiveSet().exerciseList.getOverallTime())
-    }
-
-    fun handleClick(state: Statetos) {
+    fun handleClick(state: State) {
         when (state) {
-            Statetos.ON -> {
-                timeros?.onFinish()
+            ON -> timer.onFinish()
+            OFF -> {
+                data.value?.let {
+                    timer.onTick(it)
+                }
             }
-            Statetos.OFF, Statetos.RESTART -> {
-                initTimer(exerciseSetRepository.getActiveSet().exerciseList.getOverallTime())
-            }
+            RESTART -> ExerciseSetTimer(exerciseSetRepository)
         }
     }
 
-    private fun initTimer(time: Long) {
-        timeros = object : CountDownTimer(time, ONE_SECOND) {
-            override fun onFinish() {
-                cancel()
-            }
+    fun onPause() {
+        timer.onFinish()
+    }
 
-            override fun onTick(millisUntilFinished: Long) {
-                data.set(millisUntilFinished)
-            }
-        }.start()
+    private val timer = object : CountDownTimer(
+        exerciseSetRepository.getActiveSet().exerciseList.getOverallTime(),
+        ONE_SECOND
+    ) {
+        override fun onFinish() {
+            cancel()
+        }
+
+        override fun onTick(millisUntilFinished: Long) {
+            mutableData.value = millisUntilFinished
+        }
     }
 }
-
-data class TestLong(val time: Long = 0)

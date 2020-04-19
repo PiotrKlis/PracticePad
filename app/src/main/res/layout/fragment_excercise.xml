@@ -11,11 +11,15 @@
 		
 		<variable
 			name="exerciseTimer"
-		type="com.piotr.practicepad.timers.ExerciseTimer" />
+			type="com.piotr.practicepad.timers.ExerciseTimer" />
 		
 		<variable
 			name="exerciseSetTimer"
-			type="com.piotr.practicepad.timers.ExerciseSetTimerViewModel" />
+			type="com.piotr.practicepad.timers.ExerciseSetTimer" />
+		
+		<variable
+			name="practiceState"
+			type="com.piotr.practicepad.exercise.PracticeState" />
 	
 	</data>
 	
@@ -147,7 +151,7 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:setImageButton="@{viewmodel.isTimerOn}"
+			app:setImageButton="@{practiceState.state}"
 			tools:src="@drawable/ic_play_circle_filled_black_24dp" />
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
