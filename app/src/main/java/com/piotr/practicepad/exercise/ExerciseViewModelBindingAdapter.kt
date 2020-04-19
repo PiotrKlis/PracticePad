@@ -4,9 +4,8 @@ import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.piotr.practicepad.PracticeState
 import com.piotr.practicepad.R
-import com.piotr.practicepad.PracticeState.State.*
+import com.piotr.practicepad.exercise.PracticeState.State.*
 import com.piotr.practicepad.extensions.milisToMinutes
 import com.piotr.practicepad.extensions.milisToSeconds
 

@@ -1,13 +1,17 @@
-package com.piotr.practicepad
+package com.piotr.practicepad.exercise
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.piotr.practicepad.PracticeState.State.*
+import com.piotr.practicepad.exercise.PracticeState.State.*
 
 class PracticeState {
     val state: LiveData<State>
         get() = mutableState
-    private val mutableState = MutableLiveData<State>().apply { value = OFF }
+    private val mutableState = MutableLiveData<State>()
+
+    init {
+        mutableState.value = OFF
+    }
 
     fun handleClick(state: State) {
         when (state) {

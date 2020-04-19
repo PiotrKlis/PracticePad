@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import com.piotr.practicepad.PracticeState
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExcerciseBinding
 import com.piotr.practicepad.extensions.viewModelProvider
@@ -23,10 +22,10 @@ class ExerciseFragment : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
-    lateinit var exerciseSetTimer: ExerciseSetTimer
+    lateinit var _exerciseSetTimer: ExerciseSetTimer
 
     @Inject
-    lateinit var exerciseTimer: ExerciseTimer
+    lateinit var _exerciseTimer: ExerciseTimer
 
     @Inject
     lateinit var metronome: Metronome
@@ -60,15 +59,15 @@ class ExerciseFragment : DaggerFragment() {
     }
 
     private fun handleOnPause() {
-        exerciseTimer.onPause()
-        exerciseSetTimer.onPause()
+        _exerciseTimer.onPause()
+        _exerciseSetTimer.onPause()
         metronome.onPause()
         practiceState.onPause()
     }
 
     private fun handleClick(event: ExerciseEvent.PowerClick) {
-        exerciseTimer.handleClick(event.state)
-        exerciseSetTimer.handleClick(event.state)
+        _exerciseTimer.handleClick(event.state)
+        _exerciseSetTimer.handleClick(event.state)
         metronome.handleClick(event.state)
         practiceState.handleClick(event.state)
     }
@@ -82,8 +81,8 @@ class ExerciseFragment : DaggerFragment() {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewmodel = exerciseViewModel
-            exerciseSetTimer = exerciseSetTimer
-            exerciseTimer = exerciseTimer
+            exerciseSetTimer = _exerciseSetTimer
+            exerciseTimer = _exerciseTimer
             practice = practiceState
         }
         return binding

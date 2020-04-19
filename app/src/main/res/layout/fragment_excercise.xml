@@ -19,7 +19,7 @@
 		
 		<variable
 			name="practice"
-			type="com.piotr.practicepad.PracticeState" />
+			type="com.piotr.practicepad.exercise.PracticeState" />
 	
 	</data>
 	
@@ -115,7 +115,7 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/current_exercise_name"
-			app:timeLeft="@{exerciseTimer.data}"
+			app:timeLeft="@{exerciseTimer.data.longValue()}"
 			tools:text="5:00" />
 		
 		<androidx.appcompat.widget.AppCompatImageView

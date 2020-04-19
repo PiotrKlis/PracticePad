@@ -1,8 +1,8 @@
 package com.piotr.practicepad.metronome
 
 import android.media.MediaPlayer
-import com.piotr.practicepad.PracticeState.State
-import com.piotr.practicepad.PracticeState.State.*
+import com.piotr.practicepad.exercise.PracticeState.State
+import com.piotr.practicepad.exercise.PracticeState.State.*
 import java.util.*
 import javax.inject.Inject
 
