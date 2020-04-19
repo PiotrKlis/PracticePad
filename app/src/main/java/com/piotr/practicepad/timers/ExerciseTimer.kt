@@ -4,8 +4,8 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
-import com.piotr.practicepad.exercise.PracticeState
-import com.piotr.practicepad.exercise.PracticeState.State.*
+import com.piotr.practicepad.PracticeState
+import com.piotr.practicepad.PracticeState.State.*
 import com.piotr.practicepad.extensions.getOverallTime
 import javax.inject.Inject
 

@@ -4,16 +4,17 @@ import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.piotr.practicepad.PracticeState
 import com.piotr.practicepad.R
-import com.piotr.practicepad.exercise.PracticeState.State.*
+import com.piotr.practicepad.PracticeState.State.*
 import com.piotr.practicepad.extensions.milisToMinutes
 import com.piotr.practicepad.extensions.milisToSeconds
 
 object ExerciseViewModelBindingAdapter {
     @JvmStatic
     @BindingAdapter("setImageButton")
-    fun setImageButton(view: ImageButton, isTimerOn: PracticeState.State) {
-        when (isTimerOn) {
+    fun setImageButton(view: ImageButton, state: PracticeState.State) {
+        when (state) {
             ON -> view.setBackgroundResource(R.drawable.ic_pause_circle_filled_black_24dp)
             OFF -> view.setBackgroundResource(R.drawable.ic_play_circle_filled_black_24dp)
             RESTART -> view.setBackgroundResource(R.drawable.ic_replay_black_24dp)

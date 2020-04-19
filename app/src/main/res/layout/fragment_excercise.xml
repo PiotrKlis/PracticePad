@@ -18,8 +18,8 @@
 			type="com.piotr.practicepad.timers.ExerciseSetTimer" />
 		
 		<variable
-			name="practiceState"
-			type="com.piotr.practicepad.exercise.PracticeState" />
+			name="practice"
+			type="com.piotr.practicepad.PracticeState" />
 	
 	</data>
 	
@@ -151,7 +151,7 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:setImageButton="@{practiceState.state}"
+			app:setImageButton="@{practice.state}"
 			tools:src="@drawable/ic_play_circle_filled_black_24dp" />
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>

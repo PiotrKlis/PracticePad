@@ -3,8 +3,9 @@ package com.piotr.practicepad.exercise
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.piotr.practicepad.PracticeState
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
-import com.piotr.practicepad.exercise.PracticeState.State.*
+import com.piotr.practicepad.PracticeState.State.*
 import com.piotr.practicepad.exerciseList.ExerciseSet
 import com.piotr.practicepad.extensions.getNextExerciseName
 import com.piotr.practicepad.ui.main.utils.Event

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.piotr.practicepad.PracticeState
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExcerciseBinding
 import com.piotr.practicepad.extensions.viewModelProvider
@@ -20,14 +21,18 @@ import javax.inject.Inject
 class ExerciseFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var exerciseViewModel: ExerciseViewModel
+
     @Inject
     lateinit var exerciseSetTimer: ExerciseSetTimer
+
     @Inject
     lateinit var exerciseTimer: ExerciseTimer
+
     @Inject
     lateinit var metronome: Metronome
-    val practiceState = PracticeState()
+
+    private lateinit var exerciseViewModel: ExerciseViewModel
+    private val practiceState = PracticeState()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,18 +48,8 @@ class ExerciseFragment : DaggerFragment() {
         exerciseViewModel.renderExerciseSet()
         exerciseViewModel.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
-                is ExerciseEvent.PowerClick -> {
-                    exerciseTimer.handleClick(event.state)
-                    exerciseSetTimer.handleClick(event.state)
-                    metronome.handleClick(event.state)
-                    practiceState.handleClick(event.state)
-                }
-                is ExerciseEvent.OnPause -> {
-                    exerciseTimer.onPause()
-                    exerciseSetTimer.onPause()
-                    metronome.onPause()
-                    practiceState.onPause()
-                }
+                is ExerciseEvent.PowerClick -> handleClick(event)
+                is ExerciseEvent.OnPause -> handleOnPause()
             }
         }
     }
@@ -62,6 +57,20 @@ class ExerciseFragment : DaggerFragment() {
     override fun onPause() {
         exerciseViewModel.onPause()
         super.onPause()
+    }
+
+    private fun handleOnPause() {
+        exerciseTimer.onPause()
+        exerciseSetTimer.onPause()
+        metronome.onPause()
+        practiceState.onPause()
+    }
+
+    private fun handleClick(event: ExerciseEvent.PowerClick) {
+        exerciseTimer.handleClick(event.state)
+        exerciseSetTimer.handleClick(event.state)
+        metronome.handleClick(event.state)
+        practiceState.handleClick(event.state)
     }
 
     private fun getBinding(
@@ -75,6 +84,7 @@ class ExerciseFragment : DaggerFragment() {
             viewmodel = exerciseViewModel
             exerciseSetTimer = exerciseSetTimer
             exerciseTimer = exerciseTimer
+            practice = practiceState
         }
         return binding
     }
