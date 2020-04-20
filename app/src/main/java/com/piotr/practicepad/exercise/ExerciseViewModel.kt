@@ -19,13 +19,12 @@ class ExerciseViewModel @Inject constructor(private val exerciseSetRepository: E
 
     private val mutableState = MutableLiveData<ExerciseState>().apply { value = ExerciseState() }
     private val mutableEvent = MutableLiveData<Event<ExerciseEvent>>()
-    private val practiceState = PracticeState()
     private var currentExerciseSetId: Int? = null
 
     fun renderExerciseSet() {
         exerciseSetRepository.getActiveSet().let { activeExerciseSet ->
             if (currentExerciseSetId != activeExerciseSet.id) {
-                mutableState.value = getFirstExercise(activeExerciseSet)
+                mutableState.value = getExercise(activeExerciseSet, FIRST_ITEM)
                 currentExerciseSetId = activeExerciseSet.id
             }
         }
@@ -46,20 +45,26 @@ class ExerciseViewModel @Inject constructor(private val exerciseSetRepository: E
         mutableEvent.value = Event(ExerciseEvent.OnPause)
     }
 
-    private fun restart() {
-        exerciseSetRepository.getActiveSet().let { activeExerciseSet ->
-            mutableState.value = getFirstExercise(activeExerciseSet)
+    fun renderNextExercise(position: Int) {
+        exerciseSetRepository.getActiveSet().let { exerciseSet ->
+            mutableState.value = getExercise(exerciseSet, position)
         }
     }
 
-    private fun getFirstExercise(exerciseSet: ExerciseSet): ExerciseState {
+    private fun restart() {
+        exerciseSetRepository.getActiveSet().let { activeExerciseSet ->
+            mutableState.value = getExercise(activeExerciseSet, FIRST_ITEM)
+        }
+    }
+
+    private fun getExercise(exerciseSet: ExerciseSet, position: Int): ExerciseState {
         return ExerciseState(
             setName = exerciseSet.name,
-            exerciseImage = exerciseSet.exerciseList[FIRST_ITEM].image,
-            exerciseName = exerciseSet.exerciseList[FIRST_ITEM].name,
-            nextExerciseName = exerciseSet.exerciseList.getNextExerciseName(FIRST_ITEM),
-            exercisesLeft = Pair(FIRST_ITEM, exerciseSet.exerciseList.size),
-            currentExerciseIndex = FIRST_ITEM,
+            exerciseImage = exerciseSet.exerciseList[position].image,
+            exerciseName = exerciseSet.exerciseList[position].name,
+            nextExerciseName = exerciseSet.exerciseList.getNextExerciseName(position),
+            exercisesLeft = Pair(position, exerciseSet.exerciseList.size),
+            currentExerciseIndex = position,
             exerciseList = exerciseSet.exerciseList,
             tempo = exerciseSet.tempo.toLong()
         )

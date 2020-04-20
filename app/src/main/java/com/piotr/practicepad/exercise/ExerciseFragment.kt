@@ -51,11 +51,21 @@ class ExerciseFragment : DaggerFragment() {
                 is ExerciseEvent.OnPause -> handleOnPause()
             }
         }
+        _exerciseTimer.event.observeEvent(viewLifecycleOwner) { event ->
+            when (event) {
+                is ExerciseEvent.NextExercise -> handleNextExercise(event.position)
+            }
+        }
     }
 
     override fun onPause() {
         exerciseViewModel.onPause()
         super.onPause()
+    }
+
+    private fun handleNextExercise(position: Int) {
+        _exerciseTimer.startNextExercise(position)
+        exerciseViewModel.renderNextExercise(position)
     }
 
     private fun handleOnPause() {
