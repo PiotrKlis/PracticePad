@@ -19,12 +19,15 @@ class ExerciseSetTimer {
 
     fun setData(time: Long) {
         mutableData.value = time
-        createNewTimer(time)
+        createNewTimer()
     }
 
     fun handleClick(state: State) {
         when (state) {
-            ON, RESTART -> timer.start()
+            ON, RESTART -> {
+                createNewTimer()
+                timer.start()
+            }
             OFF -> timer.cancel()
         }
     }
@@ -33,18 +36,20 @@ class ExerciseSetTimer {
         timer.cancel()
     }
 
-    private fun createNewTimer(time: Long) {
-        timer = object : CountDownTimer(
-            time,
-            ONE_SECOND
-        ) {
-            override fun onFinish() {
-                mutableEvent.value = Event(ExerciseEvent.SetEnded)
-                cancel()
-            }
+    private fun createNewTimer() {
+        data.value?.let { time ->
+            timer = object : CountDownTimer(
+                time,
+                ONE_SECOND
+            ) {
+                override fun onFinish() {
+                    mutableEvent.value = Event(ExerciseEvent.SetEnded)
+                    cancel()
+                }
 
-            override fun onTick(millisUntilFinished: Long) {
-                mutableData.value = millisUntilFinished
+                override fun onTick(millisUntilFinished: Long) {
+                    mutableData.value = millisUntilFinished
+                }
             }
         }
     }

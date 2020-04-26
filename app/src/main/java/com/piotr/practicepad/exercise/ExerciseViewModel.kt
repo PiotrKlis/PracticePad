@@ -66,6 +66,7 @@ class ExerciseViewModel @Inject constructor(
     fun setEnded() {
         metronome.stop()
         practiceState.setState(RESTART)
+        exerciseTimer.setEnded()
     }
 
     private fun startPractice() {

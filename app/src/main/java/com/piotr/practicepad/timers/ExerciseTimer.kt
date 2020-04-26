@@ -16,18 +16,20 @@ class ExerciseTimer {
     private val mutableData = MutableLiveData<Long>()
     val event: LiveData<Event<ExerciseEvent>> get() = mutableEvent
     private val mutableEvent = MutableLiveData<Event<ExerciseEvent>>()
-
     private lateinit var timer: CountDownTimer
     private var position = FIRST_ITEM
 
     fun setData(time: Long) {
         mutableData.value = time
-        createNewTimer(time)
+        createNewTimer()
     }
 
     fun handleClick(state: PracticeState.State) {
         when (state) {
-            ON, RESTART -> timer.start()
+            ON, RESTART -> {
+                createNewTimer()
+                timer.start()
+            }
             OFF -> timer.cancel()
         }
     }
@@ -37,22 +39,29 @@ class ExerciseTimer {
     }
 
     fun startNextExercise(time: Long) {
-        createNewTimer(time)
+        mutableData.value = time
+        createNewTimer()
         timer.start()
     }
 
-    private fun createNewTimer(time: Long) {
-        timer = object : CountDownTimer(
-            time,
-            ONE_SECOND
-        ) {
-            override fun onFinish() {
+    fun setEnded() {
+        position = FIRST_ITEM
+    }
+
+    private fun createNewTimer() {
+        data.value?.let { time ->
+            timer = object : CountDownTimer(
+                time,
+                ONE_SECOND
+            ) {
+                override fun onFinish() {
                     position += 1
                     mutableEvent.value = Event(ExerciseEvent.NextExercise(position))
-            }
+                }
 
-            override fun onTick(millisUntilFinished: Long) {
-                mutableData.value = millisUntilFinished
+                override fun onTick(millisUntilFinished: Long) {
+                    mutableData.value = millisUntilFinished
+                }
             }
         }
     }

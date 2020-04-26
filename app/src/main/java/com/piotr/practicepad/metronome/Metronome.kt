@@ -9,7 +9,6 @@ import javax.inject.Inject
 class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
     private var timer = Timer()
     private var tempo: Long = -1
-    private lateinit var timerTask: TimerTask
 
     fun setData(tempo: Int) {
         this.tempo = tempo.toLong()
