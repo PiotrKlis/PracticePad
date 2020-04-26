@@ -17,14 +17,13 @@ private const val FIRST_ITEM = 0
 
 class ExerciseViewModel @Inject constructor(
     private val exerciseSetRepository: ExerciseSetRepository,
-    private val metronome: Metronome
+    private val metronome: Metronome,
+    val exerciseTimer: ExerciseTimer,
+    val exerciseSetTimer: ExerciseSetTimer,
+    val practiceState: PracticeState
 ) : ViewModel() {
     val state: LiveData<ExerciseState> get() = mutableState
     private val mutableState = MutableLiveData<ExerciseState>().apply { value = ExerciseState() }
-
-    private val exerciseTimer = ExerciseTimer()
-    private val exerciseSetTimer = ExerciseSetTimer()
-    private val practiceState = PracticeState()
     private var activeSetId: Int? = null
 
     fun renderActiveExerciseSet() {
@@ -87,6 +86,7 @@ class ExerciseViewModel @Inject constructor(
         mutableState.value = getExercise(activeExerciseSet, FIRST_ITEM)
         exerciseTimer.setData(activeExerciseSet.exerciseList[FIRST_ITEM].time)
         exerciseSetTimer.setData(activeExerciseSet.exerciseList.getOverallTime())
+        metronome.setData(activeExerciseSet.tempo)
     }
 
     private fun getExercise(exerciseSet: ExerciseSet, position: Int): ExerciseState {

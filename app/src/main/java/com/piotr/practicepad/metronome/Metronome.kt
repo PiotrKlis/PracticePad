@@ -6,26 +6,20 @@ import com.piotr.practicepad.exercise.PracticeState.State.*
 import java.util.*
 import javax.inject.Inject
 
-class Metronome @Inject constructor(
-    private val mediaPlayer: MediaPlayer
-) {
-    private val timer = Timer()
-    private var timerTask: TimerTask = object : TimerTask() {
-        override fun run() {
-            mediaPlayer.start()
-        }
+class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
+    private var timer = Timer()
+    private var tempo: Long = -1
+    private lateinit var timerTask: TimerTask
 
-        override fun cancel(): Boolean {
-            mediaPlayer.pause()
-            return super.cancel()
-        }
+    fun setData(tempo: Int) {
+        this.tempo = tempo.toLong()
     }
 
-    fun handleClick(state: State, tempo: Int = 0) {
+    fun handleClick(state: State) {
         when (state) {
-            ON -> runMetronome(tempo)
+            ON -> runMetronome()
             OFF -> timer.cancel()
-            RESTART -> runMetronome(tempo)
+            RESTART -> runMetronome()
         }
     }
 
@@ -33,9 +27,21 @@ class Metronome @Inject constructor(
         timer.cancel()
     }
 
-    private fun runMetronome(tempo: Int) {
-        timerTask.cancel()
-        timer.scheduleAtFixedRate(timerTask, 0, tempo.toLong())
+    private fun runMetronome() {
+        timer = Timer()
+        timer.scheduleAtFixedRate(getTimerTask(), 0, tempo)
     }
 
+    private fun getTimerTask(): TimerTask {
+        return object : TimerTask() {
+            override fun run() {
+                mediaPlayer.start()
+            }
+
+            override fun cancel(): Boolean {
+                mediaPlayer.pause()
+                return super.cancel()
+            }
+        }
+    }
 }
