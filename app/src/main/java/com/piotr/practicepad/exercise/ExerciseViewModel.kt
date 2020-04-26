@@ -7,54 +7,86 @@ import com.piotr.practicepad.data.repository.ExerciseSetRepository
 import com.piotr.practicepad.exercise.PracticeState.State.*
 import com.piotr.practicepad.exerciseList.ExerciseSet
 import com.piotr.practicepad.extensions.getNextExerciseName
-import com.piotr.practicepad.ui.main.utils.Event
+import com.piotr.practicepad.extensions.getOverallTime
+import com.piotr.practicepad.metronome.Metronome
+import com.piotr.practicepad.timers.ExerciseSetTimer
+import com.piotr.practicepad.timers.ExerciseTimer
 import javax.inject.Inject
 
 private const val FIRST_ITEM = 0
 
-class ExerciseViewModel @Inject constructor(private val exerciseSetRepository: ExerciseSetRepository) :
-    ViewModel() {
-    val event: LiveData<Event<ExerciseEvent>> get() = mutableEvent
+class ExerciseViewModel @Inject constructor(
+    private val exerciseSetRepository: ExerciseSetRepository,
+    private val metronome: Metronome
+) : ViewModel() {
     val state: LiveData<ExerciseState> get() = mutableState
-
     private val mutableState = MutableLiveData<ExerciseState>().apply { value = ExerciseState() }
-    private val mutableEvent = MutableLiveData<Event<ExerciseEvent>>()
-    private var currentExerciseSetId: Int? = null
 
-    fun renderExerciseSet() {
-        exerciseSetRepository.getActiveSet().let { activeExerciseSet ->
-            if (currentExerciseSetId != activeExerciseSet.id) {
-                mutableState.value = getExercise(activeExerciseSet, FIRST_ITEM)
-                currentExerciseSetId = activeExerciseSet.id
+    private val exerciseTimer = ExerciseTimer()
+    private val exerciseSetTimer = ExerciseSetTimer()
+    private val practiceState = PracticeState()
+    private var activeSetId: Int? = null
+
+    fun renderActiveExerciseSet() {
+        exerciseSetRepository.getActiveSet().let { activeSet ->
+            if (activeSetId != activeSet.id) {
+                renderFirstItem(exerciseSetRepository.getActiveSet())
+                activeSetId = activeSet.id
             }
         }
     }
 
     fun powerClick(state: PracticeState.State) {
         when (state) {
-            ON -> mutableEvent.value = Event(ExerciseEvent.PowerClick(OFF))
-            OFF -> mutableEvent.value = Event(ExerciseEvent.PowerClick(ON))
+            ON -> pausePractice()
+            OFF -> startPractice()
             RESTART -> {
-                mutableEvent.value = Event(ExerciseEvent.PowerClick(ON))
-                restart()
+                renderFirstItem(exerciseSetRepository.getActiveSet())
+                startPractice()
             }
         }
     }
 
     fun onPause() {
-        mutableEvent.value = Event(ExerciseEvent.OnPause)
+        exerciseTimer.onPause()
+        exerciseSetTimer.onPause()
+        metronome.stop()
+        practiceState.onPause()
     }
 
     fun renderNextExercise(position: Int) {
-        exerciseSetRepository.getActiveSet().let { exerciseSet ->
-            mutableState.value = getExercise(exerciseSet, position)
+        val activeSet = exerciseSetRepository.getActiveSet()
+        if (activeSet.shouldStartNewTimer(position)) {
+            mutableState.value = getExercise(activeSet, position)
+            exerciseTimer.startNextExercise(activeSet.exerciseList[position].time)
+        } else {
+            practiceState.setState(RESTART)
         }
     }
 
-    private fun restart() {
-        exerciseSetRepository.getActiveSet().let { activeExerciseSet ->
-            mutableState.value = getExercise(activeExerciseSet, FIRST_ITEM)
-        }
+    fun setEnded() {
+        metronome.stop()
+        practiceState.setState(RESTART)
+    }
+
+    private fun startPractice() {
+        exerciseTimer.handleClick(ON)
+        exerciseSetTimer.handleClick(ON)
+        metronome.handleClick(ON)
+        practiceState.setState(ON)
+    }
+
+    private fun pausePractice() {
+        exerciseTimer.handleClick(OFF)
+        exerciseSetTimer.handleClick(OFF)
+        metronome.handleClick(OFF)
+        practiceState.setState(OFF)
+    }
+
+    private fun renderFirstItem(activeExerciseSet: ExerciseSet) {
+        mutableState.value = getExercise(activeExerciseSet, FIRST_ITEM)
+        exerciseTimer.setData(activeExerciseSet.exerciseList[FIRST_ITEM].time)
+        exerciseSetTimer.setData(activeExerciseSet.exerciseList.getOverallTime())
     }
 
     private fun getExercise(exerciseSet: ExerciseSet, position: Int): ExerciseState {

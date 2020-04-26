@@ -12,7 +12,7 @@ class PracticeState {
         mutableState.value = OFF
     }
 
-    fun handleClick(state: State) {
+    fun setState(state: State) {
         when (state) {
             ON -> mutableState.value = ON
             OFF -> mutableState.value = OFF

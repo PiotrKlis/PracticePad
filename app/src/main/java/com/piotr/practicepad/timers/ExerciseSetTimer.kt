@@ -3,27 +3,29 @@ package com.piotr.practicepad.timers
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.piotr.practicepad.data.repository.ExerciseSetRepository
+import com.piotr.practicepad.exercise.ExerciseEvent
 import com.piotr.practicepad.exercise.PracticeState.State
 import com.piotr.practicepad.exercise.PracticeState.State.*
-import com.piotr.practicepad.extensions.getOverallTime
-import javax.inject.Inject
+import com.piotr.practicepad.ui.main.utils.Event
 
 private const val ONE_SECOND = 1000L
 
-class ExerciseSetTimer @Inject constructor(private val exerciseSetRepository: ExerciseSetRepository) {
+class ExerciseSetTimer {
     val data: LiveData<Long> get() = mutableData
     private val mutableData: MutableLiveData<Long> = MutableLiveData<Long>()
+    val event: LiveData<Event<ExerciseEvent>> get() = mutableEvent
+    private val mutableEvent = MutableLiveData<Event<ExerciseEvent>>()
+    private lateinit var timer: CountDownTimer
 
-    init {
-        mutableData.value = exerciseSetRepository.getActiveSet().exerciseList.getOverallTime()
+    fun setData(time: Long) {
+        mutableData.value = time
+        createNewTimer(time)
     }
 
     fun handleClick(state: State) {
         when (state) {
-            ON -> timer.start()
+            ON, RESTART -> timer.start()
             OFF -> timer.cancel()
-            RESTART -> timer.start()
         }
     }
 
@@ -31,16 +33,19 @@ class ExerciseSetTimer @Inject constructor(private val exerciseSetRepository: Ex
         timer.cancel()
     }
 
-    private val timer = object : CountDownTimer(
-        exerciseSetRepository.getActiveSet().exerciseList.getOverallTime(),
-        ONE_SECOND
-    ) {
-        override fun onFinish() {
-            cancel()
-        }
+    private fun createNewTimer(time: Long) {
+        timer = object : CountDownTimer(
+            time,
+            ONE_SECOND
+        ) {
+            override fun onFinish() {
+                mutableEvent.value = Event(ExerciseEvent.SetEnded)
+                cancel()
+            }
 
-        override fun onTick(millisUntilFinished: Long) {
-            mutableData.value = millisUntilFinished
+            override fun onTick(millisUntilFinished: Long) {
+                mutableData.value = millisUntilFinished
+            }
         }
     }
 }

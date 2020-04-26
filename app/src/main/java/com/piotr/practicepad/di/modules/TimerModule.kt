@@ -1,6 +1,5 @@
 package com.piotr.practicepad.di.modules
 
-import com.piotr.practicepad.data.repository.ExerciseSetRepository
 import com.piotr.practicepad.timers.ExerciseSetTimer
 import com.piotr.practicepad.timers.ExerciseTimer
 import dagger.Module
@@ -10,10 +9,8 @@ import dagger.Provides
 class TimerModule {
 
     @Provides
-    fun bindsExerciseSetTimer(exerciseSetRepository: ExerciseSetRepository): ExerciseSetTimer =
-        ExerciseSetTimer(exerciseSetRepository)
+    fun bindsExerciseSetTimer(): ExerciseSetTimer = ExerciseSetTimer()
 
     @Provides
-    fun bindsExerciseTimer(exerciseSetRepository: ExerciseSetRepository): ExerciseTimer =
-        ExerciseTimer(exerciseSetRepository)
+    fun bindsExerciseTimer(): ExerciseTimer = ExerciseTimer()
 }

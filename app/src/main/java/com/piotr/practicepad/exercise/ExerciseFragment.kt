@@ -44,16 +44,15 @@ class ExerciseFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        exerciseViewModel.renderExerciseSet()
-        exerciseViewModel.event.observeEvent(viewLifecycleOwner) { event ->
-            when (event) {
-                is ExerciseEvent.PowerClick -> handleClick(event)
-                is ExerciseEvent.OnPause -> handleOnPause()
-            }
-        }
+        exerciseViewModel.renderActiveExerciseSet()
         _exerciseTimer.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
-                is ExerciseEvent.NextExercise -> handleNextExercise(event.position)
+                is ExerciseEvent.NextExercise -> exerciseViewModel.renderNextExercise(event.position)
+            }
+        }
+        _exerciseSetTimer.event.observeEvent(viewLifecycleOwner) { event ->
+            when (event) {
+                is ExerciseEvent.SetEnded -> exerciseViewModel.setEnded()
             }
         }
     }
@@ -61,25 +60,6 @@ class ExerciseFragment : DaggerFragment() {
     override fun onPause() {
         exerciseViewModel.onPause()
         super.onPause()
-    }
-
-    private fun handleNextExercise(position: Int) {
-        _exerciseTimer.startNextExercise(position)
-        exerciseViewModel.renderNextExercise(position)
-    }
-
-    private fun handleOnPause() {
-        _exerciseTimer.onPause()
-        _exerciseSetTimer.onPause()
-        metronome.onPause()
-        practiceState.onPause()
-    }
-
-    private fun handleClick(event: ExerciseEvent.PowerClick) {
-        _exerciseTimer.handleClick(event.state)
-        _exerciseSetTimer.handleClick(event.state)
-        metronome.handleClick(event.state)
-        practiceState.handleClick(event.state)
     }
 
     private fun getBinding(
