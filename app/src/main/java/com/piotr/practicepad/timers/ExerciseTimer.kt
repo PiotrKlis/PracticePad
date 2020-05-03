@@ -27,6 +27,7 @@ class ExerciseTimer {
     fun handleClick(state: PracticeState.State) {
         when (state) {
             ON, RESTART -> {
+                position = FIRST_ITEM
                 createNewTimer()
                 timer.start()
             }
@@ -42,10 +43,6 @@ class ExerciseTimer {
         mutableData.value = time
         createNewTimer()
         timer.start()
-    }
-
-    fun setEnded() {
-        position = FIRST_ITEM
     }
 
     private fun createNewTimer() {

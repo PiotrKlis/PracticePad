@@ -6,11 +6,7 @@ import com.piotr.practicepad.exercise.PracticeState.State.*
 
 class PracticeState {
     val state: LiveData<State> get() = mutableState
-    private val mutableState = MutableLiveData<State>()
-
-    init {
-        mutableState.value = OFF
-    }
+    private val mutableState = MutableLiveData(OFF)
 
     fun setState(state: State) {
         when (state) {
@@ -21,7 +17,11 @@ class PracticeState {
     }
 
     fun onPause() {
-        mutableState.value = OFF
+        when (mutableState.value) {
+            ON -> mutableState.value = OFF
+            OFF -> mutableState.value = OFF
+            RESTART -> mutableState.value = RESTART
+        }
     }
 
     enum class State {

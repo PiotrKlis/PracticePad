@@ -55,7 +55,7 @@ class ExerciseViewModel @Inject constructor(
 
     fun renderNextExercise(position: Int) {
         val activeSet = exerciseSetRepository.getActiveSet()
-        if (activeSet.shouldStartNewTimer(position)) {
+        if (activeSet.shouldStartNextExercise(position)) {
             mutableState.value = getExercise(activeSet, position)
             exerciseTimer.startNextExercise(activeSet.exerciseList[position].time)
         } else {
@@ -66,7 +66,6 @@ class ExerciseViewModel @Inject constructor(
     fun setEnded() {
         metronome.stop()
         practiceState.setState(RESTART)
-        exerciseTimer.setEnded()
     }
 
     private fun startPractice() {

@@ -11,7 +11,8 @@ enum class ExerciseSetData(
     EVERY_DAY(0, "Every Day Practice", everyDayPractice, 110),
     SHORT_WARMUP(1, "Short Warmup", shortWarmUp, 120),
     FLAM_EXERCISE(2, "Flam Exercises", flamExercises, 90),
-    DRAG_EXERCISE(3, "Drag Exercises", dragExercises, 110)
+    DRAG_EXERCISE(3, "Drag Exercises", dragExercises, 110),
+    TEST(4, "Test Exercises", test, 110)
 }
 
 private val everyDayPractice = listOf(
@@ -62,6 +63,13 @@ private val dragExercises = listOf(
     ExerciseData(4, SINGLE_RATAMACUE),
     ExerciseData(4, DOUBLE_RATAMACUE),
     ExerciseData(4, TRIPLE_RATAMACUE)
+)
+
+private val test = listOf(
+    ExerciseData(1, DRAG),
+    ExerciseData(1, SINGLE_DRAG_TAP),
+    ExerciseData(1, DOUBLE_DRAG_TAP),
+    ExerciseData(1, LESSON_25)
 )
 
 private fun getMediumWarmUp(): List<ExerciseData> = listOf()
