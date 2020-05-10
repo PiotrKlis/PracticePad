@@ -5,6 +5,10 @@ import com.piotr.practicepad.exercise.PracticeState.State
 import com.piotr.practicepad.exercise.PracticeState.State.*
 import java.util.*
 import javax.inject.Inject
+import kotlin.concurrent.timerTask
+
+private const val MILLISECONDS_IN_SECOND: Int = 1000
+private const val SECONDS_IN_MINUTE: Int = 60
 
 class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
     private var timer = Timer()
@@ -26,21 +30,13 @@ class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
         timer.cancel()
     }
 
+    private fun bpmToMiliseconds(bpm: Long): Long =
+        (MILLISECONDS_IN_SECOND * (SECONDS_IN_MINUTE / bpm.toDouble())).toLong()
+
     private fun runMetronome() {
         timer = Timer()
-        timer.scheduleAtFixedRate(getTimerTask(), 0, tempo)
-    }
-
-    private fun getTimerTask(): TimerTask {
-        return object : TimerTask() {
-            override fun run() {
-                mediaPlayer.start()
-            }
-
-            override fun cancel(): Boolean {
-                mediaPlayer.pause()
-                return super.cancel()
-            }
-        }
+        timer.schedule(timerTask {
+            mediaPlayer.start()
+        }, 0L, bpmToMiliseconds(tempo))
     }
 }
