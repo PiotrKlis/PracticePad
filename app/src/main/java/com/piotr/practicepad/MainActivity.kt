@@ -37,6 +37,7 @@ class MainActivity : DaggerAppCompatActivity() {
 *  - Create at least 6 valid Exercise Sets
 *  - Test the app (list bugs)
 *  - Design adjustment
+*  - Testy! Unit + UI
 *  - Test on other devices
 *  - MVP?
 *  - Further refactor? (pass callback to timers instead of events to fragment)
