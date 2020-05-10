@@ -19,10 +19,7 @@ class ExerciseListFragment : DaggerFragment(), CheckBoxHandler {
     @Inject
     lateinit var sharedPrefs: SharedPrefs
     private lateinit var viewModel: ExerciseSetViewModel
-    private var adapter: ExerciseSetAdapter =
-        ExerciseSetAdapter(
-            this
-        )
+    private var adapter: ExerciseSetAdapter = ExerciseSetAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
