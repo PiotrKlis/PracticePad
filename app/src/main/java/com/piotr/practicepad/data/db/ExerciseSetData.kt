@@ -8,73 +8,43 @@ enum class ExerciseSetData(
     val exerciseDataList: List<ExerciseData>,
     val tempo: Int
 ) {
-    EVERY_DAY_PRACTICE(0, "Every Day Practice", everyDayPractice, 110),
-    SHORT_WARMUP(1, "Short Warmup", shortWarmUp, 120),
-    FLAM_EXERCISE(2, "Flam Exercises", flamExercises, 90),
-    DRAG_EXERCISE(3, "Drag Exercises", dragExercises, 110),
-    TIMING(4, "Test Exercises", test, 110),
-    LEFT_HAND(5, "Test Exercises", test, 110),
-    RIGHT_HAND(6, "Test Exercises", test, 110),
-    SPEED(7, "Test Exercises", test, 110),
-    DOUBLES_4800(8, "Test Exercises", test, 110),
+    EVERY_DAY(0, "", emptyList(), 0)
+//    SINGLE_STROKE_PRESSURE(0, "Single Stroke Left & Right Hand Pressure", , 110),
+
 }
+/*- Quarter; 30s
+- 8th left; 30s
+- 8th right; 30s
+- 16th; 30s
+- Single stroke four; 30s
+- Single stroke seven; 30s
+- 16th; 30s
+- 8th left; 30s
+- 8th right; 30s
+- 16th 30s
+- Single stroke four; 30s
+- Single stroke seven; 30s
+- 16th; 30s
+- Quarter
+- 8th left; 30s
+- 8th right; 30s
+- 16th 30s
+- Single stroke four; 30s
+- Single stroke seven; 30s
+- 16th; 30s
+- 8th left; 30s
+- 8th right; 30s
+- 16th 30s
+- Single stroke four; 30s
+- Single stroke seven; 30s
+- 16th; 30s
+- 8th left; 30s
+- 8th right; 30s
+- Single stroke four; 30s
+- Single stroke seven; 30s
+- 16th*/
 
-private val everyDayPractice = listOf(
-    ExerciseData(6, SINGLE_STROKE_ROLL),
-    ExerciseData(12, DOUBLES),
-    ExerciseData(9, TRIPLETS),
-    ExerciseData(12, SINGLE_STROKE_ROLL),
-    ExerciseData(18, DOUBLES),
-    ExerciseData(9, SINGLE_STROKE_ROLL),
-    ExerciseData(9, SINGLE_PARADIDDLE)
-)
-
-private val shortWarmUp = listOf(
-    ExerciseData(3, SINGLE_STROKE_ROLL),
-    ExerciseData(3, DOUBLES),
-    ExerciseData(3, SINGLE_PARADIDDLE),
-    ExerciseData(3, SINGLE_PARADIDDLE_DIDDLE),
-    ExerciseData(3, TRIPLE_PARADIDDLE),
-    ExerciseData(3, SINGLE_STROKE_ROLL),
-    ExerciseData(3, DOUBLES),
-    ExerciseData(3, SINGLE_PARADIDDLE),
-    ExerciseData(3, SINGLE_PARADIDDLE_DIDDLE),
-    ExerciseData(3, TRIPLE_PARADIDDLE)
-)
-
-private val flamExercises = listOf(
-    ExerciseData(3, FLAM),
-    ExerciseData(6, FLAM_ACCENT),
-    ExerciseData(6, FLAM_TAP),
-    ExerciseData(6, FLAMACUE),
-    ExerciseData(6, FLAM_PARADIDDLE),
-    ExerciseData(6, SINGLE_FLAMMED_MILL),
-    ExerciseData(6, FLAM_PARADIDDLE_DIDDLE),
-    ExerciseData(6, PATAFLAFLA),
-    ExerciseData(3, SWISS_ARMY_TRIPLET),
-    ExerciseData(6, INVERTED_FLAM_TAP),
-    ExerciseData(6, FLAM_DRAG)
-)
-
-private val dragExercises = listOf(
-    ExerciseData(3, DRAG),
-    ExerciseData(4, SINGLE_DRAG_TAP),
-    ExerciseData(4, DOUBLE_DRAG_TAP),
-    ExerciseData(6, LESSON_25),
-    ExerciseData(6, SINGLE_DRAGADIDDLE),
-    ExerciseData(4, DRAG_PARADIDDLE_1),
-    ExerciseData(4, DRAG_PARADIDDLE_2),
-    ExerciseData(4, SINGLE_RATAMACUE),
-    ExerciseData(4, DOUBLE_RATAMACUE),
-    ExerciseData(4, TRIPLE_RATAMACUE)
-)
-
-private val test = listOf(
-    ExerciseData(1, DRAG),
-    ExerciseData(1, SINGLE_DRAG_TAP),
-    ExerciseData(1, DOUBLE_DRAG_TAP),
-    ExerciseData(1, LESSON_25)
-)
+private val singleStrokePressure = ""
 
 private fun getMediumWarmUp(): List<ExerciseData> = listOf()
 private fun getLongWarmUp(): List<ExerciseData> = listOf()

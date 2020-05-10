@@ -3,48 +3,40 @@ package com.piotr.practicepad.data.db
 import com.piotr.practicepad.R
 
 enum class ExerciseEnum(val title: String, val image: Int) {
-    DOUBLE_DRAG_TAP("Double Drag Tap", R.drawable.double_),
-    DOUBLE_PARADIDDLE("Double Paradiddle", R.drawable.nuty_16th_doubles_01),
-    DOUBLE_RATAMACUE("Double Ratamacue", R.drawable.nuty_16th_triplets_01),
-    DRAG("Drag", R.drawable.nuty_drag_01),
-    DRAG_PARADIDDLE_1("Drag Paradiddle 1", R.drawable.nuty_drag_paradiddle_1_01),
-    DRAG_PARADIDDLE_2("Drag Paradiddle 2", R.drawable.nuty_drag_paradiddle_1_01),
-    ELEVEN_STROKE_ROLL("Eleven Stroke Roll", R.drawable.nuty_16th_doubles_01),
-    FIFTEEN_STROKE_ROLL("Fifteen Stroke Roll", R.drawable.nuty_8th_inverted_01),
-    FLAM("Flam", R.drawable.nuty_flam_01),
-    FLAM_ACCENT("Flam Accent", R.drawable.nuty_flam_accent_01),
-    FLAM_DRAG("Flam Drag", R.drawable.nuty_flam_drag_01),
-    FLAM_PARADIDDLE("Flam Paraiddle", R.drawable.nuty_flam_paradiddle_01),
-    FLAM_PARADIDDLE_DIDDLE("Flam Paradiddle Diddle", R.drawable.nuty_single_paradiddle_diddle_01),
-    FLAM_TAP("Flam Tap", R.drawable.nuty_flam_tap_01),
-    FLAMACUE("Flamacue", R.drawable.nuty_flam_accent_01),
-    INVERTED_FLAM_TAP("Inverted Flam Tap", R.drawable.nuty_8th_inverted_01),
-    LESSON_25("Lesson 25", R.drawable.nuty_8th_left_01),
-    NINE_STROKE_ROLL("Nine Stroke Roll", R.drawable.nuty_8th_inverted_01),
-    PATAFLAFLA("Pataflafla", R.drawable.nuty_pataflafla_01),
-    SINGLE_DRAG_TAP("Single Drag Tap", R.drawable.nuty_single_drag_tap_01),
-    SINGLE_DRAGADIDDLE("Single Dragadiddle", R.drawable.nuty_single_dragadiddle_01),
-    SINGLE_FLAMMED_MILL("Single Flammed Mill", R.drawable.nuty_single_flammed_mill_01),
-    SINGLE_PARADIDDLE("Single Paradiddle", R.drawable.nuty_single_paradiddle_01),
-    SINGLE_PARADIDDLE_DIDDLE("Single Paradiddle Diddle", R.drawable.nuty_single_paradiddle_diddle_01),
-    SINGLE_RATAMACUE("Single Ratamacue", R.drawable.nuty_readme_01),
-    SWISS_ARMY_TRIPLET("Swiss Army Triplet", R.drawable.nuty_single_paradiddle_diddle_01),
-    TEN_STROKE_ROLL("Ten Stroke Roll", R.drawable.nuty_triola_both_hands_01),
-    THRITEEN_STROKE_ROLL("Thirteen Stroke Roll", R.drawable.nuty_8th_inverted_01),
-    TRIPLE_PARADIDDLE("Triple Paraddle", R.drawable.nuty_triple_stroke_roll_01),
-    TRIPLE_RATAMACUE("Triple Ratamacue", R.drawable.nuty_triola_both_hands_01),
-    SINGLE_STROKE_ROLL("Single Stroke Roll", R.drawable.nuty_triple_stroke_roll_01),
-    SINGLE_STROKE_FOUR("Single Stroke Four", R.drawable.nuty_single_stroke_four_01),
-    SINGLE_STROKE_SEVEN("Single Stroke Seven", R.drawable.nuty_single_stroke_seven_01),
-    MULTIPLE_BOUNCE_ROLL("Multiple Bounce Roll", R.drawable.nuty_triple_stroke_roll_01),
-    TRIPLE_STROKE_ROLL("Triple Stroke Roll", R.drawable.nuty_triple_stroke_roll_01),
-    DOUBLE_STROKE_OPEN_ROLL("Double Stroke Open Roll", R.drawable.nuty_single_stroke_seven_01),
-    FIVE_STROKE_ROLL("Five Stroke Roll", R.drawable.nuty_flam_accent_01),
-    SIX_STROKE_ROLL("Six Stroke Roll", R.drawable.nuty_paradiddle_sixtuplets_01),
-    SEVEN_STROKE_ROLL("Seven Stroke Roll", R.drawable.nuty_single_stroke_seven_01),
-    DOUBLES("Doubles", R.drawable.nuty_doubles_01),
-    TRIPLETS("Triplets", R.drawable.nuty_triple_stroke_roll_01),
-    EMPTY("EMPTY", R.drawable.empty)
 }
 
 data class ExerciseData(val time: Long, val exerciseData: ExerciseEnum)
+
+/*8th inverted
+8th left
+8th right
+doubles
+Triola both hands
+
+16th
+16th doubles
+16 paradiddle
+
+16th triplets
+16th triplets paradiddle
+16h triplets pradidle_diddle
+Single stroke four
+Single stroke seven
+Triola one hand
+Triple stroke roll
+Single army triplet
+
+Drag
+Drag paradiddle
+Drag paradiddle 2
+Single drag tap
+Single dragadiddle
+
+
+Flam accent
+Flam drag
+Flam paradiddle
+Flam tap
+Flam
+Pataflafla
+Single flammed mill*/
