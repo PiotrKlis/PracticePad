@@ -33,7 +33,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
-*  - Add images
 *  - Create at least 6 valid Exercise Sets
 *  - Test the app (list bugs)
 *  - Design adjustment
@@ -41,4 +40,8 @@ class MainActivity : DaggerAppCompatActivity() {
 *  - Test on other devices
 *  - MVP?
 *  - Further refactor? (pass callback to timers instead of events to fragment)
+* */
+
+/*DONE
+*  - Add images
 * */

@@ -3,7 +3,7 @@ package com.piotr.practicepad.data.db
 import com.piotr.practicepad.R
 
 enum class ExerciseEnum(val title: String, val image: Int) {
-    DOUBLE_DRAG_TAP("Double Drag Tap", R.drawable.nuty_16th_01),
+    DOUBLE_DRAG_TAP("Double Drag Tap", R.drawable.double_),
     DOUBLE_PARADIDDLE("Double Paradiddle", R.drawable.nuty_16th_doubles_01),
     DOUBLE_RATAMACUE("Double Ratamacue", R.drawable.nuty_16th_triplets_01),
     DRAG("Drag", R.drawable.nuty_drag_01),

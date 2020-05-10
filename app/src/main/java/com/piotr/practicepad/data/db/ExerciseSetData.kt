@@ -8,11 +8,15 @@ enum class ExerciseSetData(
     val exerciseDataList: List<ExerciseData>,
     val tempo: Int
 ) {
-    EVERY_DAY(0, "Every Day Practice", everyDayPractice, 110),
+    EVERY_DAY_PRACTICE(0, "Every Day Practice", everyDayPractice, 110),
     SHORT_WARMUP(1, "Short Warmup", shortWarmUp, 120),
     FLAM_EXERCISE(2, "Flam Exercises", flamExercises, 90),
     DRAG_EXERCISE(3, "Drag Exercises", dragExercises, 110),
-    TEST(4, "Test Exercises", test, 110)
+    TIMING(4, "Test Exercises", test, 110),
+    LEFT_HAND(5, "Test Exercises", test, 110),
+    RIGHT_HAND(6, "Test Exercises", test, 110),
+    SPEED(7, "Test Exercises", test, 110),
+    DOUBLES_4800(8, "Test Exercises", test, 110),
 }
 
 private val everyDayPractice = listOf(
