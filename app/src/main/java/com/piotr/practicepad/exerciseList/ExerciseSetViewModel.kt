@@ -6,7 +6,5 @@ import javax.inject.Inject
 
 class ExerciseSetViewModel @Inject constructor(private val exerciseSetRepository: ExerciseSetRepository) :
     ViewModel() {
-    fun getExerciseSets(): List<ExerciseSet> {
-        return exerciseSetRepository.getAll()
-    }
+    fun getExerciseSets(): List<ExerciseSet> = exerciseSetRepository.getAll()
 }

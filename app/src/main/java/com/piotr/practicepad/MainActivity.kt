@@ -33,13 +33,11 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
+*  - Add images
 *  - Create at least 6 valid Exercise Sets
-*  - Test the app
+*  - Test the app (list bugs)
 *  - Design adjustment
 *  - Test on other devices
-*  - Refactor (Dagger)
 *  - MVP?
-*  - Figure out from where get good quality Exercise pictures
-*  - Create your own exercise set
-*  - Firebase integration (auto-new-sets-upload)
+*  - Further refactor? (pass callback to timers instead of events to fragment)
 * */

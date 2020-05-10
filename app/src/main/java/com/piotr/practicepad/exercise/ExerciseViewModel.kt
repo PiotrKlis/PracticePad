@@ -23,7 +23,7 @@ class ExerciseViewModel @Inject constructor(
     val practiceState: PracticeState
 ) : ViewModel() {
     val state: LiveData<ExerciseState> get() = mutableState
-    private val mutableState = MutableLiveData<ExerciseState>().apply { value = ExerciseState() }
+    private val mutableState = MutableLiveData(ExerciseState())
     private var activeSetId: Int? = null
 
     fun renderActiveExerciseSet() {
