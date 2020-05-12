@@ -8,43 +8,63 @@ enum class ExerciseSetData(
     val exerciseDataList: List<ExerciseData>,
     val tempo: Int
 ) {
-    EVERY_DAY(0, "", emptyList(), 0)
-//    SINGLE_STROKE_PRESSURE(0, "Single Stroke Left & Right Hand Pressure", , 110),
+    SINGLE_STROKE_PRESSURE(0, "Single stroke pressure", singleStrokePressure, 110),
+    EVERY_DAY_WORKOUT(1, "Everyday workout", everydayWorkout, 120),
 
 }
-/*- Quarter; 30s
-- 8th left; 30s
-- 8th right; 30s
-- 16th; 30s
-- Single stroke four; 30s
-- Single stroke seven; 30s
-- 16th; 30s
-- 8th left; 30s
-- 8th right; 30s
-- 16th 30s
-- Single stroke four; 30s
-- Single stroke seven; 30s
-- 16th; 30s
-- Quarter
-- 8th left; 30s
-- 8th right; 30s
-- 16th 30s
-- Single stroke four; 30s
-- Single stroke seven; 30s
-- 16th; 30s
-- 8th left; 30s
-- 8th right; 30s
-- 16th 30s
-- Single stroke four; 30s
-- Single stroke seven; 30s
-- 16th; 30s
-- 8th left; 30s
-- 8th right; 30s
-- Single stroke four; 30s
-- Single stroke seven; 30s
-- 16th*/
 
-private val singleStrokePressure = ""
+//TODO: ADD MORE FROM OTHER STUFF
+private val everydayWorkout = listOf(
+    ExerciseData(30, QUARTER),
+    ExerciseData(60, DOUBLES_8TH),
+    ExerciseData(60, LEFT_HAND_8TH),
+    ExerciseData(60, RIGHT_HAND_8TH),
+    ExerciseData(60, INVERTED_DOUBLES_8TH),
+    ExerciseData(60, TRIPLETS),
+    ExerciseData(60, SINGLE_STROKE_16TH),
+    ExerciseData(60, DOUBLES_16TH),
+    ExerciseData(60, PARADIDDLE_16TH),
+    ExerciseData(60, SEXTUPLETS),
+    ExerciseData(60, SINGLE_STROKE_16TH)
+)
+/*- Quarter
+- Doubles
+- 8th left
+- 8th right
+- 8th inverted
+- 16th
+- 16th doubles
+- 16th paradiddle
+- Triola both hands*/
+
+private val singleStrokePressure = listOf(
+    ExerciseData(30, QUARTER),
+    ExerciseData(30, LEFT_HAND_8TH),
+    ExerciseData(30, RIGHT_HAND_8TH),
+    ExerciseData(30, SINGLE_STROKE_16TH),
+    ExerciseData(30, SINGLE_STROKE_FOUR),
+    ExerciseData(30, SINGLE_STROKE_SEVEN),
+    ExerciseData(30, SINGLE_STROKE_16TH),
+    ExerciseData(30, LEFT_HAND_8TH),
+    ExerciseData(30, RIGHT_HAND_8TH),
+    ExerciseData(30, SINGLE_STROKE_16TH),
+    ExerciseData(30, SINGLE_STROKE_FOUR),
+    ExerciseData(30, SINGLE_STROKE_SEVEN),
+    ExerciseData(30, SINGLE_STROKE_16TH),
+    ExerciseData(30, QUARTER),
+    ExerciseData(30, LEFT_HAND_8TH),
+    ExerciseData(30, RIGHT_HAND_8TH),
+    ExerciseData(30, SINGLE_STROKE_16TH),
+    ExerciseData(30, SINGLE_STROKE_FOUR),
+    ExerciseData(30, SINGLE_STROKE_SEVEN),
+    ExerciseData(30, SINGLE_STROKE_16TH),
+    ExerciseData(30, LEFT_HAND_8TH),
+    ExerciseData(30, RIGHT_HAND_8TH),
+    ExerciseData(30, SINGLE_STROKE_16TH),
+    ExerciseData(30, SINGLE_STROKE_FOUR),
+    ExerciseData(30, SINGLE_STROKE_SEVEN),
+    ExerciseData(30, SINGLE_STROKE_16TH)
+)
 
 private fun getMediumWarmUp(): List<ExerciseData> = listOf()
 private fun getLongWarmUp(): List<ExerciseData> = listOf()
@@ -65,5 +85,5 @@ private fun getThousandDoubles(): List<ExerciseData> = listOf()
 - Speed builduing
 - Long practice - 45 min
 - 1000 singles
-- 2000 doubles
+- 2000 doubles_8th
 * */

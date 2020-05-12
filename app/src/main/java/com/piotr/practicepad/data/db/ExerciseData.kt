@@ -8,7 +8,7 @@ enum class ExerciseEnum(val title: String, val image: Int) {
     RIGHT_HAND_8TH("8th right hand", R.drawable.right_hand_eight),
     DOUBLES_8TH("8th doubles", R.drawable.doubles_8th),
     TRIPLETS("Triplets", R.drawable.triplets_8th),
-    SINGLES_16TH("16th single stroke roll", R.drawable.single_16th),
+    SINGLE_STROKE_16TH("16th single stroke roll", R.drawable.single_16th),
     DOUBLES_16TH("16th doubles", R.drawable.doubles_16th),
     PARADIDDLE_16TH("16th paradiddle", R.drawable.single_paradiddle),
     SEXTUPLETS("Sextuplets", R.drawable.triplets_16th),
@@ -30,7 +30,8 @@ enum class ExerciseEnum(val title: String, val image: Int) {
     FLAM_TAP("Flam tap", R.drawable.flam_tap),
     FLAM("Flam", R.drawable.flam),
     PATAFLAFLA("Pataflala", R.drawable.pataflafla),
-    SINGLE_FLAMMED_MILL("Single Flammed Mill", R.drawable.single_flammed_mill)
+    SINGLE_FLAMMED_MILL("Single Flammed Mill", R.drawable.single_flammed_mill),
+    QUARTER("Quarters", R.drawable.quarter)
 }
 
 data class ExerciseData(val time: Long, val exerciseData: ExerciseEnum)
