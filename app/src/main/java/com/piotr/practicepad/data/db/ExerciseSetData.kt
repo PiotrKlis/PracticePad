@@ -21,12 +21,18 @@ private val everydayWorkout = listOf(
     ExerciseData(60, RIGHT_HAND_8TH),
     ExerciseData(60, INVERTED_DOUBLES_8TH),
     ExerciseData(60, TRIPLETS),
+    ExerciseData(60, FLAM_ACCENT),
     ExerciseData(60, SINGLE_STROKE_16TH),
     ExerciseData(60, DOUBLES_16TH),
     ExerciseData(60, PARADIDDLE_16TH),
+    ExerciseData(60, FLAM_PARADIDDLE),
     ExerciseData(60, SEXTUPLETS),
-    ExerciseData(60, SINGLE_STROKE_16TH)
-)
+    ExerciseData(60, SINGLE_STROKE_16TH),
+    ExerciseData(60, SINGLE_DRAG_TAP),
+    ExerciseData(60, DRAG_PARADIDDLE),
+    ExerciseData(60, SINGLE_STROKE_16TH),
+
+    )
 /*- Quarter
 - Doubles
 - 8th left
