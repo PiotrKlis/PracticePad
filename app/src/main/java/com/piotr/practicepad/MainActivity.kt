@@ -33,9 +33,9 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
-*  - Create at least 6 valid Exercise Sets
 *  - Test the app (list bugs)
 *  - Design adjustment
+*  - Detail exercise set view
 *  - Testy! Unit + UI
 *  - Test on other devices
 *  - MVP?
@@ -44,4 +44,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*DONE
 *  - Add images
+* *  - Create at least 6 valid Exercise Sets
+
 * */

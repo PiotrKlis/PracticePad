@@ -14,7 +14,7 @@ class ExerciseSetRepository @Inject constructor(private val sharedPrefs: SharedP
         return ExerciseSetData
             .values()
             .find { it.id == id }
-            .let { exerciseSetData -> exerciseSetMapper.map(exerciseSetData ?: ExerciseSetData.EVERY_DAY) }
+            .let { exerciseSetData -> exerciseSetMapper.map(exerciseSetData ?: ExerciseSetData.EVERY_DAY_WORKOUT) }
     }
 
     fun getAll(): List<ExerciseSet> {
