@@ -5,29 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExcerciseBinding
 import com.piotr.practicepad.extensions.viewModelProvider
 import com.piotr.practicepad.ui.main.utils.observeEvent
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
+import com.piotr.practicepad.utils.BaseFragment
 
 
-class ExerciseFragment : DaggerFragment() {
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var viewModel: ExerciseViewModel
+class ExerciseFragment : BaseFragment() {
+    private val viewModel: ExerciseViewModel by viewModels { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        viewModel = viewModelProvider(viewModelFactory)
-        return getBinding(inflater, container).root
-    }
+    ): View = getBinding(inflater, container).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
