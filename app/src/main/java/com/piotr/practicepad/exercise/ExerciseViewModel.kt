@@ -24,6 +24,7 @@ class ExerciseViewModel @Inject constructor(
 ) : ViewModel() {
     val state: LiveData<ExerciseState> get() = mutableState
     private val mutableState = MutableLiveData(ExerciseState())
+    private val operationRange = 40 until 221
     private var activeSetId: Int? = null
 
     fun renderActiveExerciseSet() {
@@ -47,15 +48,11 @@ class ExerciseViewModel @Inject constructor(
     }
 
     fun subtractTempoClick(tempo: Long) {
-        val newTempo = tempo - 1
-        metronome.changeTempo(newTempo)
-        mutableState.value = mutableState.value?.copy(tempo = newTempo)
+        updateTempo(tempo - 1)
     }
 
     fun addTempoClick(tempo: Long) {
-        val newTempo = tempo + 1
-        metronome.changeTempo(newTempo)
-        mutableState.value = mutableState.value?.copy(tempo = newTempo)
+        updateTempo(tempo + 1)
     }
 
     fun onPause() {
@@ -83,14 +80,14 @@ class ExerciseViewModel @Inject constructor(
     private fun startPractice() {
         exerciseTimer.handleClick(ON)
         exerciseSetTimer.handleClick(ON)
-        metronome.handleClick(ON)
+        metronome.handleClick(ON, state.value?.tempo)
         practiceState.setState(ON)
     }
 
     private fun pausePractice() {
         exerciseTimer.handleClick(OFF)
         exerciseSetTimer.handleClick(OFF)
-        metronome.handleClick(OFF)
+        metronome.handleClick(OFF, state.value?.tempo)
         practiceState.setState(OFF)
     }
 
@@ -98,7 +95,6 @@ class ExerciseViewModel @Inject constructor(
         mutableState.value = getExercise(activeExerciseSet, FIRST_ITEM)
         exerciseTimer.setData(activeExerciseSet.exerciseList[FIRST_ITEM].time)
         exerciseSetTimer.setData(activeExerciseSet.exerciseList.getOverallTime())
-        metronome.setData(activeExerciseSet.tempo)
     }
 
     private fun getExercise(exerciseSet: ExerciseSet, position: Int): ExerciseState {
@@ -112,5 +108,18 @@ class ExerciseViewModel @Inject constructor(
             exerciseList = exerciseSet.exerciseList,
             tempo = exerciseSet.tempo.toLong()
         )
+    }
+
+    private fun updateTempo(newTempo: Long) {
+        if (newTempo in operationRange) {
+            mutableState.value = state.value?.copy(tempo = newTempo)
+            changeMetronomeTempo(newTempo)
+        }
+    }
+
+    private fun changeMetronomeTempo(newTempo: Long) {
+        if (practiceState.state.value == ON) {
+            metronome.changeTempo(newTempo)
+        }
     }
 }
