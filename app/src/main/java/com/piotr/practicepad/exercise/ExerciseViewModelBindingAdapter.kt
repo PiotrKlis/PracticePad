@@ -1,6 +1,5 @@
 package com.piotr.practicepad.exercise
 
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -34,5 +33,11 @@ object ExerciseViewModelBindingAdapter {
     @BindingAdapter("timeLeft")
     fun timeLeft(view: TextView, time: Long) {
         view.text = String.format("%02d:%02d", time.millisToMinutes(), time.millisToSeconds())
+    }
+
+    @JvmStatic
+    @BindingAdapter("setTempo")
+    fun setTempo(view: TextView, tempo: Long) {
+        view.text = "$tempo BPM"
     }
 }

@@ -35,6 +35,7 @@ class MainActivity : DaggerAppCompatActivity() {
 * TODO
 *  - Test the app (list bugs)
 *  - Design adjustment
+*  - tempo change
 *  - Detail exercise set view
 *  - Testy! Unit + UI
 *  - Test on other devices
