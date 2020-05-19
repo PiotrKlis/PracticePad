@@ -33,10 +33,9 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
-*  - Test the app (list bugs)
-*  - Design adjustment
-*  - tempo change
 *  - Detail exercise set view
+*  - Create your own exercise set
+*  - Test the app (list bugs click being silent?)
 *  - Testy! Unit + UI
 *  - Test on other devices
 *  - MVP?
@@ -44,7 +43,9 @@ class MainActivity : DaggerAppCompatActivity() {
 * */
 
 /*DONE
+*  - tempo change
+*  - Design adjustment
+*  - Create at least 6 valid Exercise Sets
 *  - Add images
-* *  - Create at least 6 valid Exercise Sets
 
 * */
