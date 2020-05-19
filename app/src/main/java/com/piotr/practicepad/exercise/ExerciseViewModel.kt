@@ -46,6 +46,18 @@ class ExerciseViewModel @Inject constructor(
         }
     }
 
+    fun subtractTempoClick(tempo: Long) {
+        val newTempo = tempo - 1
+        metronome.changeTempo(newTempo)
+        mutableState.value = mutableState.value?.copy(tempo = newTempo)
+    }
+
+    fun addTempoClick(tempo: Long) {
+        val newTempo = tempo + 1
+        metronome.changeTempo(newTempo)
+        mutableState.value = mutableState.value?.copy(tempo = newTempo)
+    }
+
     fun onPause() {
         exerciseTimer.onPause()
         exerciseSetTimer.onPause()

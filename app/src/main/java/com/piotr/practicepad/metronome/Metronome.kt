@@ -3,12 +3,10 @@ package com.piotr.practicepad.metronome
 import android.media.MediaPlayer
 import com.piotr.practicepad.exercise.PracticeState.State
 import com.piotr.practicepad.exercise.PracticeState.State.*
+import com.piotr.practicepad.extensions.bpmToMilliseconds
 import java.util.*
 import javax.inject.Inject
 import kotlin.concurrent.timerTask
-
-private const val MILLISECONDS_IN_SECOND: Int = 1000
-private const val SECONDS_IN_MINUTE: Int = 60
 
 class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
     private var timer = Timer()
@@ -20,9 +18,9 @@ class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
 
     fun handleClick(state: State) {
         when (state) {
-            ON -> runMetronome()
+            ON -> run()
             OFF -> timer.cancel()
-            RESTART -> runMetronome()
+            RESTART -> run()
         }
     }
 
@@ -30,13 +28,16 @@ class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
         timer.cancel()
     }
 
-    private fun bpmToMiliseconds(bpm: Long): Long =
-        (MILLISECONDS_IN_SECOND * (SECONDS_IN_MINUTE / bpm.toDouble())).toLong()
+    fun changeTempo(tempo: Long) {
+        this.tempo = tempo
+        timer.cancel()
+        run()
+    }
 
-    private fun runMetronome() {
+    private fun run() {
         timer = Timer()
         timer.schedule(timerTask {
             mediaPlayer.start()
-        }, 0L, bpmToMiliseconds(tempo))
+        }, 0L, tempo.bpmToMilliseconds())
     }
 }
