@@ -10,3 +10,5 @@ class SharedPrefs @Inject constructor(private val prefs: SharedPreferences) {
     fun getActiveSetId(): Int = prefs.getInt(KEY_ACTIVE_SET, DEFAULT_SET)
     fun setActiveSetId(id: Int) = prefs.edit()?.putInt(KEY_ACTIVE_SET, id)?.apply()
 }
+
+fun SharedPrefs.isSetActive(id: Int): Boolean = id == this.getActiveSetId()

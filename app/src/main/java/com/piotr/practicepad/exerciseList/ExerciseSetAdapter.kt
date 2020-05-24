@@ -1,49 +1,32 @@
 package com.piotr.practicepad.exerciseList
 
 
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.piotr.practicepad.R
-import kotlinx.android.synthetic.main.exercise_set_row.view.*
+import com.piotr.practicepad.databinding.ExerciseSetRowBinding
+import com.piotr.practicepad.extensions.bind
+import com.piotr.practicepad.utils.BindableRecyclerViewAdapter
 
 class ExerciseSetAdapter(
     private val checkBoxHandler: CheckBoxHandler
-) : RecyclerView.Adapter<ExerciseSetAdapter.ViewHolder>() {
-    private var exerciseSetList: List<ExerciseSet> = arrayListOf()
+) : BindableRecyclerViewAdapter<RecyclerView.ViewHolder, ExerciseSet>() {
 
-    fun setItems(items: List<ExerciseSet>) {
-        this.exerciseSetList = items
-        notifyDataSetChanged()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder =
+        RowViewHolder(parent.bind(R.layout.exercise_set_row, false))
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as? RowViewHolder)?.bindData(items[position], checkBoxHandler)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.exercise_set_row, parent, false)
-        return ViewHolder(view)
-    }
+    override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.setData(exerciseSetList[position])
-    }
+    inner class RowViewHolder(private val binding: ExerciseSetRowBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    override fun getItemCount(): Int {
-        return exerciseSetList.size
-    }
-
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val content: TextView = view.content
-        private val checkBox: CheckBox = view.checkbox
-
-        fun setData(item: ExerciseSet) {
-            content.text = item.name
-            checkBox.isChecked = checkBoxHandler.shouldBeChecked(item.id)
-            checkBox.setOnClickListener {
-                checkBoxHandler.click(item.id)
-            }
+        fun bindData(item: ExerciseSet, checkBoxHandler: CheckBoxHandler) {
+            binding.model = item
+            binding.checkBoxHandler = checkBoxHandler
         }
     }
 }
