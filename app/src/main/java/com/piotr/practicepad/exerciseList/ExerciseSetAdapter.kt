@@ -27,6 +27,7 @@ class ExerciseSetAdapter(
         fun bindData(item: ExerciseSet, checkBoxHandler: CheckBoxHandler) {
             binding.model = item
             binding.checkBoxHandler = checkBoxHandler
+            binding.executePendingBindings()
         }
     }
 }
