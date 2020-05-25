@@ -7,21 +7,21 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.piotr.practicepad.R
-import com.piotr.practicepad.databinding.FragmentExercisesetListBinding
+import com.piotr.practicepad.databinding.FragmentExerciseListBinding
 import com.piotr.practicepad.utils.BaseFragment
 
-class ExerciseListFragment : BaseFragment(), CheckBoxHandler {
+class ExerciseListFragment : BaseFragment(), CheckBoxHandler, NavigationHandler {
 
     private val viewModel: ExerciseSetViewModel by viewModels { viewModelFactory }
     private var adapter: ExerciseSetAdapter = ExerciseSetAdapter(this).apply { setHasStableIds(true) }
-    private lateinit var binding: FragmentExercisesetListBinding
+    private lateinit var binding: FragmentExerciseListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_exerciseset_list, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_exercise_list, container, false)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             model = viewModel
@@ -34,10 +34,13 @@ class ExerciseListFragment : BaseFragment(), CheckBoxHandler {
         binding.recyclerList.adapter = adapter
     }
 
-    override fun click(id: Int) {
+    override fun checkBoxClick(id: Int) {
         viewModel.onCheckboxClick(id)
         adapter.notifyDataSetChanged()
     }
 
     override fun shouldBeChecked(id: Int): Boolean = viewModel.isSetActive(id)
+    override fun navigationClick() {
+        //TODO navigation to detail screen
+    }
 }

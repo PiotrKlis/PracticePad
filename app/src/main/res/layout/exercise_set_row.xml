@@ -11,12 +11,17 @@
 		<variable
 			name="checkBoxHandler"
 			type="com.piotr.practicepad.exerciseList.CheckBoxHandler" />
+		
+		<variable
+			name="navigationHandler"
+			type="com.piotr.practicepad.exerciseList.NavigationHandler" />
 	</data>
 	
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="@color/grey_top"
+		android:onClick="@{() -> navigationHandler.navigationClick()"
 		android:orientation="horizontal">
 		
 		<TextView
@@ -38,7 +43,7 @@
 			android:layout_margin="16dp"
 			android:buttonTint="@color/white"
 			android:checked="@{checkBoxHandler.shouldBeChecked(model.id)}"
-			android:onClick="@{() -> checkBoxHandler.click(model.id)}" />
+			android:onClick="@{() -> checkBoxHandler.checkBoxClick(model.id)}" />
 	
 	</LinearLayout>
 </layout>
