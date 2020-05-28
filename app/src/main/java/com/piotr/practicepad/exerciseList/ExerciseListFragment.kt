@@ -11,9 +11,9 @@ import com.piotr.practicepad.databinding.FragmentExerciseListBinding
 import com.piotr.practicepad.utils.BaseFragment
 
 class ExerciseListFragment : BaseFragment(), CheckBoxHandler, NavigationHandler {
-
     private val viewModel: ExerciseSetViewModel by viewModels { viewModelFactory }
-    private var adapter: ExerciseSetAdapter = ExerciseSetAdapter(this, this).apply { setHasStableIds(true) }
+    private var adapter: ExerciseSetAdapter =
+        ExerciseSetAdapter(this, this).apply { setHasStableIds(true) }
     private lateinit var binding: FragmentExerciseListBinding
 
     override fun onCreateView(
@@ -21,7 +21,8 @@ class ExerciseListFragment : BaseFragment(), CheckBoxHandler, NavigationHandler 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_exercise_list, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_exercise_list, container, false)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             model = viewModel

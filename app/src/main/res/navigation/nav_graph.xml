@@ -16,4 +16,7 @@
 		android:name="com.piotr.practicepad.exercise.ExerciseFragment"
 		android:label="ExerciseFragment"
 		tools:layout="@layout/fragment_excercise" />
+	<fragment
+		android:id="@+id/exerciseDetailFragment"
+		android:label="ExerciseDetail" />
 </navigation>
