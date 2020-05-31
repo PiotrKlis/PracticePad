@@ -16,7 +16,10 @@
 		android:name="com.piotr.practicepad.exercise.ExerciseFragment"
 		android:label="ExerciseFragment"
 		tools:layout="@layout/fragment_excercise" />
-	<fragment
+	
+	<keep_state_fragment
 		android:id="@+id/exerciseDetailFragment"
-		android:label="ExerciseDetail" />
+		android:name="com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetail"
+		android:label="ExerciseSetDetail"
+		tools:layout="@layout/fragment_exercise_set_detail"/>
 </navigation>
