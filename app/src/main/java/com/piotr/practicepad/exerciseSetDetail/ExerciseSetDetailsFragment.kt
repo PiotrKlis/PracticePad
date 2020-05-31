@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.navArgs
 
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExerciseSetDetailBinding
@@ -13,6 +16,7 @@ import com.piotr.practicepad.utils.BaseFragment
 
 class ExerciseSetDetailsFragment: BaseFragment() {
     private val viewModel: ExerciseSetDetailViewModel by viewModels { viewModelFactory }
+    private val args: ExerciseSetDetailsFragmentArgs by navArgs()
     private lateinit var binding: FragmentExerciseSetDetailBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,9 +30,8 @@ class ExerciseSetDetailsFragment: BaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.renderData(args.exerciseSetId)
     }
-
 }

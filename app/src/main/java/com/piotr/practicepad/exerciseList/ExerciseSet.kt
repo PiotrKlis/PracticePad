@@ -9,4 +9,7 @@ data class ExerciseSet(
     val tempo: Int = 0
 ) {
   fun shouldStartNextExercise(position: Int): Boolean = position < exerciseList.size
+    fun mapToExerciseSetDetailsState() {
+
+    }
 }

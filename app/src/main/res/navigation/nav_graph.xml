@@ -5,7 +5,7 @@
 	android:id="@+id/nav_graph"
 	app:startDestination="@id/exerciseSetFragment">
 	
-	<keep_state_fragment
+	<fragment
 		android:id="@+id/exerciseSetListFragment"
 		android:name="com.piotr.practicepad.exerciseList.ExerciseListFragment"
 		android:label="fragment_exerciseset_list"
@@ -13,21 +13,22 @@
 		<action
 			android:id="@+id/action_navigation_list_to_detail"
 			app:destination="@id/exerciseSetDetailFragment" />
-	</keep_state_fragment>
+	</fragment>
 	
-	<keep_state_fragment
+	<fragment
 		android:id="@+id/exerciseSetFragment"
 		android:name="com.piotr.practicepad.exercise.ExerciseFragment"
 		android:label="ExerciseFragment"
 		tools:layout="@layout/fragment_excercise" />
 	
-	<keep_state_fragment
+	<fragment
 		android:id="@+id/exerciseSetDetailFragment"
 		android:name="com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetailsFragment"
 		android:label="ExerciseSetDetail"
 		tools:layout="@layout/fragment_exercise_set_detail">
 		<argument
 			android:name="exerciseSetId"
-			app:argType="integer" />
-	</keep_state_fragment>
+			app:argType="integer"
+			android:defaultValue="1"/>
+	</fragment>
 </navigation>

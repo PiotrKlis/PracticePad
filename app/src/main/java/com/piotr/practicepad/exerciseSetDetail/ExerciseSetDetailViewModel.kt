@@ -8,11 +8,13 @@ import javax.inject.Inject
 
 class ExerciseSetDetailViewModel @Inject constructor(
     private val exerciseSetRepository: ExerciseSetRepository,
+    private val exerciseSetDetailsStateMapper: ExerciseSetDetailsStateMapper
 ) : ViewModel() {
     val state: LiveData<ExerciseSetDetailsState> get() = mutableState
     private val mutableState = MutableLiveData(ExerciseSetDetailsState())
 
     fun renderData(id: Int) {
-        exerciseSetRepository.getSetForId(id)
+        mutableState.value =
+            exerciseSetDetailsStateMapper.map(exerciseSetRepository.getSetForId(id))
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.piotr.practicepad.PracticePad
 import com.piotr.practicepad.data.db.SharedPrefs
+import com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetailsStateMapper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -20,5 +21,7 @@ class AppModule {
     @Singleton
     @Provides
     fun provideActiveSetSharedPreferences(sharedPreferences: SharedPreferences) = SharedPrefs(sharedPreferences)
-    
+
+    @Provides
+    fun provideExerciseSetDetailsMapper() = ExerciseSetDetailsStateMapper()
 }

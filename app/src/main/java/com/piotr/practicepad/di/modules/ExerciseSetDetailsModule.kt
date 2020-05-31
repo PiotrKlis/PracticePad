@@ -4,8 +4,10 @@ import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.di.utils.ViewModelKey
 import com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetailViewModel
 import com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetailsFragment
+import com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetailsStateMapper
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
