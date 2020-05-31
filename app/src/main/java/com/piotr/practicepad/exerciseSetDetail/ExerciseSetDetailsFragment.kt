@@ -11,7 +11,7 @@ import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExerciseSetDetailBinding
 import com.piotr.practicepad.utils.BaseFragment
 
-class ExerciseSetDetail : BaseFragment() {
+class ExerciseSetDetailsFragment: BaseFragment() {
     private val viewModel: ExerciseSetDetailViewModel by viewModels { viewModelFactory }
     private lateinit var binding: FragmentExerciseSetDetailBinding
     override fun onCreateView(

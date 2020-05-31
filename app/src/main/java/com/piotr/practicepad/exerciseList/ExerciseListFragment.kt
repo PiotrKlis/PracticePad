@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExerciseListBinding
+import com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetailsFragmentArgs
 import com.piotr.practicepad.utils.BaseFragment
 
 class ExerciseListFragment : BaseFragment(), CheckBoxHandler, NavigationHandler {
@@ -41,7 +43,10 @@ class ExerciseListFragment : BaseFragment(), CheckBoxHandler, NavigationHandler 
     }
 
     override fun shouldBeChecked(id: Int): Boolean = viewModel.isSetActive(id)
-    override fun navigationClick() {
-        //TODO navigation to detail screen
+    override fun navigationClick(id: Int) {
+        findNavController().navigate(
+            R.id.action_navigation_list_to_detail,
+            ExerciseSetDetailsFragmentArgs(id).toBundle()
+        )
     }
 }

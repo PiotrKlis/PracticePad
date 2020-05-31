@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExcerciseBinding
-import com.piotr.practicepad.extensions.viewModelProvider
 import com.piotr.practicepad.ui.main.utils.observeEvent
 import com.piotr.practicepad.utils.BaseFragment
 
