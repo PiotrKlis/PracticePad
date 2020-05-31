@@ -1,8 +1,8 @@
 package com.piotr.practicepad.data.repository
 
-import com.piotr.practicepad.exerciseList.ExerciseSet
 import com.piotr.practicepad.data.db.ExerciseSetData
 import com.piotr.practicepad.data.db.SharedPrefs
+import com.piotr.practicepad.exerciseList.ExerciseSet
 import javax.inject.Inject
 
 class ExerciseSetRepository @Inject constructor(private val sharedPrefs: SharedPrefs) {
@@ -14,7 +14,11 @@ class ExerciseSetRepository @Inject constructor(private val sharedPrefs: SharedP
         return ExerciseSetData
             .values()
             .find { it.id == id }
-            .let { exerciseSetData -> exerciseSetMapper.map(exerciseSetData ?: ExerciseSetData.EVERY_DAY_WORKOUT) }
+            .let { exerciseSetData ->
+                exerciseSetMapper.map(
+                    exerciseSetData ?: ExerciseSetData.EVERY_DAY_WORKOUT
+                )
+            }
     }
 
     fun getAll(): List<ExerciseSet> {
@@ -22,4 +26,14 @@ class ExerciseSetRepository @Inject constructor(private val sharedPrefs: SharedP
             .values()
             .let { setListMapper.map(it) }
     }
+
+    fun getSetForId(id: Int): ExerciseSet = ExerciseSetData
+        .values()
+        .find { it.id == id }
+        .let { exerciseSetData ->
+            exerciseSetMapper.map(
+                exerciseSetData ?: ExerciseSetData.EVERY_DAY_WORKOUT
+            )
+        }
+
 }
