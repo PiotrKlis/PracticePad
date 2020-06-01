@@ -28,7 +28,6 @@
 		tools:layout="@layout/fragment_exercise_set_detail">
 		<argument
 			android:name="exerciseSetId"
-			app:argType="integer"
-			android:defaultValue="1"/>
+			app:argType="integer" />
 	</fragment>
 </navigation>

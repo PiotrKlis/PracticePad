@@ -14,7 +14,7 @@ import com.piotr.practicepad.utils.BaseFragment
 
 class ExerciseListFragment : BaseFragment(), CheckBoxHandler, NavigationHandler {
     private val viewModel: ExerciseSetViewModel by viewModels { viewModelFactory }
-    private var adapter: ExerciseSetAdapter =
+    private val adapter: ExerciseSetAdapter =
         ExerciseSetAdapter(this, this).apply { setHasStableIds(true) }
     private lateinit var binding: FragmentExerciseListBinding
 
@@ -32,8 +32,8 @@ class ExerciseListFragment : BaseFragment(), CheckBoxHandler, NavigationHandler 
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.recyclerList.adapter = adapter
     }
 

@@ -16,6 +16,7 @@ import com.piotr.practicepad.utils.BaseFragment
 
 class ExerciseSetDetailsFragment: BaseFragment() {
     private val viewModel: ExerciseSetDetailViewModel by viewModels { viewModelFactory }
+    private val adapter: ExerciseSetDetailsAdapter = ExerciseSetDetailsAdapter()
     private val args: ExerciseSetDetailsFragmentArgs by navArgs()
     private lateinit var binding: FragmentExerciseSetDetailBinding
     override fun onCreateView(
@@ -33,5 +34,6 @@ class ExerciseSetDetailsFragment: BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.renderData(args.exerciseSetId)
+        binding.list.adapter = this.adapter
     }
 }
