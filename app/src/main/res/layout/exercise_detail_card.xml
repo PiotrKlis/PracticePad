@@ -11,62 +11,65 @@
 	
 	</data>
 	
-	<androidx.constraintlayout.widget.ConstraintLayout
+	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
 		
 		<androidx.cardview.widget.CardView
-			android:layout_width="0dp"
-			android:layout_height="240dp"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/medium_margin"
 			android:layout_marginTop="@dimen/small_margin"
 			android:layout_marginEnd="@dimen/medium_margin"
 			android:layout_marginBottom="@dimen/small_margin"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintTop_toTopOf="parent" >
+			android:backgroundTint="@color/light_grey"
+			app:cardElevation="@dimen/small_margin">
 			
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:layout_width="match_parent"
-				android:layout_height="match_parent" >
+				android:layout_height="wrap_content">
 				
 				<TextView
 					android:id="@+id/name"
-					android:text="@{model.name}"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					app:layout_constraintTop_toTopOf="parent"
+					android:layout_marginStart="@dimen/small_margin"
+					android:layout_marginTop="@dimen/small_margin"
+					android:text="@{model.name}"
 					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
 					tools:text="Exercise name"
 					tools:textColor="@color/black_ish" />
 				
 				<TextView
 					android:id="@+id/time"
-					app:timeLeft="@{model.time}"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					app:layout_constraintTop_toBottomOf="@id/name"
-					app:layout_constraintStart_toStartOf="parent"
+					android:layout_marginStart="@dimen/small_margin"
 					android:layout_marginTop="@dimen/small_margin"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/name"
+					app:timeLeft="@{model.time}"
 					tools:text="Exercise name"
 					tools:textColor="@color/black_ish" />
 				
-				<ImageView
-					android:src="@{model.image}"
+				<androidx.appcompat.widget.AppCompatImageView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="@dimen/small_margin"
-					app:layout_constraintTop_toBottomOf="@id/time"
-					app:layout_constraintStart_toStartOf="parent"
+					android:layout_marginBottom="@dimen/small_margin"
+					app:imageResource="@{model.image}"
+					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/time"
 					tools:src="@drawable/doubles_8th" />
-				
-			</androidx.constraintlayout.widget.ConstraintLayout>
 			
+			</androidx.constraintlayout.widget.ConstraintLayout>
+		
 		</androidx.cardview.widget.CardView>
 	
-	
-	</androidx.constraintlayout.widget.ConstraintLayout>
+	</LinearLayout>
 
 </layout>

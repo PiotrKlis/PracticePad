@@ -20,12 +20,9 @@ class ExerciseSetDetailsAdapter : BindableRecyclerViewAdapter<RecyclerView.ViewH
 
     inner class RowViewHolder(private val binding: ExerciseDetailCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(
-            item: Exercise
-        ) {
+        fun bindData(item: Exercise) {
             binding.model = item
             binding.executePendingBindings()
         }
     }
-
 }

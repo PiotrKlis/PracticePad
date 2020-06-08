@@ -13,7 +13,7 @@ enum class ExerciseSetData(
     DOUBLES_4800(2, "4800 Doubles Challange", doubles4800, 120),
     DRAG_PRACTICE(3, "Drag Practice", dragPractice, 110),
     FLAM_PRACTICE(4, "Flam Practice", flamPractice, 110),
-    SHORT_WARUMP(5, "Short Warmup", shortWarmup, 120),
+    SHORT_WARMUP(5, "Short Warmup", shortWarmup, 120),
 }
 
 private val shortWarmup = listOf(

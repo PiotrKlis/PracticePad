@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.ui.setupWithNavController
 import com.piotr.practicepad.databinding.MainActivityBinding
 import dagger.android.support.DaggerAppCompatActivity
@@ -23,7 +24,13 @@ class MainActivity : DaggerAppCompatActivity() {
             .findFragmentById(R.id.nav_host)
             ?.let { fragment ->
                 val navController = findNavController(R.id.nav_host)
-                navController.navigatorProvider.addNavigator(getNavigator(fragment))
+                navController.navigatorProvider.addNavigator(
+                    FragmentNavigator(
+                        this,
+                        fragment.childFragmentManager,
+                        R.id.nav_host
+                    )
+                )
                 navController.setGraph(R.navigation.nav_graph)
                 binding.bottomNavigation.setupWithNavController(navController)
             }
