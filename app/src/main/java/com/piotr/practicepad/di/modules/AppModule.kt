@@ -3,6 +3,7 @@ package com.piotr.practicepad.di.modules
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.piotr.practicepad.PracticePad
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.db.SharedPrefs
@@ -25,10 +26,10 @@ class AppModule {
     @Provides
     fun provideActiveSetSharedPreferences(sharedPreferences: SharedPreferences) =
         SharedPrefs(sharedPreferences)
-    
+
     @Singleton
     @Provides
-    fun provideRoomDatabase(context: Context) =
+    fun provideRoomDatabase(context: Context): PracticePadRoomDatabase =
         Room.databaseBuilder(context, PracticePadRoomDatabase::class.java, "practice_pad_database")
             .build()
 
