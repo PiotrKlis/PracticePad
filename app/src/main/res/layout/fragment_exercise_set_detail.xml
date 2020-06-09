@@ -23,19 +23,35 @@
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/medium_margin"
 			android:layout_marginTop="@dimen/medium_margin"
-			android:textSize="@dimen/large_text_size"
 			android:text="@{model.state.name}"
+			android:textSize="@dimen/large_text_size"
 			tools:text="Name of the exercise set" />
 		
-		<TextView
-			android:id="@+id/tempo"
+		<LinearLayout
 			android:layout_width="wrap_content"
-			android:textSize="@dimen/medium_text_size"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="@dimen/medium_margin"
-			android:layout_marginTop="@dimen/small_margin"
-			app:setTempo="@{model.state.tempo}"
-			tools:text="Tempo" />
+			android:orientation="horizontal">
+			
+			<TextView
+				android:id="@+id/tempo"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/medium_margin"
+				android:layout_marginTop="@dimen/small_margin"
+				android:textSize="@dimen/medium_text_size"
+				app:setTempo="@{model.state.tempo}"
+				tools:text="Tempo" />
+			
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/medium_margin"
+				android:layout_marginTop="@dimen/small_margin"
+				android:textSize="@dimen/medium_text_size"
+				tools:text="20:00"
+				app:timeLeft="@{model.state.exerciseDetailsList}" />
+		
+		</LinearLayout>
 		
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/list"

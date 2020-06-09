@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.piotr.practicepad.R
 import com.piotr.practicepad.exercise.PracticeState.State.*
+import com.piotr.practicepad.extensions.getOverallTime
 import com.piotr.practicepad.extensions.millisToMinutes
 import com.piotr.practicepad.extensions.millisToSeconds
 
@@ -33,6 +34,13 @@ object ExerciseViewModelBindingAdapter {
     @BindingAdapter("timeLeft")
     fun timeLeft(view: TextView, time: Long) {
         view.text = String.format("%02d:%02d", time.millisToMinutes(), time.millisToSeconds())
+    }
+
+    @JvmStatic
+    @BindingAdapter("timeLeft")
+    fun timeLeft(view: TextView, time: List<Exercise>) {
+        val millis = time.getOverallTime()
+        view.text = String.format("%02d:%02d", millis.millisToMinutes(), millis.millisToSeconds())
     }
 
     @JvmStatic

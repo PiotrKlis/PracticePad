@@ -14,3 +14,7 @@ fun ArrayList<Exercise>.getNextExerciseName(index: Int): String {
 fun ArrayList<Exercise>.getOverallTime(): Long =
     this.map { it.time }
         .sum()
+
+fun List<Exercise>.getOverallTime(): Long =
+    this.map { it.time }
+        .sum()
