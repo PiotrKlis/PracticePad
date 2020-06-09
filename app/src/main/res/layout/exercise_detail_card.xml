@@ -23,7 +23,7 @@
 			android:layout_marginTop="@dimen/small_margin"
 			android:layout_marginEnd="@dimen/medium_margin"
 			android:layout_marginBottom="@dimen/small_margin"
-			android:backgroundTint="@color/light_grey"
+			android:backgroundTint="@color/white"
 			app:cardElevation="@dimen/small_margin">
 			
 			<androidx.constraintlayout.widget.ConstraintLayout
@@ -34,9 +34,11 @@
 					android:id="@+id/name"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginStart="@dimen/small_margin"
-					android:layout_marginTop="@dimen/small_margin"
+					android:layout_marginStart="@dimen/medium_margin"
+					android:layout_marginTop="@dimen/medium_margin"
 					android:text="@{model.name}"
+					android:textColor="@color/black_ish"
+					android:textSize="@dimen/medium_text_size"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
 					tools:text="Exercise name"
@@ -46,8 +48,10 @@
 					android:id="@+id/time"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginStart="@dimen/small_margin"
+					android:layout_marginStart="@dimen/medium_margin"
 					android:layout_marginTop="@dimen/small_margin"
+					android:textColor="@color/black_ish"
+					android:textSize="@dimen/medium_text_size"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toBottomOf="@id/name"
 					app:timeLeft="@{model.time}"
@@ -55,10 +59,8 @@
 					tools:textColor="@color/black_ish" />
 				
 				<androidx.appcompat.widget.AppCompatImageView
-					android:layout_width="wrap_content"
+					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="@dimen/small_margin"
-					android:layout_marginBottom="@dimen/small_margin"
 					app:imageResource="@{model.image}"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"

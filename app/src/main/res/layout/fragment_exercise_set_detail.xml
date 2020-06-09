@@ -13,8 +13,8 @@
 	
 	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@color/grey_top"
+		android:layout_height="match_parent"
+		android:background="@color/grey"
 		android:orientation="vertical">
 		
 		<TextView
@@ -23,15 +23,17 @@
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/medium_margin"
 			android:layout_marginTop="@dimen/medium_margin"
+			android:textSize="@dimen/large_text_size"
 			android:text="@{model.state.name}"
 			tools:text="Name of the exercise set" />
 		
 		<TextView
 			android:id="@+id/tempo"
 			android:layout_width="wrap_content"
+			android:textSize="@dimen/medium_text_size"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/medium_margin"
-			android:layout_marginTop="@dimen/medium_margin"
+			android:layout_marginTop="@dimen/small_margin"
 			app:setTempo="@{model.state.tempo}"
 			tools:text="Tempo" />
 		
