@@ -1,5 +1,8 @@
 package com.piotr.practicepad.exerciseList
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.piotr.practicepad.exercise.Exercise
 
 data class ExerciseSet(
@@ -8,8 +11,13 @@ data class ExerciseSet(
     val exerciseList: ArrayList<Exercise> = arrayListOf(),
     val tempo: Int = 0
 ) {
-  fun shouldStartNextExercise(position: Int): Boolean = position < exerciseList.size
-    fun mapToExerciseSetDetailsState() {
-
-    }
+    fun shouldStartNextExercise(position: Int): Boolean = position < exerciseList.size
 }
+
+@Entity(tableName = "exercise_set_table")
+class ExerciseSetEntity(
+    @PrimaryKey val id: Int,
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "exerciseList") val exerciseList: ArrayList<Exercise>,
+    @ColumnInfo(name = "tempo") val tempo: Int
+)
