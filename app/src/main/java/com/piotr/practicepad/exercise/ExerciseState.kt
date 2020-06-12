@@ -9,6 +9,6 @@ data class ExerciseState(
     val nextExerciseName: String = "",
     val exercisesLeft: Pair<Int, Int> = Pair(0, 0),
     val currentExerciseIndex: Int = 0,
-    val exerciseList: ArrayList<Exercise> = arrayListOf(),
+    val exerciseList: List<Exercise> = listOf(),
     val tempo: Long = 0
 )

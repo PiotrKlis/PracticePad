@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
 import com.piotr.practicepad.exercise.PracticeState.State.*
 import com.piotr.practicepad.exerciseList.ExerciseSet
+import com.piotr.practicepad.exerciseList.ExerciseSetEntity
 import com.piotr.practicepad.extensions.getNextExerciseName
 import com.piotr.practicepad.extensions.getOverallTime
 import com.piotr.practicepad.metronome.Metronome

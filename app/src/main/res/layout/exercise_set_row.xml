@@ -6,7 +6,7 @@
 		
 		<variable
 			name="model"
-			type="com.piotr.practicepad.exerciseList.ExerciseSet" />
+			type="com.piotr.practicepad.exerciseList.ExerciseSetEntity" />
 		
 		<variable
 			name="checkBoxHandler"
