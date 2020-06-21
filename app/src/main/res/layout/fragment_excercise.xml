@@ -6,7 +6,7 @@
 	<data>
 		
 		<variable
-			name="viewmodel"
+			name="model"
 			type="com.piotr.practicepad.exercise.ExerciseViewModel" />
 		
 		<variable
@@ -36,7 +36,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="32dp"
 			android:gravity="center_horizontal"
-			android:text="@{viewmodel.state.setName}"
+			android:text="@{model.state.setName}"
 			android:textSize="@dimen/large_text_size"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,7 @@
 			android:layout_marginTop="8dp"
 			android:gravity="center"
 			android:textSize="@dimen/medium_text_size"
-			app:exercisesLeft="@{viewmodel.state.exercisesLeft}"
+			app:exercisesLeft="@{model.state.exercisesLeft}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toEndOf="@+id/next_exercise"
 			app:layout_constraintTop_toBottomOf="@id/exercise_set_name"
@@ -74,7 +74,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
 			android:gravity="center"
-			android:text="@{`Next: ` + viewmodel.state.nextExerciseName}"
+			android:text="@{`Next: ` + model.state.nextExerciseName}"
 			android:textSize="@dimen/medium_text_size"
 			app:layout_constraintEnd_toStartOf="@+id/exercises_done"
 			app:layout_constraintStart_toEndOf="@+id/overall_time"
@@ -95,7 +95,7 @@
 			android:id="@+id/current_exercise_name"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="@{viewmodel.state.exerciseName}"
+			android:text="@{model.state.exerciseName}"
 			android:textSize="@dimen/large_text_size"
 			app:layout_constraintBottom_toTopOf="@+id/current_exercise_time_left"
 			app:layout_constraintEnd_toEndOf="parent"
@@ -124,7 +124,7 @@
 			android:layout_height="wrap_content"
 			android:adjustViewBounds="true"
 			android:background="@color/white"
-			app:imageResource="@{viewmodel.state.exerciseImage}"
+			app:imageResource="@{model.state.exerciseImage}"
 			app:layout_constraintBottom_toTopOf="@id/bottom_line"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +137,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="16dp"
 			android:background="@drawable/ic_add_circle_black_24dp"
-			android:onClick="@{() -> viewmodel.addTempoClick(viewmodel.state.tempo)}"
+			android:onClick="@{() -> model.addTempoClick(model.state.tempo)}"
 			app:layout_constraintBottom_toTopOf="@id/bottom_line"
 			app:layout_constraintEnd_toStartOf="@id/tempo"
 			app:layout_constraintTop_toBottomOf="@id/image" />
@@ -151,7 +151,7 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/image"
-			app:setTempo="@{viewmodel.state.tempo}"
+			app:setTempo="@{model.state.tempo}"
 			tools:text="120 bpm" />
 		
 		<ImageButton
@@ -159,7 +159,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="16dp"
-			android:onClick="@{() -> viewmodel.subtractTempoClick(viewmodel.state.tempo)}"
+			android:onClick="@{() -> model.subtractTempoClick(model.state.tempo)}"
 			android:background="@drawable/ic_minus_24dp"
 			app:layout_constraintBottom_toTopOf="@id/bottom_line"
 			app:layout_constraintStart_toEndOf="@id/tempo"
@@ -180,7 +180,7 @@
 			android:layout_width="48dp"
 			android:layout_height="48dp"
 			android:layout_marginBottom="16dp"
-			android:onClick="@{() -> viewmodel.powerClick(practice.state)}"
+			android:onClick="@{() -> model.powerClick(practice.state)}"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"

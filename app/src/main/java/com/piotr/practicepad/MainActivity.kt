@@ -47,8 +47,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
-*  - Detail exercise set view
-*  - fragment_exercise viewmodel name -> model
 *  - keep state between tabs + animation
 *  - should exerciseListViewModel have state? Probably true
 *  - Create your own exercise set
@@ -60,6 +58,8 @@ class MainActivity : DaggerAppCompatActivity() {
 * */
 
 /*DONE
+*  - Detail exercise set view
+*  - fragment_exercise viewmodel name -> model
 *  - tempo change
 *  - Design adjustment
 *  - Create at least 6 valid Exercise Sets
