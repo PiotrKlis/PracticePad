@@ -12,8 +12,6 @@ class ExerciseSetRepository @Inject constructor(
     private val exerciseSetEntityMapper: ExerciseSetEntityMapper
 ) {
     suspend fun getActiveSet(): ExerciseSet {
-        Log.d("AAA isOpen", database.isOpen.toString())
-        Log.d("AAA all", database.exerciseSetDao().getAll().toString())
         return exerciseSetEntityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
     }
 

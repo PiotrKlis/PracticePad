@@ -30,7 +30,7 @@ class ExerciseSetEntityMapper @Inject constructor(private val dataConverter: Dat
         input.map {
             ExerciseSetEntity(
                 it.id,
-                it.name,
+                it.title,
                 dataConverter.fromExerciseList(mapToExerciseList(it.exerciseDataList)),
                 it.tempo
             )

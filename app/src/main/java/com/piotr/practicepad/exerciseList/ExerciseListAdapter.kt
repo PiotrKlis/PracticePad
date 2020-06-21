@@ -11,7 +11,7 @@ import com.piotr.practicepad.utils.BindableRecyclerViewAdapter
 class ExerciseListAdapter(
     private val checkBoxHandler: CheckBoxHandler,
     private val navigationHandler: NavigationHandler
-) : BindableRecyclerViewAdapter<RecyclerView.ViewHolder, ExerciseSetEntity>() {
+) : BindableRecyclerViewAdapter<RecyclerView.ViewHolder, ExerciseSet>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder =
         RowViewHolder(parent.bind(R.layout.exercise_set_row, false))
@@ -25,7 +25,7 @@ class ExerciseListAdapter(
     inner class RowViewHolder(private val binding: ExerciseSetRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(
-            item: ExerciseSetEntity,
+            item: ExerciseSet,
             checkBoxHandler: CheckBoxHandler,
             navigationHandler: NavigationHandler
         ) {

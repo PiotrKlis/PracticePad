@@ -39,6 +39,6 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideRoomDatabase(context: Context): PracticePadRoomDatabase =
-        PracticePadRoomDatabase.getInstance(context)
+    fun provideRoomDatabase(context: Context, exerciseSetEntityMapper: ExerciseSetEntityMapper): PracticePadRoomDatabase =
+        PracticePadRoomDatabase.getInstance(context, exerciseSetEntityMapper)
 }
