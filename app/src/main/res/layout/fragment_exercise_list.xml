@@ -8,7 +8,7 @@
 		
 		<variable
 			name="model"
-			type="com.piotr.practicepad.exerciseList.ExerciseSetViewModel" />
+			type="com.piotr.practicepad.exerciseList.ExerciseListViewModel" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="16dp"
 			android:layout_marginRight="16dp"
-			app:items="@{model.getExerciseSets}"
+			app:items="@{model.state.exerciseList}"
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"

@@ -27,11 +27,6 @@ class AppModule {
     fun provideActiveSetSharedPreferences(sharedPreferences: SharedPreferences) =
         SharedPrefs(sharedPreferences)
 
-    @Singleton
-    @Provides
-    fun provideRoomDatabase(context: Context): PracticePadRoomDatabase =
-        PracticePadRoomDatabase.getInstance(context)
-
     //TODO: Move it from here to some different module
     @Provides
     fun provideExerciseSetDetailsMapper() = ExerciseSetDetailsStateMapper()
@@ -41,4 +36,9 @@ class AppModule {
 
     @Provides
     fun provideExerciseSetEntityMapper(dataConverter: DataConverter) = ExerciseSetEntityMapper(dataConverter)
+
+    @Singleton
+    @Provides
+    fun provideRoomDatabase(context: Context): PracticePadRoomDatabase =
+        PracticePadRoomDatabase.getInstance(context)
 }

@@ -8,7 +8,7 @@ import com.piotr.practicepad.databinding.ExerciseSetRowBinding
 import com.piotr.practicepad.extensions.bind
 import com.piotr.practicepad.utils.BindableRecyclerViewAdapter
 
-class ExerciseSetAdapter(
+class ExerciseListAdapter(
     private val checkBoxHandler: CheckBoxHandler,
     private val navigationHandler: NavigationHandler
 ) : BindableRecyclerViewAdapter<RecyclerView.ViewHolder, ExerciseSetEntity>() {

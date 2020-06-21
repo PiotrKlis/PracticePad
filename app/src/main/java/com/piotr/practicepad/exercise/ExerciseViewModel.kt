@@ -3,15 +3,16 @@ package com.piotr.practicepad.exercise
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
 import com.piotr.practicepad.exercise.PracticeState.State.*
 import com.piotr.practicepad.exerciseList.ExerciseSet
-import com.piotr.practicepad.exerciseList.ExerciseSetEntity
 import com.piotr.practicepad.extensions.getNextExerciseName
 import com.piotr.practicepad.extensions.getOverallTime
 import com.piotr.practicepad.metronome.Metronome
 import com.piotr.practicepad.timers.ExerciseSetTimer
 import com.piotr.practicepad.timers.ExerciseTimer
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val FIRST_ITEM = 0
@@ -29,10 +30,14 @@ class ExerciseViewModel @Inject constructor(
     private var activeSetId: Int? = null
 
     fun renderActiveExerciseSet() {
-        exerciseSetRepository.getActiveSet().let { activeSet ->
-            if (activeSetId != activeSet.id) {
-                renderFirstItem(exerciseSetRepository.getActiveSet())
-                activeSetId = activeSet.id
+        viewModelScope.launch {
+            exerciseSetRepository.getActiveSet().let { activeSet ->
+                if (activeSetId != activeSet.id) {
+                    viewModelScope.launch {
+                        renderFirstItem(activeSet)
+                        activeSetId = activeSet.id
+                    }
+                }
             }
         }
     }
@@ -42,8 +47,10 @@ class ExerciseViewModel @Inject constructor(
             ON -> pausePractice()
             OFF -> startPractice()
             RESTART -> {
-                renderFirstItem(exerciseSetRepository.getActiveSet())
-                startPractice()
+                viewModelScope.launch {
+                    renderFirstItem(exerciseSetRepository.getActiveSet())
+                    startPractice()
+                }
             }
         }
     }
@@ -64,12 +71,14 @@ class ExerciseViewModel @Inject constructor(
     }
 
     fun renderNextExercise(position: Int) {
-        val activeSet = exerciseSetRepository.getActiveSet()
-        if (activeSet.shouldStartNextExercise(position)) {
-            mutableState.value = getExercise(activeSet, position)
-            exerciseTimer.startNextExercise(activeSet.exerciseList[position].time)
-        } else {
-            practiceState.setState(RESTART)
+        viewModelScope.launch {
+            val activeSet = exerciseSetRepository.getActiveSet()
+            if (activeSet.shouldStartNextExercise(position)) {
+                mutableState.value = getExercise(activeSet, position)
+                exerciseTimer.startNextExercise(activeSet.exerciseList[position].time)
+            } else {
+                practiceState.setState(RESTART)
+            }
         }
     }
 

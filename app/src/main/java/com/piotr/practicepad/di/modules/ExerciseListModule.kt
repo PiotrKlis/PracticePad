@@ -3,7 +3,7 @@ package com.piotr.practicepad.di.modules
 import androidx.lifecycle.ViewModel
 import com.piotr.practicepad.di.utils.ViewModelKey
 import com.piotr.practicepad.exerciseList.ExerciseListFragment
-import com.piotr.practicepad.exerciseList.ExerciseSetViewModel
+import com.piotr.practicepad.exerciseList.ExerciseListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -16,7 +16,7 @@ abstract class ExerciseListModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ExerciseSetViewModel::class)
-    abstract fun bindsExerciseSetViewModel(viewModel: ExerciseSetViewModel): ViewModel
+    @ViewModelKey(ExerciseListViewModel::class)
+    abstract fun bindsExerciseSetViewModel(viewModel: ExerciseListViewModel): ViewModel
 
 }

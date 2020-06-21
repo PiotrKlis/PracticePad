@@ -1,6 +1,7 @@
 package com.piotr.practicepad.data.db
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -8,13 +9,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.piotr.practicepad.data.dao.ExerciseSetDao
 import com.piotr.practicepad.data.repository.ExerciseSetEntityMapper
 import com.piotr.practicepad.exerciseList.ExerciseSetEntity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @Database(entities = [ExerciseSetEntity::class], version = 1)
-abstract class PracticePadRoomDatabase : RoomDatabase() {
+abstract class PracticePadRoomDatabase @Inject constructor(private val exerciseSetEntityMapper: ExerciseSetEntityMapper) :
+    RoomDatabase() {
     abstract fun exerciseSetDao(): ExerciseSetDao
-    @Inject
-    lateinit var exerciseSetEntityMapper: ExerciseSetEntityMapper
 
     companion object {
         @Volatile
@@ -25,7 +27,7 @@ abstract class PracticePadRoomDatabase : RoomDatabase() {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
 
-        private fun buildDatabase(context: Context) =
+        fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context,
                 PracticePadRoomDatabase::class.java,
@@ -33,9 +35,16 @@ abstract class PracticePadRoomDatabase : RoomDatabase() {
             )
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
+                        Log.d("AAA db", "before super")
                         super.onCreate(db)
-                        suspend {
-                            getInstance(context).apply {
+
+                        GlobalScope.launch() {
+                            INSTANCE?.apply {
+                                Log.d(
+                                    "AAA db launch", exerciseSetEntityMapper.map(
+                                        ExerciseSetData.values()
+                                    ).toString()
+                                )
                                 exerciseSetDao().insertAll(
                                     exerciseSetEntityMapper.map(
                                         ExerciseSetData.values()
@@ -48,3 +57,18 @@ abstract class PracticePadRoomDatabase : RoomDatabase() {
                 .build()
     }
 }
+
+/*Room.databaseBuilder(context.applicationContext,
+        DataDatabase::class.java, "Sample.db")
+        // prepopulate the database after onCreate was called
+        .addCallback(object : Callback() {
+            override fun onCreate(db: SupportSQLiteDatabase) {
+                super.onCreate(db)
+                // moving to a new thread
+                ioThread {
+                    getInstance(context).dataDao()
+                                        .insert(PREPOPULATE_DATA)
+                }
+            }
+        })
+        .build()*/

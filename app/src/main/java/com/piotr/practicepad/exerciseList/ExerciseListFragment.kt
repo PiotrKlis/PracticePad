@@ -13,9 +13,9 @@ import com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetailsFragmentArgs
 import com.piotr.practicepad.utils.BaseFragment
 
 class ExerciseListFragment : BaseFragment(), CheckBoxHandler, NavigationHandler {
-    private val viewModel: ExerciseSetViewModel by viewModels { viewModelFactory }
-    private val adapter: ExerciseSetAdapter =
-        ExerciseSetAdapter(this, this).apply { setHasStableIds(true) }
+    private val viewModel: ExerciseListViewModel by viewModels { viewModelFactory }
+    private val adapter: ExerciseListAdapter =
+        ExerciseListAdapter(this, this).apply { setHasStableIds(true) }
     private lateinit var binding: FragmentExerciseListBinding
 
     override fun onCreateView(

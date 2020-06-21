@@ -10,6 +10,7 @@ import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExcerciseBinding
 import com.piotr.practicepad.ui.main.utils.observeEvent
 import com.piotr.practicepad.utils.BaseFragment
+import kotlinx.coroutines.launch
 
 
 class ExerciseFragment : BaseFragment() {

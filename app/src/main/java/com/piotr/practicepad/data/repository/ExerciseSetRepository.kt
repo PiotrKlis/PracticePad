@@ -1,9 +1,9 @@
 package com.piotr.practicepad.data.repository
 
+import android.util.Log
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.db.SharedPrefs
 import com.piotr.practicepad.exerciseList.ExerciseSet
-import com.piotr.practicepad.exerciseList.ExerciseSetEntity
 import javax.inject.Inject
 
 class ExerciseSetRepository @Inject constructor(
@@ -11,10 +11,15 @@ class ExerciseSetRepository @Inject constructor(
     private val database: PracticePadRoomDatabase,
     private val exerciseSetEntityMapper: ExerciseSetEntityMapper
 ) {
-    fun getActiveSet(): ExerciseSet =
-        exerciseSetEntityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
+    suspend fun getActiveSet(): ExerciseSet {
+        Log.d("AAA isOpen", database.isOpen.toString())
+        Log.d("AAA all", database.exerciseSetDao().getAll().toString())
+        return exerciseSetEntityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
+    }
 
-    fun getAll(): List<ExerciseSet> = exerciseSetEntityMapper.map(database.exerciseSetDao().getAll())
+    suspend fun getAll(): List<ExerciseSet> =
+        exerciseSetEntityMapper.map(database.exerciseSetDao().getAll())
 
-    fun getSetForId(id: Int): ExerciseSet = exerciseSetEntityMapper.map(database.exerciseSetDao().getSetFor(id))
+    suspend fun getSetForId(id: Int): ExerciseSet =
+        exerciseSetEntityMapper.map(database.exerciseSetDao().getSetFor(id))
 }
