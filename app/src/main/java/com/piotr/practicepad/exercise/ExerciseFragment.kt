@@ -50,7 +50,7 @@ class ExerciseFragment : BaseFragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_excercise, container, false)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            viewmodel = viewModel
+            model = viewModel
             exerciseSetTimer = viewModel.exerciseSetTimer
             exerciseTimer = viewModel.exerciseTimer
             practice = viewModel.practiceState
