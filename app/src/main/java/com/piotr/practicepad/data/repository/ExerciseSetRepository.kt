@@ -1,6 +1,5 @@
 package com.piotr.practicepad.data.repository
 
-import android.util.Log
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.db.SharedPrefs
 import com.piotr.practicepad.exerciseList.ExerciseSet

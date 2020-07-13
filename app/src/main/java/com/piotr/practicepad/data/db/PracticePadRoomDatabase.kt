@@ -8,6 +8,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.piotr.practicepad.data.dao.ExerciseSetDao
 import com.piotr.practicepad.data.repository.ExerciseSetEntityMapper
 import com.piotr.practicepad.exerciseList.ExerciseSetEntity
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -37,7 +39,7 @@ abstract class PracticePadRoomDatabase :
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        GlobalScope.launch() {
+                        GlobalScope.launch(Dispatchers.Main) {
                             INSTANCE?.apply {
                                 exerciseSetDao().insertAll(
                                     exerciseSetEntityMapper.map(

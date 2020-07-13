@@ -2,13 +2,10 @@ package com.piotr.practicepad
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.ui.setupWithNavController
 import com.piotr.practicepad.databinding.MainActivityBinding
 import dagger.android.support.DaggerAppCompatActivity
 
+xz
 class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
@@ -16,31 +13,22 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
+        if (savedInstanceState == null) {
+            setNavigation()
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
         setNavigation()
     }
 
     private fun setNavigation() {
-        supportFragmentManager
-            .findFragmentById(R.id.nav_host)
-            ?.let { fragment ->
-                val navController = findNavController(R.id.nav_host)
-                navController.navigatorProvider.addNavigator(
-                    FragmentNavigator(
-                        this,
-                        fragment.childFragmentManager,
-                        R.id.nav_host
-                    )
-                )
-                navController.setGraph(R.navigation.nav_graph)
-                binding.bottomNavigation.setupWithNavController(navController)
-            }
-    }
-
-    private fun getNavigator(fragment: Fragment): KeepStateNavigator {
-        return KeepStateNavigator(
-            this,
-            fragment.childFragmentManager,
-            R.id.nav_host
+        binding.bottomNavigation.setupWithNavController(
+            navGraphIds = listOf(R.navigation.nav_exercise, R.navigation.nav_exercise_list),
+            fragmentManager = supportFragmentManager,
+            containerId = R.id.nav_host,
+            intent = intent
         )
     }
 }

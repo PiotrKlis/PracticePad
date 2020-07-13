@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/nav_exercise"
+	app:startDestination="@id/exerciseFragment">
+	<fragment
+		android:id="@+id/exerciseFragment"
+		android:name="com.piotr.practicepad.exercise.ExerciseFragment"
+		android:label="ExerciseFragment"
+		tools:layout="@layout/fragment_excercise" >
+		<action
+			android:id="@+id/action_exerciseSetFragment_pop"
+			app:enterAnim="@anim/fragment_fade_enter"
+			app:exitAnim="@anim/fragment_fade_exit"
+			app:popUpTo="@id/exerciseFragment"
+			app:popUpToInclusive="true" />
+	</fragment>
+</navigation>

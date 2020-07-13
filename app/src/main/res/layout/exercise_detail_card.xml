@@ -87,7 +87,7 @@
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="@id/delete_button"
 					app:timeLeft="@{model.time}"
-					tools:text="Exercise name"
+					tools:text="00:30"
 					tools:textColor="@color/black_ish" />
 				
 				<androidx.appcompat.widget.AppCompatImageView

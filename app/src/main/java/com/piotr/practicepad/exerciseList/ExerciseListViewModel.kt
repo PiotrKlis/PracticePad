@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.piotr.practicepad.data.db.SharedPrefs
-import com.piotr.practicepad.data.db.isSetActive
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/nav_graph"
-	app:startDestination="@id/exerciseSetFragment">
+	android:id="@+id/nav_exercise_list"
+	app:startDestination="@id/exerciseSetListFragment">
 	
 	<fragment
 		android:id="@+id/exerciseSetListFragment"
@@ -13,19 +13,6 @@
 		<action
 			android:id="@+id/action_navigation_list_to_detail"
 			app:destination="@id/exerciseSetDetailFragment" />
-	</fragment>
-	
-	<fragment
-		android:id="@+id/exerciseSetFragment"
-		android:name="com.piotr.practicepad.exercise.ExerciseFragment"
-		android:label="ExerciseFragment"
-		tools:layout="@layout/fragment_excercise" >
-		<action
-			android:id="@+id/action_exerciseSetFragment_pop"
-			app:enterAnim="@anim/fragment_fade_enter"
-			app:exitAnim="@anim/fragment_fade_exit"
-			app:popUpTo="@id/exerciseSetFragment"
-			app:popUpToInclusive="true" />
 	</fragment>
 	
 	<fragment
