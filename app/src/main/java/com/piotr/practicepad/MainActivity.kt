@@ -5,7 +5,6 @@ import androidx.databinding.DataBindingUtil
 import com.piotr.practicepad.databinding.MainActivityBinding
 import dagger.android.support.DaggerAppCompatActivity
 
-xz
 class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding

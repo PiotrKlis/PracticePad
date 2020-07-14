@@ -46,7 +46,7 @@ class ExerciseListFragment : BaseFragment(), CheckBoxHandler, NavigationHandler 
     override fun shouldBeChecked(id: Int): Boolean = viewModel.isSetActive(id)
     override fun navigationClick(id: Int) {
         findNavController().navigate(
-            R.id.action_navigation_list_to_detail,
+            R.id.action_exerciseSetListFragment_to_exerciseSetDetailFragment,
             ExerciseSetDetailsFragmentArgs(id).toBundle()
         )
     }

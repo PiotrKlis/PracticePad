@@ -11,8 +11,12 @@
 		android:label="fragment_exerciseset_list"
 		tools:layout="@layout/fragment_exercise_list">
 		<action
-			android:id="@+id/action_navigation_list_to_detail"
-			app:destination="@id/exerciseSetDetailFragment" />
+			android:id="@+id/action_exerciseSetListFragment_to_exerciseSetDetailFragment"
+			app:destination="@id/exerciseSetDetailFragment"
+			app:enterAnim="@anim/slide_in_right"
+			app:exitAnim="@anim/slide_out_left"
+			app:popEnterAnim="@anim/slide_in_left"
+			app:popExitAnim="@anim/slide_out_right" />
 	</fragment>
 	
 	<fragment
