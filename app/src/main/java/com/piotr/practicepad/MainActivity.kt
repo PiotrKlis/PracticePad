@@ -34,7 +34,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
-*  - keep state between tabs + animation
 *  - should exerciseListViewModel have state? Probably true
 *  - Create your own exercise set
 *  - Test the app (list bugs - click being silent?)
@@ -42,9 +41,13 @@ class MainActivity : DaggerAppCompatActivity() {
 *  - Test on other devices
 *  - MVP?
 *  - Further refactor? (pass callback to timers instead of events to fragment)
+*
+*  MINORS
+* - animation
 * */
 
 /*DONE
+*  - keep state between tabs + animation
 *  - Detail exercise set view
 *  - fragment_exercise viewmodel name -> model
 *  - tempo change

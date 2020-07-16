@@ -9,15 +9,5 @@
 		android:name="com.piotr.practicepad.exercise.ExerciseFragment"
 		android:label="ExerciseFragment"
 		tools:layout="@layout/fragment_excercise" >
-		<action
-			android:id="@+id/action_exerciseSetFragment_pop"
-			app:destination="@id/exerciseFragment"
-			app:enterAnim="@anim/slide_in_left"
-			app:exitAnim="@anim/slide_in_right"
-			app:popEnterAnim="@anim/slide_out_right"
-			app:popExitAnim="@anim/slide_out_left"
-			app:popUpTo="@id/exerciseFragment"
-			app:popUpToInclusive="true"
-			app:launchSingleTop="true" />
 	</fragment>
 </navigation>

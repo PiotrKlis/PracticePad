@@ -91,12 +91,12 @@ fun BottomNavigationView.setupWithNavController(
                     // to it, creating the fixed started destination.
                     fragmentManager
                         .beginTransaction()
-                        .setCustomAnimations(
-                            R.anim.slide_in_left,
-                            R.anim.slide_out_right,
-                            R.anim.slide_in_left,
-                            R.anim.slide_out_right
-                        )
+//                        .setCustomAnimations(
+//                            R.anim.zoom_out,
+//                            R.anim.slide_out_right,
+//                            R.anim.zoom_out,
+//                            R.anim.slide_out_right
+//                        )
                         .attach(selectedFragment)
                         .setPrimaryNavigationFragment(selectedFragment)
                         .apply {
