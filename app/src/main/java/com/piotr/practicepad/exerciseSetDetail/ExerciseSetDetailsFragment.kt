@@ -1,6 +1,7 @@
 package com.piotr.practicepad.exerciseSetDetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,10 +45,12 @@ class ExerciseSetDetailsFragment : BaseFragment(), Editor {
     }
 
     override fun moveUp(position: Int) {
-        binding.list.adapter?.notifyItemMoved(position, position + 1)
+        binding.list.adapter?.notifyItemMoved(position, position - 1)
+        Log.d("AAA move up", "$position to ${position - 1}")
     }
 
     override fun moveDown(position: Int) {
-        binding.list.adapter?.notifyItemMoved(position, position - 1)
+        binding.list.adapter?.notifyItemMoved(position, position + 1)
+        Log.d("AAA move down", "$position to ${position + 1}")
     }
 }
