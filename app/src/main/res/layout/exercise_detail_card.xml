@@ -16,6 +16,10 @@
 		<variable
 			name="position"
 			type="Integer" />
+		
+		<variable
+			name="setSize"
+			type="Integer" />
 	
 	</data>
 	
@@ -55,7 +59,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="@dimen/medium_margin"
-					android:text="@{model.name}"
+					android:text="@{String.valueOf(position)}"
 					android:textColor="@color/black_ish"
 					android:textSize="@dimen/medium_text_size"
 					app:layout_constraintBottom_toBottomOf="@id/arrow_up"
@@ -69,6 +73,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginEnd="@dimen/medium_margin"
+					app:position="@{String.valueOf(position)}"
+					app:setSize="@{String.valueOf(setSize)}"
 					android:onClick="@{() -> editor.moveUp(position)}"
 					android:src="@drawable/ic_baseline_arrow_upward_24"
 					app:layout_constraintEnd_toEndOf="parent"
@@ -84,9 +90,10 @@
 					app:layout_constraintBottom_toBottomOf="@id/arrow_down"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="@id/arrow_down"
-					app:timeLeft="@{model.time}"
+					android:text="@{String.valueOf(setSize)}"
 					tools:text="00:3safasfasfas0"
 					tools:textColor="@color/black_ish" />
+<!--				app:timeLeft="@{model.time}"-->
 				
 				<androidx.appcompat.widget.AppCompatImageView
 					android:id="@+id/delete_button"
@@ -106,7 +113,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginEnd="@dimen/medium_margin"
-					app:arrowVisbility=""
+					app:position="@{position}"
+					app:setSize="@{setSize}"
 					android:onClick="@{() -> editor.moveDown(position)}"
 					android:src="@drawable/ic_baseline_arrow_downward_24"
 					app:layout_constraintBottom_toBottomOf="parent"
