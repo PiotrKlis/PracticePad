@@ -42,6 +42,7 @@ class ExerciseSetDetailsFragment : BaseFragment(), Editor {
 
     override fun delete(position: Int) {
         binding.list.adapter?.notifyItemRemoved(position)
+        Log.d("AAA delete", "$position")
     }
 
     override fun moveUp(position: Int) {
