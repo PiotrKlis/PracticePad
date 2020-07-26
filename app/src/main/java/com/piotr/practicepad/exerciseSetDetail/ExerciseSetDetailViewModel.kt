@@ -21,4 +21,26 @@ class ExerciseSetDetailViewModel @Inject constructor(
                 exerciseSetDetailsStateMapper.map(exerciseSetRepository.getSetForId(id))
         }
     }
+
+    fun moveDown(position: Int) {
+        mutableState.value?.let {
+            val list = it.exerciseDetailsList.apply {
+                val item = this[position]
+                this.remove(item)
+                this.add(position + 1, item)
+            }
+            mutableState.value = it.copy(exerciseDetailsList = list)
+        }
+    }
+
+    fun moveUp(position: Int) {
+        mutableState.value?.let {
+            val list = it.exerciseDetailsList.apply {
+                val item = this[position]
+                this.remove(item)
+                this.add(position - 1, item)
+            }
+            mutableState.value = it.copy(exerciseDetailsList = list)
+        }
+    }
 }

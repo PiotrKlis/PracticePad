@@ -10,7 +10,7 @@ class ExerciseSetDetailsStateMapper : Mapper<ExerciseSet, ExerciseSetDetailsStat
         return ExerciseSetDetailsState(
             input.name,
             input.tempo,
-            input.exerciseList
+            input.exerciseList.toMutableList()
         )
     }
 }
