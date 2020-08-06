@@ -14,12 +14,8 @@
 			type="com.piotr.practicepad.exerciseSetDetail.Editor" />
 		
 		<variable
-			name="position"
-			type="int" />
-		
-		<variable
-			name="setSize"
-			type="int" />
+			name="adapterParams"
+			type="com.piotr.practicepad.exerciseSetDetail.AdapterParams" />
 	
 	</data>
 	
@@ -59,7 +55,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="@dimen/medium_margin"
-					android:text="@{String.valueOf(position)}"
+					android:text="@{model.name}"
 					android:textColor="@color/black_ish"
 					android:textSize="@dimen/medium_text_size"
 					app:layout_constraintBottom_toBottomOf="@id/arrow_up"
@@ -73,19 +69,17 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginEnd="@dimen/medium_margin"
-					android:onClick="@{() -> editor.moveUp(position)}"
+					android:onClick="@{() -> editor.moveUp(adapterParams.position)}"
 					android:src="@drawable/ic_baseline_arrow_upward_24"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toBottomOf="@id/image"
-					app:position="@{position}"
-					app:setSize="@{setSize}" />
+					app:upArrowVisibility="@{adapterParams}" />
 				
 				<EditText
 					android:id="@+id/time"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginStart="@dimen/medium_margin"
-					android:text="@{String.valueOf(setSize)}"
 					android:textColor="@color/black_ish"
 					android:textSize="@dimen/medium_text_size"
 					app:layout_constraintBottom_toBottomOf="@id/arrow_down"
@@ -102,7 +96,7 @@
 					android:layout_marginTop="@dimen/small_margin"
 					android:layout_marginEnd="@dimen/medium_margin"
 					android:layout_marginBottom="@dimen/small_margin"
-					android:onClick="@{() -> editor.delete(position)}"
+					android:onClick="@{() -> editor.delete(adapterParams.position)}"
 					android:src="@drawable/ic_baseline_delete_24"
 					app:layout_constraintBottom_toBottomOf="@id/arrow_down"
 					app:layout_constraintEnd_toStartOf="@+id/arrow_down"
@@ -113,14 +107,13 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginEnd="@dimen/medium_margin"
-					android:onClick="@{() -> editor.moveDown(position)}"
+					android:onClick="@{() -> editor.moveDown(adapterParams.position)}"
 					android:src="@drawable/ic_baseline_arrow_downward_24"
+					app:downArrowVisibility="@{adapterParams}"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"
-					app:position="@{position}"
-					app:setSize="@{setSize}"
 					app:layout_constraintTop_toBottomOf="@id/arrow_up" />
-
+			
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		
 		</androidx.cardview.widget.CardView>

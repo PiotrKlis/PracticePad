@@ -2,9 +2,12 @@ package com.piotr.practicepad.exercise
 
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.piotr.practicepad.R
 import com.piotr.practicepad.exercise.PracticeState.State.*
+import com.piotr.practicepad.exerciseSetDetail.AdapterParams
 import com.piotr.practicepad.extensions.getOverallTime
 import com.piotr.practicepad.extensions.millisToMinutes
 import com.piotr.practicepad.extensions.millisToSeconds

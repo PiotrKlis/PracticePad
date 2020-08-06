@@ -18,19 +18,17 @@ class ExerciseSetDetailsAdapter(private val editor: Editor) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? ExerciseSetDetailsAdapter.RowViewHolder)?.bindData(
             item = items[position],
-            editor = editor,
-            position = position,
-            setSize = items.size
+            adapterParams = AdapterParams(position, items.size),
+            editor = editor
         )
     }
 
     inner class RowViewHolder(private val binding: ExerciseDetailCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(item: Exercise, editor: Editor,  position: Int, setSize: Int) {
+        fun bindData(item: Exercise, adapterParams: AdapterParams, editor: Editor) {
             binding.model = item
-            binding.position = position
+            binding.adapterParams = adapterParams
             binding.editor = editor
-            binding.setSize = setSize
             binding.executePendingBindings()
         }
     }
