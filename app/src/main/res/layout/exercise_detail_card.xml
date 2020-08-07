@@ -64,17 +64,6 @@
 					tools:text="Exercise name"
 					tools:textColor="@color/black_ish" />
 				
-				<androidx.appcompat.widget.AppCompatImageView
-					android:id="@+id/arrow_up"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginEnd="@dimen/medium_margin"
-					android:onClick="@{() -> editor.moveUp(adapterParams.position)}"
-					android:src="@drawable/ic_baseline_arrow_upward_24"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintTop_toBottomOf="@id/image"
-					app:upArrowVisibility="@{adapterParams}" />
-				
 				<EditText
 					android:id="@+id/time"
 					android:layout_width="wrap_content"
@@ -98,9 +87,20 @@
 					android:layout_marginBottom="@dimen/small_margin"
 					android:onClick="@{() -> editor.delete(adapterParams.position)}"
 					android:src="@drawable/ic_baseline_delete_24"
-					app:layout_constraintBottom_toBottomOf="@id/arrow_down"
+					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toStartOf="@+id/arrow_down"
-					app:layout_constraintTop_toTopOf="@id/arrow_up" />
+					app:layout_constraintTop_toBottomOf="@id/image" />
+				
+				<androidx.appcompat.widget.AppCompatImageView
+					android:id="@+id/arrow_up"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="@dimen/medium_margin"
+					android:onClick="@{() -> editor.moveUp(adapterParams.position)}"
+					android:src="@drawable/ic_baseline_arrow_upward_24"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/image"
+					app:upArrowVisibility="@{adapterParams}" />
 				
 				<androidx.appcompat.widget.AppCompatImageView
 					android:id="@+id/arrow_down"
