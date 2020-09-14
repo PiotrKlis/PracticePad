@@ -16,20 +16,23 @@ class ExerciseSetDetailsAdapter(private val editor: Editor) :
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? ExerciseSetDetailsAdapter.RowViewHolder)?.bindData(
+        (holder as? RowViewHolder)?.bindData(
             item = items[position],
             adapterParams = AdapterParams(position, items.size),
             editor = editor
         )
     }
 
-    inner class RowViewHolder(private val binding: ExerciseDetailCardBinding) :
+    private class RowViewHolder(private val binding: ExerciseDetailCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(item: Exercise, adapterParams: AdapterParams, editor: Editor) {
             binding.model = item
             binding.adapterParams = adapterParams
             binding.editor = editor
             binding.executePendingBindings()
+            binding.time.setOnClickListener {
+
+            }
         }
     }
 }
