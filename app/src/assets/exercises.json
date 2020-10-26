@@ -1,0 +1,717 @@
+{
+  "exercise_data": [
+    {
+      "id": 0,
+      "title": "8th inverted doubles",
+      "image": "inverted_eight",
+      "time": 0
+    },
+    {
+      "id": 1,
+      "title": "8th left hand",
+      "image": "left_hand_eight",
+      "time": 0
+    },
+    {
+      "id": 2,
+      "title": "8th right hand",
+      "image": "right_hand_eight",
+      "time": 0
+    },
+    {
+      "id": 3,
+      "title": "8th doubles",
+      "image": "doubles_8th",
+      "time": 0
+    },
+    {
+      "id": 4,
+      "title": "8th triplets",
+      "image": "triplets_8th",
+      "time": 0
+    },
+    {
+      "id": 5,
+      "title": "16th single stroke roll",
+      "image": "single_16th",
+      "time": 0
+    },
+    {
+      "id": 6,
+      "title": "16th doubles",
+      "image": "doubles_16th",
+      "time": 0
+    },
+    {
+      "id": 7,
+      "title": "16th paradiddle",
+      "image": "single_paradiddle",
+      "time": 0
+    },
+    {
+      "id": 8,
+      "title": "16th sextuplets",
+      "image": "triplets_16th",
+      "time": 0
+    },
+    {
+      "id": 9,
+      "title": "16th paradiddle sextuplets",
+      "image": "paradiddle_sixtuplets",
+      "time": 0
+    },
+    {
+      "id": 10,
+      "title": "16th paradiddle-diddle sextuplets",
+      "image": "single_paradiddle_diddle",
+      "time": 0
+    },
+    {
+      "id": 11,
+      "title": "Single stroke four",
+      "image": "single_stroke_four",
+      "time": 0
+    },
+    {
+      "id": 12,
+      "title": "Single stroke seven",
+      "image": "single_stroke_seven",
+      "time": 0
+    },
+    {
+      "id": 13,
+      "title": "Triple stroke roll",
+      "image": "triplets_one_hand",
+      "time": 0
+    },
+    {
+      "id": 14,
+      "title": "Triple stroke roll sextuplets",
+      "image": "triple_stroke_roll",
+      "time": 0
+    },
+    {
+      "id": 15,
+      "title": "Single army triplet",
+      "image": "single_army_triplet",
+      "time": 0
+    },
+    {
+      "id": 16,
+      "title": "Drag",
+      "image": "drag",
+      "time": 0
+    },
+    {
+      "id": 17,
+      "title": "Drag paradiddle",
+      "image": "drag_paradiddle",
+      "time": 0
+    },
+    {
+      "id": 18,
+      "title": "Drag paradiddle 2",
+      "image": "drag_paradiddle_2",
+      "time": 0
+    },
+    {
+      "id": 19,
+      "title": "Single drag tap",
+      "image": "single_drag_tap",
+      "time": 0
+    },
+    {
+      "id": 20,
+      "title": "Single dragadiddle",
+      "image": "single_dragadiddle",
+      "time": 0
+    },
+    {
+      "id": 21,
+      "title": "Flam accent",
+      "image": "flam_accent",
+      "time": 0
+    },
+    {
+      "id": 22,
+      "title": "Flam drag",
+      "image": "flam_drag",
+      "time": 0
+    },
+    {
+      "title": "Flam paradiddle",
+      "image": "flam_paradiddle",
+      "time": 0
+    },
+    {
+      "id": 23,
+      "title": "Flam tap",
+      "image": "flam_tap",
+      "time": 0
+    },
+    {
+      "id": 24,
+      "title": "Flam",
+      "image": "flam",
+      "time": 0
+    },
+    {
+      "id": 25,
+      "title": "Pataflala",
+      "image": "pataflafla",
+      "time": 0
+    },
+    {
+      "id": 26,
+      "title": "Single Flammed Mill",
+      "image": "single_flammed_mill",
+      "time": 0
+    },
+    {
+      "id": 27,
+      "title": "Quarters",
+      "image": "quarter",
+      "time": 0
+    }
+  ],
+  "exerciseSet": [
+    {
+      "id": 1000,
+      "title": "Single stroke pressure",
+      "tempo": 110,
+      "exercises": [
+        {
+          "id": 3,
+          "title": "8th doubles",
+          "image": "doubles_8th",
+          "time": 30
+        },
+        {
+          "id": 6,
+          "title": "16th doubles",
+          "image": "doubles_16th",
+          "time": 30
+        },
+        {
+          "id": 1,
+          "title": "8th left hand",
+          "image": "left_hand_eight",
+          "time": 30
+        },
+        {
+          "id": 2,
+          "title": "8th right hand",
+          "image": "right_hand_eight",
+          "time": 30
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 30
+        },
+        {
+          "id": 7,
+          "title": "16th paradiddle",
+          "image": "single_paradiddle",
+          "time": 30
+        },
+        {
+          "id": 13,
+          "title": "Triple stroke roll",
+          "image": "triplets_one_hand",
+          "time": 30
+        },
+        {
+          "id": 9,
+          "title": "16th paradiddle sextuplets",
+          "image": "paradiddle_sixtuplets",
+          "time": 30
+        },
+        {
+          "id": 13,
+          "title": "Triple stroke roll",
+          "image": "triplets_one_hand",
+          "time": 30
+        },
+        {
+          "id": 8,
+          "title": "16th sextuplets",
+          "image": "triplets_16th",
+          "time": 30
+        }
+      ]
+    },
+    {
+      "id": 1001,
+      "title": "Single stroke pressure",
+      "tempo": 110,
+      "exercises": [
+        {
+          "id": 27,
+          "title": "Quarters",
+          "image": "quarter",
+          "time": 30
+        },
+        {
+          "id": 1,
+          "title": "8th left hand",
+          "image": "left_hand_eight",
+          "time": 30
+        },
+        {
+          "id": 2,
+          "title": "8th right hand",
+          "image": "right_hand_eight",
+          "time": 30
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 30
+        },
+        {
+          "id": 11,
+          "title": "Single stroke four",
+          "image": "single_stroke_four",
+          "time": 30
+        },
+        {
+          "id": 12,
+          "title": "Single stroke seven",
+          "image": "single_stroke_seven",
+          "time": 30
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 30
+        },
+        {
+          "id": 1,
+          "title": "8th left hand",
+          "image": "left_hand_eight",
+          "time": 30
+        },
+        {
+          "id": 2,
+          "title": "8th right hand",
+          "image": "right_hand_eight",
+          "time": 30
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 30
+        },
+        {
+          "id": 11,
+          "title": "Single stroke four",
+          "image": "single_stroke_four",
+          "time": 30
+        },
+        {
+          "id": 12,
+          "title": "Single stroke seven",
+          "image": "single_stroke_seven",
+          "time": 30
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 30
+        },
+        {
+          "id": 27,
+          "title": "Quarters",
+          "image": "quarter",
+          "time": 30
+        },
+        {
+          "id": 1,
+          "title": "8th left hand",
+          "image": "left_hand_eight",
+          "time": 30
+        },
+        {
+          "id": 2,
+          "title": "8th right hand",
+          "image": "right_hand_eight",
+          "time": 30
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 30
+        },
+        {
+          "id": 11,
+          "title": "Single stroke four",
+          "image": "single_stroke_four",
+          "time": 30
+        },
+        {
+          "id": 12,
+          "title": "Single stroke seven",
+          "image": "single_stroke_seven",
+          "time": 30
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 30
+        },
+        {
+          "id": 1,
+          "title": "8th left hand",
+          "image": "left_hand_eight",
+          "time": 30
+        },
+        {
+          "id": 2,
+          "title": "8th right hand",
+          "image": "right_hand_eight",
+          "time": 30
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 30
+        },
+        {
+          "id": 11,
+          "title": "Single stroke four",
+          "image": "single_stroke_four",
+          "time": 30
+        },
+        {
+          "id": 12,
+          "title": "Single stroke seven",
+          "image": "single_stroke_seven",
+          "time": 30
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 30
+        }
+      ]
+    },
+    {
+      "id": 1002,
+      "title": "Every day workout",
+      "tempo": 110,
+      "exercises": [
+        {
+          "id": 27,
+          "title": "Quarters",
+          "image": "quarter",
+          "time": 30
+        },
+        {
+          "id": 3,
+          "title": "8th doubles",
+          "image": "doubles_8th",
+          "time": 60
+        },
+        {
+          "id": 1,
+          "title": "8th left hand",
+          "image": "left_hand_eight",
+          "time": 60
+        },
+        {
+          "id": 2,
+          "title": "8th right hand",
+          "image": "right_hand_eight",
+          "time": 60
+        },
+        {
+          "id": 0,
+          "title": "8th inverted doubles",
+          "image": "inverted_eight",
+          "time": 60
+        },
+        {
+          "id": 4,
+          "title": "8th triplets",
+          "image": "triplets_8th",
+          "time": 60
+        },
+        {
+          "id": 21,
+          "title": "Flam accent",
+          "image": "flam_accent",
+          "time": 60
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 60
+        },
+        {
+          "id": 6,
+          "title": "16th doubles",
+          "image": "doubles_16th",
+          "time": 60
+        },
+        {
+          "id": 7,
+          "title": "16th paradiddle",
+          "image": "single_paradiddle",
+          "time": 60
+        },
+        {
+          "title": "Flam paradiddle",
+          "image": "flam_paradiddle",
+          "time": 60
+        },
+        {
+          "id": 8,
+          "title": "16th sextuplets",
+          "image": "triplets_16th",
+          "time": 60
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 60
+        }
+      ]
+    },
+    {
+      "id": 1003,
+      "title": "4800 Doubles Challange",
+      "tempo": 120,
+      "exercises": [
+        {
+          "id": 6,
+          "title": "16th doubles",
+          "image": "doubles_16th",
+          "time": 1200
+        }
+      ]
+    },
+    {
+      "id": 1004,
+      "title": "Drag Practice",
+      "tempo": 110,
+      "exercises": [
+        {
+          "id": 16,
+          "title": "Drag",
+          "image": "drag",
+          "time": 45
+        },
+        {
+          "id": 17,
+          "title": "Drag paradiddle",
+          "image": "drag_paradiddle",
+          "time": 0
+        },
+        {
+          "id": 18,
+          "title": "Drag paradiddle 2",
+          "image": "drag_paradiddle_2",
+          "time": 0
+        },
+        {
+          "id": 19,
+          "title": "Single drag tap",
+          "image": "single_drag_tap",
+          "time": 0
+        },
+        {
+          "id": 20,
+          "title": "Single dragadiddle",
+          "image": "single_dragadiddle",
+          "time": 0
+        },
+        {
+          "id": 17,
+          "title": "Drag paradiddle",
+          "image": "drag_paradiddle",
+          "time": 0
+        },
+        {
+          "id": 19,
+          "title": "Single drag tap",
+          "image": "single_drag_tap",
+          "time": 0
+        },
+        {
+          "id": 18,
+          "title": "Drag paradiddle 2",
+          "image": "drag_paradiddle_2",
+          "time": 0
+        },
+        {
+          "id": 20,
+          "title": "Single dragadiddle",
+          "image": "single_dragadiddle",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "id": 1005,
+      "title": "Flam Practice",
+      "tempo": 110,
+      "exercises": [
+        {
+          "id": 24,
+          "title": "Flam",
+          "image": "flam",
+          "time": 0
+        },
+        {
+          "id": 21,
+          "title": "Flam accent",
+          "image": "flam_accent",
+          "time": 60
+        },
+        {
+          "id": 22,
+          "title": "Flam drag",
+          "image": "flam_drag",
+          "time": 0
+        },
+        {
+          "title": "Flam paradiddle",
+          "image": "flam_paradiddle",
+          "time": 0
+        },
+        {
+          "id": 23,
+          "title": "Flam tap",
+          "image": "flam_tap",
+          "time": 0
+        },
+        {
+          "id": 25,
+          "title": "Pataflala",
+          "image": "pataflafla",
+          "time": 0
+        },
+        {
+          "id": 26,
+          "title": "Single Flammed Mill",
+          "image": "single_flammed_mill",
+          "time": 0
+        },
+        {
+          "id": 22,
+          "title": "Flam drag",
+          "image": "flam_drag",
+          "time": 0
+        },
+        {
+          "id": 23,
+          "title": "Flam tap",
+          "image": "flam_tap",
+          "time": 0
+        },
+        {
+          "id": 21,
+          "title": "Flam accent",
+          "image": "flam_accent",
+          "time": 60
+        },
+        {
+          "title": "Flam paradiddle",
+          "image": "flam_paradiddle",
+          "time": 0
+        },
+        {
+          "id": 26,
+          "title": "Single Flammed Mill",
+          "image": "single_flammed_mill",
+          "time": 0
+        },
+        {
+          "id": 25,
+          "title": "Pataflala",
+          "image": "pataflafla",
+          "time": 0
+        }
+      ]
+    },
+    {
+      "id": 1006,
+      "title": "Short Warmup",
+      "tempo": 110,
+      "exercises": [
+        {
+          "id": 3,
+          "title": "8th doubles",
+          "image": "doubles_8th",
+          "time": 0
+        },
+        {
+          "id": 6,
+          "title": "16th doubles",
+          "image": "doubles_16th",
+          "time": 0
+        },
+        {
+          "id": 1,
+          "title": "8th left hand",
+          "image": "left_hand_eight",
+          "time": 0
+        },
+        {
+          "id": 2,
+          "title": "8th right hand",
+          "image": "right_hand_eight",
+          "time": 0
+        },
+        {
+          "id": 5,
+          "title": "16th single stroke roll",
+          "image": "single_16th",
+          "time": 0
+        },
+        {
+          "id": 7,
+          "title": "16th paradiddle",
+          "image": "single_paradiddle",
+          "time": 0
+        },
+        {
+          "id": 14,
+          "title": "Triple stroke roll sextuplets",
+          "image": "triple_stroke_roll",
+          "time": 0
+        },
+        {
+          "id": 9,
+          "title": "16th paradiddle sextuplets",
+          "image": "paradiddle_sixtuplets",
+          "time": 0
+        },
+        {
+          "id": 13,
+          "title": "Triple stroke roll",
+          "image": "triplets_one_hand",
+          "time": 0
+        },
+        {
+          "id": 8,
+          "title": "16th sextuplets",
+          "image": "triplets_16th",
+          "time": 0
+        }
+      ]
+    }
+  ]
+}

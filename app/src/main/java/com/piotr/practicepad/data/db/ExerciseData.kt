@@ -3,17 +3,17 @@ package com.piotr.practicepad.data.db
 import com.piotr.practicepad.R
 
 enum class ExerciseEnum(val title: String, val image: Int) {
-    INVERTED_DOUBLES_8TH("8th inverted doublesx", R.drawable.inverted_eight),
+    INVERTED_DOUBLES_8TH("8th inverted doubles", R.drawable.inverted_eight),
     LEFT_HAND_8TH("8th left hand", R.drawable.left_hand_eight),
     RIGHT_HAND_8TH("8th right hand", R.drawable.right_hand_eight),
     DOUBLES_8TH("8th doubles", R.drawable.doubles_8th),
-    TRIPLETS("Triplets", R.drawable.triplets_8th),
+    TRIPLETS("8th triplets", R.drawable.triplets_8th),
     SINGLE_STROKE_16TH("16th single stroke roll", R.drawable.single_16th),
     DOUBLES_16TH("16th doubles", R.drawable.doubles_16th),
     PARADIDDLE_16TH("16th paradiddle", R.drawable.single_paradiddle),
-    SEXTUPLETS("Sextuplets", R.drawable.triplets_16th),
-    SEXTUPLETS_PARADIDDLE("Paradiddle sextuplets", R.drawable.paradiddle_sixtuplets),
-    SEXTUPLETS_PARADDIDLE_DIDDLE("Paradiddle-diddle sextuplets", R.drawable.single_paradiddle_diddle),
+    SEXTUPLETS("16th sextuplets", R.drawable.triplets_16th),
+    SEXTUPLETS_PARADIDDLE("16th paradiddle sextuplets", R.drawable.paradiddle_sixtuplets),
+    SEXTUPLETS_PARADDIDLE_DIDDLE("16th paradiddle-diddle sextuplets", R.drawable.single_paradiddle_diddle),
     SINGLE_STROKE_FOUR("Single stroke four", R.drawable.single_stroke_four),
     SINGLE_STROKE_SEVEN("Single stroke seven", R.drawable.single_stroke_seven),
     TRIPLETS_ONE_HAND_8TH("Triple stroke roll", R.drawable.triplets_one_hand),
