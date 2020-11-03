@@ -11,7 +11,9 @@ class ExerciseSetRepository @Inject constructor(
     private val exerciseSetEntityMapper: ExerciseSetEntityMapper
 ) {
     suspend fun getActiveSet(): ExerciseSet {
-        return exerciseSetEntityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
+//         exerciseSetEntityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
+        database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId())
+        return ExerciseSet()
     }
 
     suspend fun getAll(): List<ExerciseSet> =

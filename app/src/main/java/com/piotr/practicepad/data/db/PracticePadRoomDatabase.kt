@@ -1,6 +1,7 @@
 package com.piotr.practicepad.data.db
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -46,23 +47,45 @@ abstract class PracticePadRoomDatabase :
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     GlobalScope.launch(Dispatchers.IO) {
-                        INSTANCE?.let { database ->
-                            val jsonObj =
-                                JsonParser.parseString(readJSONFromAsset(context)).asJsonObject
-                            val companyType = object : TypeToken<List<ExerciseEntity>>() {}.type
-                            val exercises: List<ExerciseEntity> =
-                                Gson().fromJson(jsonObj, companyType)
-                            populateDatabase(database, exercises)
-                        }
+                        INSTANCE?.let { database -> saveJsonFiles(database) }
                     }
                 }
-            }).build()
 
-        private fun readJSONFromAsset(context: Context): String {
+                private suspend fun saveJsonFiles(database: PracticePadRoomDatabase) {
+                    val exerciseSets = getExerciseSetsFromJson()
+                    val exercises = getExercisesFromJson()
+                    populateDatabase(database, exerciseSets, exercises)
+                }
+
+                private fun getExerciseSetsFromJson(): List<ExerciseSetEntity>? {
+                    val jsonObj = JsonParser.parseString(
+                        readJSONFromAsset(
+                            context,
+                            R.string.exercise_sets_json
+                        )
+                    ).asJsonArray
+                    val type = object : TypeToken<List<ExerciseSetEntity>>() {}.type
+                    return Gson().fromJson<List<ExerciseSetEntity>?>(jsonObj, type)
+                }
+
+                private fun getExercisesFromJson(): List<ExerciseEntity>? {
+                    val jsonObj = JsonParser.parseString(
+                        readJSONFromAsset(
+                            context,
+                            R.string.exercises_json
+                        )
+                    ).asJsonArray
+                    val type = object : TypeToken<List<ExerciseEntity>>() {}.type
+                    return Gson().fromJson<List<ExerciseEntity>?>(jsonObj, type)
+                }
+            }
+            ).build()
+
+        private fun readJSONFromAsset(context: Context, @StringRes jsonPath: Int): String {
             val json: String
             try {
                 val inputStream: InputStream = context.assets.open(
-                    context.getString(R.string.exercises_json)
+                    context.getString(jsonPath)
                 )
                 json = inputStream.bufferedReader().use {
                     it.readText()
@@ -76,10 +99,12 @@ abstract class PracticePadRoomDatabase :
 
         private suspend fun populateDatabase(
             database: PracticePadRoomDatabase,
-            exercise: List<ExerciseEntity>
+            exerciseSets: List<ExerciseSetEntity>?,
+            exercises: List<ExerciseEntity>?
         ) {
-            val exerciseDao = database.exerciseDao()
-            exerciseDao.insertAll(exercise)
+            //add safelet
+            database.exerciseDao().insertAll(exercises)
+            database.exerciseSetDao().insertAll(exerciseSets)
         }
     }
 }

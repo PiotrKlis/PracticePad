@@ -10,8 +10,7 @@ import com.piotr.practicepad.exerciseList.ExerciseSetEntity
 import com.piotr.practicepad.extensions.secondsToMilliseconds
 import javax.inject.Inject
 
-class ExerciseSetEntityMapper @Inject constructor(private val dataConverter: DataConverter) :
-    Mapper<Array<ExerciseSetData>, List<ExerciseSetEntity>> {
+class ExerciseSetEntityMapper @Inject constructor(private val dataConverter: DataConverter) {
     fun map(input: List<ExerciseSetEntity>): List<ExerciseSet> =
         input.map {
             ExerciseSet(it.id, it.name, dataConverter.toExerciseList(it.exerciseList), it.tempo)
@@ -23,26 +22,5 @@ class ExerciseSetEntityMapper @Inject constructor(private val dataConverter: Dat
             input.name,
             dataConverter.toExerciseList(input.exerciseList),
             input.tempo
-        )
-
-
-    override fun map(input: Array<ExerciseSetData>): List<ExerciseSetEntity> =
-        input.map {
-            ExerciseSetEntity(
-                it.id,
-                it.title,
-                dataConverter.fromExerciseList(mapToExerciseList(it.exerciseDataList)),
-                it.tempo
-            )
-        }
-
-    private fun mapToExerciseList(list: List<ExerciseData>): List<Exercise> =
-        list.map { mapToExercise(it) }
-
-    private fun mapToExercise(item: ExerciseData): Exercise =
-        Exercise(
-            item.time.secondsToMilliseconds(),
-            item.exerciseData.title,
-            item.exerciseData.image
         )
 }
