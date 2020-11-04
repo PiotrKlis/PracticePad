@@ -75,7 +75,7 @@ class ExerciseViewModel @Inject constructor(
             val activeSet = exerciseSetRepository.getActiveSet()
             if (activeSet.shouldStartNextExercise(position)) {
                 mutableState.value = getExercise(activeSet, position)
-                exerciseTimer.startNextExercise(activeSet.exerciseList[position].time)
+                exerciseTimer.startNextExercise(activeSet.exercises[position].time)
             } else {
                 practiceState.setState(RESTART)
             }
@@ -103,19 +103,19 @@ class ExerciseViewModel @Inject constructor(
 
     private fun renderFirstItem(activeExerciseSet: ExerciseSet) {
         mutableState.value = getExercise(activeExerciseSet, FIRST_ITEM)
-        exerciseTimer.setData(activeExerciseSet.exerciseList[FIRST_ITEM].time)
-        exerciseSetTimer.setData(activeExerciseSet.exerciseList.getOverallTime())
+        exerciseTimer.setData(activeExerciseSet.exercises[FIRST_ITEM].time)
+        exerciseSetTimer.setData(activeExerciseSet.exercises.getOverallTime())
     }
 
     private fun getExercise(exerciseSet: ExerciseSet, position: Int): ExerciseState {
         return ExerciseState(
             setName = exerciseSet.title,
-            exerciseImage = exerciseSet.exerciseList[position].image,
-            exerciseName = exerciseSet.exerciseList[position].name,
-            nextExerciseName = exerciseSet.exerciseList.getNextExerciseName(position),
-            exercisesLeft = Pair(position, exerciseSet.exerciseList.size),
+            exerciseImage = exerciseSet.exercises[position].image,
+            exerciseName = exerciseSet.exercises[position].title,
+            nextExerciseName = exerciseSet.exercises.getNextExerciseName(position),
+            exercisesLeft = Pair(position, exerciseSet.exercises.size),
             currentExerciseIndex = position,
-            exerciseList = exerciseSet.exerciseList,
+            exerciseList = exerciseSet.exercises,
             tempo = exerciseSet.tempo.toLong()
         )
     }

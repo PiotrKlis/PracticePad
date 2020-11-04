@@ -10,17 +10,17 @@ class ExerciseSetEntityMapper @Inject constructor(private val dataConverter: Dat
         input.map {
             ExerciseSet(
                 id = it.id,
-                title = it.name,
+                title = it.title,
                 tempo = it.tempo,
-                exerciseList = dataConverter.toExerciseList(it.exerciseList)
+                exercises = dataConverter.toExerciseList(it.exercises)
             )
         }
 
     fun map(input: ExerciseSetEntity): ExerciseSet =
         ExerciseSet(
             id = input.id,
-            title = input.name,
-            exerciseList = dataConverter.toExerciseList(input.exerciseList),
+            title = input.title,
+            exercises = dataConverter.toExerciseList(input.exercises),
             tempo = input.tempo
         )
 }

@@ -8,7 +8,7 @@ import com.piotr.practicepad.R
 data class Exercise(
     val id: Int = 0,
     val time: Long = 0L,
-    val name: String = "",
+    val title: String = "",
     val image: Int = R.drawable.single_16th
 )
 
@@ -16,7 +16,7 @@ data class Exercise(
 class ExerciseEntity(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "time") val time: Int,
-    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "image") val image: String
 )
 
