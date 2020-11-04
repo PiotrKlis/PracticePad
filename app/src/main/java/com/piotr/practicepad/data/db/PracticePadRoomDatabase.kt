@@ -57,7 +57,7 @@ abstract class PracticePadRoomDatabase :
                     populateDatabase(database, exerciseSets, exercises)
                 }
 
-                private fun getExerciseSetsFromJson(): List<ExerciseSetEntity>? {
+                private fun getExerciseSetsFromJson(): List<ExerciseSetEntity> {
                     val jsonObj = JsonParser.parseString(
                         readJSONFromAsset(
                             context,
@@ -65,10 +65,10 @@ abstract class PracticePadRoomDatabase :
                         )
                     ).asJsonArray
                     val type = object : TypeToken<List<ExerciseSetEntity>>() {}.type
-                    return Gson().fromJson<List<ExerciseSetEntity>?>(jsonObj, type)
+                    return Gson().fromJson(jsonObj, type)
                 }
 
-                private fun getExercisesFromJson(): List<ExerciseEntity>? {
+                private fun getExercisesFromJson(): List<ExerciseEntity> {
                     val jsonObj = JsonParser.parseString(
                         readJSONFromAsset(
                             context,
@@ -76,7 +76,7 @@ abstract class PracticePadRoomDatabase :
                         )
                     ).asJsonArray
                     val type = object : TypeToken<List<ExerciseEntity>>() {}.type
-                    return Gson().fromJson<List<ExerciseEntity>?>(jsonObj, type)
+                    return Gson().fromJson(jsonObj, type)
                 }
             }
             ).build()
@@ -99,8 +99,8 @@ abstract class PracticePadRoomDatabase :
 
         private suspend fun populateDatabase(
             database: PracticePadRoomDatabase,
-            exerciseSets: List<ExerciseSetEntity>?,
-            exercises: List<ExerciseEntity>?
+            exerciseSets: List<ExerciseSetEntity>,
+            exercises: List<ExerciseEntity>
         ) {
             //add safelet
             database.exerciseDao().insertAll(exercises)

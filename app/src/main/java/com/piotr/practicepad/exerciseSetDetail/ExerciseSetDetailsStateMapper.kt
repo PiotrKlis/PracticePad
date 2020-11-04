@@ -8,7 +8,7 @@ import com.piotr.practicepad.exerciseList.ExerciseSetEntity
 class ExerciseSetDetailsStateMapper : Mapper<ExerciseSet, ExerciseSetDetailsState> {
     override fun map(input: ExerciseSet): ExerciseSetDetailsState {
         return ExerciseSetDetailsState(
-            input.name,
+            input.title,
             input.tempo,
             input.exerciseList.toMutableList()
         )

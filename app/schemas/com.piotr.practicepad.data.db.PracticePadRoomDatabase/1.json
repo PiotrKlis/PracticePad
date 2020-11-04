@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8db7f00fff7b0bec4ba8389dab33938b",
+    "identityHash": "d02d66a82072542470cdb4366a90d319",
     "entities": [
       {
         "tableName": "exercise_set_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `exerciseList` TEXT NOT NULL, `tempo` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL, `tempo` INTEGER NOT NULL, `exercises` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -16,13 +16,7 @@
           },
           {
             "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "exerciseList",
-            "columnName": "exerciseList",
+            "columnName": "title",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -30,6 +24,12 @@
             "fieldPath": "tempo",
             "columnName": "tempo",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exerciseList",
+            "columnName": "exercises",
+            "affinity": "TEXT",
             "notNull": true
           }
         ],
@@ -84,7 +84,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8db7f00fff7b0bec4ba8389dab33938b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd02d66a82072542470cdb4366a90d319')"
     ]
   }
 }

@@ -109,7 +109,7 @@ class ExerciseViewModel @Inject constructor(
 
     private fun getExercise(exerciseSet: ExerciseSet, position: Int): ExerciseState {
         return ExerciseState(
-            setName = exerciseSet.name,
+            setName = exerciseSet.title,
             exerciseImage = exerciseSet.exerciseList[position].image,
             exerciseName = exerciseSet.exerciseList[position].name,
             nextExerciseName = exerciseSet.exerciseList.getNextExerciseName(position),
