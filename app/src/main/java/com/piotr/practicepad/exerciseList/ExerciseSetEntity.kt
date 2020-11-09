@@ -3,7 +3,10 @@ package com.piotr.practicepad.exerciseList
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import com.piotr.practicepad.di.utils.DataConverter
 import com.piotr.practicepad.exercise.Exercise
+import com.piotr.practicepad.exercise.ExerciseEntity
 
 data class ExerciseSet(
     val id: Int = 0,
@@ -19,5 +22,5 @@ class ExerciseSetEntity(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "tempo") val tempo: Int,
-    @ColumnInfo(name = "exercises") val exercises: Array<String>
+    @ColumnInfo(name = "exercises") val exercises: List<ExerciseEntity>
 )

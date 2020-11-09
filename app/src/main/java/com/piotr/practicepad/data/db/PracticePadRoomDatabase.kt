@@ -2,9 +2,7 @@ package com.piotr.practicepad.data.db
 
 import android.content.Context
 import androidx.annotation.StringRes
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.JsonParser
@@ -12,6 +10,7 @@ import com.google.gson.reflect.TypeToken
 import com.piotr.practicepad.R
 import com.piotr.practicepad.data.dao.ExerciseDao
 import com.piotr.practicepad.data.dao.ExerciseSetDao
+import com.piotr.practicepad.di.utils.DataConverter
 import com.piotr.practicepad.exercise.ExerciseEntity
 import com.piotr.practicepad.exerciseList.ExerciseSetEntity
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +19,7 @@ import kotlinx.coroutines.launch
 import java.io.InputStream
 
 @Database(entities = [ExerciseSetEntity::class, ExerciseEntity::class], version = 1)
+@TypeConverters(DataConverter::class)
 abstract class PracticePadRoomDatabase :
     RoomDatabase() {
     abstract fun exerciseSetDao(): ExerciseSetDao

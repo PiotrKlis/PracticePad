@@ -3,6 +3,10 @@ package com.piotr.practicepad.utils
 import android.content.Context
 import androidx.annotation.StringRes
 
+interface ResourceProvider {
+    fun getResourceFor() 
+}
+
 interface StringProvider {
     fun getStringForId(@StringRes stringRes: Int): String?
 }

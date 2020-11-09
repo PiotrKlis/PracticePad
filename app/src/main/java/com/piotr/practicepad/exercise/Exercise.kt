@@ -9,7 +9,7 @@ data class Exercise(
     val id: Int = 0,
     val time: Long = 0L,
     val title: String = "",
-    val image: Int = R.drawable.single_16th
+    val image: String = ""
 )
 
 @Entity(tableName = "exercise_table")
