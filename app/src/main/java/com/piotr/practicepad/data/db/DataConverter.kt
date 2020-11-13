@@ -1,4 +1,4 @@
-package com.piotr.practicepad.di.utils
+package com.piotr.practicepad.data.db
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
@@ -21,16 +21,4 @@ class DataConverter {
         val type = object : TypeToken<List<ExerciseEntity>>() {}.type
         return gson.fromJson(value, type)
     }
-
-//    @TypeConverter
-//    fun fromExercise(value: List<Exercise>): String {
-//        val type = object : TypeToken<List<Exercise>>() {}.type
-//        return gson.toJson(value, type)
-//    }
-//
-//    @TypeConverter
-//    fun toExercise(value: String): List<Exercise> {
-//        val type = object : TypeToken<List<Exercise>>() {}.type
-//        return gson.fromJson(value, type)
-//    }
 }

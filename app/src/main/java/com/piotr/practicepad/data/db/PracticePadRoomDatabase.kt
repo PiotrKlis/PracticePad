@@ -10,7 +10,6 @@ import com.google.gson.reflect.TypeToken
 import com.piotr.practicepad.R
 import com.piotr.practicepad.data.dao.ExerciseDao
 import com.piotr.practicepad.data.dao.ExerciseSetDao
-import com.piotr.practicepad.di.utils.DataConverter
 import com.piotr.practicepad.exercise.ExerciseEntity
 import com.piotr.practicepad.exerciseList.ExerciseSetEntity
 import kotlinx.coroutines.Dispatchers

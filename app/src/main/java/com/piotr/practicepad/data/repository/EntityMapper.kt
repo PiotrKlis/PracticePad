@@ -3,11 +3,12 @@ package com.piotr.practicepad.data.repository
 import com.piotr.practicepad.exercise.Exercise
 import com.piotr.practicepad.exerciseList.ExerciseSet
 import com.piotr.practicepad.exerciseList.ExerciseSetEntity
+import com.piotr.practicepad.utils.ResourceProvider
 import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 import kotlin.time.seconds
 
-class ExerciseSetEntityMapper @Inject constructor(private val resourceProvider: ResourceProvider) {
+class EntityMapper @Inject constructor(private val resourceProvider: ResourceProvider) {
     @ExperimentalTime
     fun map(input: List<ExerciseSetEntity>): List<ExerciseSet> = input.map { map(it) }
 

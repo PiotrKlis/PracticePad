@@ -9,8 +9,8 @@ import dagger.Provides
 class TimerModule {
 
     @Provides
-    fun bindsExerciseSetTimer(): ExerciseSetTimer = ExerciseSetTimer()
+    fun providesExerciseSetTimer(): ExerciseSetTimer = ExerciseSetTimer()
 
     @Provides
-    fun bindsExerciseTimer(): ExerciseTimer = ExerciseTimer()
+    fun providesExerciseTimer(): ExerciseTimer = ExerciseTimer()
 }

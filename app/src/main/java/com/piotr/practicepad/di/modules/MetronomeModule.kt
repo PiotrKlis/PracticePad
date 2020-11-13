@@ -11,7 +11,7 @@ import javax.inject.Singleton
 @Module
 class MetronomeModule {
     @Provides
-    fun provideMetronome(mediaPlayer: MediaPlayer) = Metronome(mediaPlayer)
+    fun provideMetronome(mediaPlayer: MediaPlayer): Metronome = Metronome(mediaPlayer)
 
     @Provides
     fun provideMediaPlayer(context: Context): MediaPlayer =

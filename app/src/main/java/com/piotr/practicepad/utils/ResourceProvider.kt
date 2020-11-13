@@ -1,4 +1,4 @@
-package com.piotr.practicepad.data.repository
+package com.piotr.practicepad.utils
 
 import android.content.Context
 import javax.inject.Inject

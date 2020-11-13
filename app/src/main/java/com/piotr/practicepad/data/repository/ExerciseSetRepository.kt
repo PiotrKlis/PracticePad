@@ -9,20 +9,18 @@ import kotlin.time.ExperimentalTime
 class ExerciseSetRepository @Inject constructor(
     private val sharedPrefs: SharedPrefs,
     private val database: PracticePadRoomDatabase,
-    private val exerciseSetEntityMapper: ExerciseSetEntityMapper
+    private val entityMapper: EntityMapper
 ) {
     @OptIn(ExperimentalTime::class)
-    suspend fun getActiveSet(): ExerciseSet {
-        return exerciseSetEntityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
-//        val test = database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId())
-//        return ExerciseSet()
-    }
+    suspend fun getActiveSet(): ExerciseSet = entityMapper.map(
+        database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId())
+    )
 
     @OptIn(ExperimentalTime::class)
     suspend fun getAll(): List<ExerciseSet> =
-        exerciseSetEntityMapper.map(database.exerciseSetDao().getAll())
+        entityMapper.map(database.exerciseSetDao().getAll())
 
     @OptIn(ExperimentalTime::class)
     suspend fun getSetForId(id: Int): ExerciseSet =
-        exerciseSetEntityMapper.map(database.exerciseSetDao().getSetFor(id))
+        entityMapper.map(database.exerciseSetDao().getSetFor(id))
 }

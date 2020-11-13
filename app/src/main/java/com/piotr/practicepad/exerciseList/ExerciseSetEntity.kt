@@ -3,8 +3,6 @@ package com.piotr.practicepad.exerciseList
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import com.piotr.practicepad.di.utils.DataConverter
 import com.piotr.practicepad.exercise.Exercise
 import com.piotr.practicepad.exercise.ExerciseEntity
 
