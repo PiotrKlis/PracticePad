@@ -1,5 +1,6 @@
 package com.piotr.practicepad.exercise
 
+import android.graphics.drawable.Drawable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,7 +10,7 @@ data class Exercise(
     val id: Int = 0,
     val time: Long = 0L,
     val title: String = "",
-    val image: String = ""
+    val image: Int = R.drawable.empty
 )
 
 @Entity(tableName = "exercise_table")

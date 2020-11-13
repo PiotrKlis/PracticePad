@@ -5,8 +5,9 @@ import android.content.SharedPreferences
 import com.piotr.practicepad.PracticePad
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.db.SharedPrefs
+import com.piotr.practicepad.data.repository.AndroidResourceProvider
 import com.piotr.practicepad.data.repository.ExerciseSetEntityMapper
-import com.piotr.practicepad.di.utils.DataConverter
+import com.piotr.practicepad.data.repository.ResourceProvider
 import com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetailsStateMapper
 import dagger.Module
 import dagger.Provides
@@ -32,10 +33,10 @@ class AppModule {
     fun provideExerciseSetDetailsMapper() = ExerciseSetDetailsStateMapper()
 
     @Provides
-    fun provideDataConverter() = DataConverter()
+    fun provideExerciseSetEntityMapper(resourceProvider: ResourceProvider) = ExerciseSetEntityMapper(resourceProvider)
 
     @Provides
-    fun provideExerciseSetEntityMapper(dataConverter: DataConverter) = ExerciseSetEntityMapper(dataConverter)
+    fun provideResourceProvider(context: Context): ResourceProvider = AndroidResourceProvider(context)
 
     @Singleton
     @Provides

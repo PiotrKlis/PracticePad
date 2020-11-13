@@ -34,7 +34,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
-*  - enum to file
+*  - Metronome change on new exercise
 *  - any change to current set (up/down/delete) to reflect in db
 *  - Create your own exercise set
 *  - Test the app (list bugs - click being silent?)
@@ -48,6 +48,7 @@ class MainActivity : DaggerAppCompatActivity() {
 * */
 
 /*DONE
+*  - enum to file
 *  - should exerciseListViewModel have state? Probably true
 *  - keep state between tabs + animation
 *  - Detail exercise set view

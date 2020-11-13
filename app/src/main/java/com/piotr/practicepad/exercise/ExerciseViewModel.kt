@@ -32,12 +32,12 @@ class ExerciseViewModel @Inject constructor(
     fun renderActiveExerciseSet() {
         viewModelScope.launch {
             exerciseSetRepository.getActiveSet().let { activeSet ->
-//                if (activeSetId != activeSet.id) {
-//                    viewModelScope.launch {
-//                        renderFirstItem(activeSet)
-//                        activeSetId = activeSet.id
-//                    }
-//                }
+                if (activeSetId != activeSet.id) {
+                    viewModelScope.launch {
+                        renderFirstItem(activeSet)
+                        activeSetId = activeSet.id
+                    }
+                }
             }
         }
     }

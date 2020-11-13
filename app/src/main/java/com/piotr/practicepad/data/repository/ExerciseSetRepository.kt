@@ -11,10 +11,11 @@ class ExerciseSetRepository @Inject constructor(
     private val database: PracticePadRoomDatabase,
     private val exerciseSetEntityMapper: ExerciseSetEntityMapper
 ) {
+    @OptIn(ExperimentalTime::class)
     suspend fun getActiveSet(): ExerciseSet {
-//         exerciseSetEntityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
-        database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId())
-        return ExerciseSet()
+        return exerciseSetEntityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
+//        val test = database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId())
+//        return ExerciseSet()
     }
 
     @OptIn(ExperimentalTime::class)

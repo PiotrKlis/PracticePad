@@ -1,6 +1,7 @@
 package com.piotr.practicepad
 
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
+import com.piotr.practicepad.data.repository.AndroidResourceProvider
 import com.piotr.practicepad.data.repository.ExerciseSetEntityMapper
 import com.piotr.practicepad.di.DaggerAppComponent
 import com.piotr.practicepad.utils.AndroidStringProvider
@@ -15,6 +16,7 @@ class PracticePad : DaggerApplication() {
     override fun onCreate() {
         super.onCreate()
         AndroidStringProvider.initializeStringProvider(applicationContext)
+        AndroidResourceProvider.init(applicationContext)
         PracticePadRoomDatabase.buildDatabase(applicationContext)
     }
 

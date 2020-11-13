@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import javax.inject.Inject
 
 private const val KEY_ACTIVE_SET = "active_set"
-private const val DEFAULT_SET: Int = 0
+private const val DEFAULT_SET: Int = 1000
 
 class SharedPrefs @Inject constructor(private val prefs: SharedPreferences) {
     fun getActiveSetId(): Int = prefs.getInt(KEY_ACTIVE_SET, DEFAULT_SET)

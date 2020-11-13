@@ -38,7 +38,7 @@ class ExerciseFragment : BaseFragment() {
     }
 
     override fun onPause() {
-//        viewModel.onPause()
+        viewModel.onPause()
         super.onPause()
     }
 
