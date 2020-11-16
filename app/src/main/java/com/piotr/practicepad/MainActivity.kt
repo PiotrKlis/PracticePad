@@ -3,6 +3,7 @@ package com.piotr.practicepad
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.piotr.practicepad.databinding.MainActivityBinding
+import com.piotr.practicepad.extensions.setupWithNavController
 import dagger.android.support.DaggerAppCompatActivity
 
 class MainActivity : DaggerAppCompatActivity() {

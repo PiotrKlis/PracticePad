@@ -1,7 +1,6 @@
-package com.piotr.practicepad
+package com.piotr.practicepad.extensions
 
 import android.content.Intent
-import android.util.Log
 import android.util.SparseArray
 import androidx.core.util.forEach
 import androidx.core.util.set
