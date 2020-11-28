@@ -18,6 +18,7 @@ class PracticePad : DaggerApplication() {
         AndroidStringProvider.initializeStringProvider(applicationContext)
         AndroidResourceProvider.init(applicationContext)
         PracticePadRoomDatabase.buildDatabase(applicationContext)
+        
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> =

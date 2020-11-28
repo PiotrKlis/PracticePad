@@ -11,12 +11,22 @@ import kotlin.concurrent.timerTask
 
 class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
     private var timer = Timer()
+    var tempo: Long? = null
+        set(value) {
+            field = value
+        }
 
-    fun handleClick(state: State, tempo: Long?) {
+    fun handleClick(state: State, newTempo: Long?) {
         when (state) {
-            ON -> run(tempo)
+            ON -> {
+                tempo = newTempo
+                start()
+            }
             OFF -> timer.cancel()
-            RESTART -> run(tempo)
+            RESTART -> {
+                tempo = newTempo
+                start()
+            }
         }
     }
 
@@ -24,12 +34,8 @@ class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
         timer.cancel()
     }
 
-    fun changeTempo(tempo: Long) {
+    fun start() {
         timer.cancel()
-        run(tempo)
-    }
-
-    private fun run(tempo: Long?) {
         tempo?.let {
             timer = Timer()
             timer.schedule(timerTask {

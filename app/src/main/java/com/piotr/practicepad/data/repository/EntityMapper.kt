@@ -17,7 +17,7 @@ class EntityMapper @Inject constructor(private val resourceProvider: ResourcePro
         ExerciseSet(
             id = input.id,
             title = input.title,
-            tempo = input.tempo,
+            tempo = input.tempo.toLong(),
             exercises = input.exercises.map { entity ->
                 Exercise(
                     id = entity.id,
