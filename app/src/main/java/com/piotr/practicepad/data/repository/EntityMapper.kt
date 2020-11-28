@@ -1,8 +1,8 @@
 package com.piotr.practicepad.data.repository
 
+import com.piotr.practicepad.data.entities.ExerciseSetEntity
 import com.piotr.practicepad.exercise.Exercise
 import com.piotr.practicepad.exerciseList.ExerciseSet
-import com.piotr.practicepad.exerciseList.ExerciseSetEntity
 import com.piotr.practicepad.utils.ResourceProvider
 import javax.inject.Inject
 import kotlin.time.ExperimentalTime

@@ -2,7 +2,7 @@ package com.piotr.practicepad.exerciseSetDetail
 
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
-import com.piotr.practicepad.utils.isNotVisible
+import com.piotr.practicepad.extensions.isNotVisible
 
 object ExerciseDetailsBindingAdapter {
     @JvmStatic
