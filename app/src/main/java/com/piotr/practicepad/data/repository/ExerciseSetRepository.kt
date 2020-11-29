@@ -15,8 +15,10 @@ class ExerciseSetRepository @Inject constructor(
     @OptIn(ExperimentalTime::class)
     suspend fun getActiveSet(): ExerciseSet {
         Log.d("XXX", "get active set")
-        return entityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
+//        return entityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
+    return ExerciseSet()
     }
+
 
     @OptIn(ExperimentalTime::class)
     suspend fun getAll(): List<ExerciseSet> =

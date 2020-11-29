@@ -18,9 +18,12 @@ import com.piotr.practicepad.data.dao.InitDao
 import com.piotr.practicepad.data.dao.InitEntity
 import com.piotr.practicepad.data.entities.ExerciseEntity
 import com.piotr.practicepad.data.entities.ExerciseSetEntity
+import com.piotr.practicepad.utils.Irrelevant
+import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.InputStream
 
 @Database(entities = [ExerciseSetEntity::class, ExerciseEntity::class, InitEntity::class], version = 1)
@@ -32,8 +35,9 @@ abstract class PracticePadRoomDatabase :
     abstract fun initDao(): InitDao
 
     companion object {
+        val subject = PublishSubject.create<Irrelevant>()
         @Volatile
-        private var INSTANCE: PracticePadRoomDatabase? = null
+        var INSTANCE: PracticePadRoomDatabase? = null
 
         fun getInstance(context: Context): PracticePadRoomDatabase =
             INSTANCE ?: synchronized(this) {
@@ -105,6 +109,7 @@ abstract class PracticePadRoomDatabase :
             Log.d("XXX", "populate db")
             database.exerciseDao().insertAll(exercises)
             database.exerciseSetDao().insertAll(exerciseSets)
+            subject.onNext(Irrelevant.INSTANCE)
         }
     }
 }

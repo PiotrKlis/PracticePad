@@ -1,20 +1,33 @@
 package com.piotr.practicepad
 
 import android.os.Bundle
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.databinding.MainActivityBinding
+import com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetailsFragmentArgs
 import com.piotr.practicepad.extensions.setupWithNavController
 import dagger.android.support.DaggerAppCompatActivity
+import io.reactivex.disposables.Disposable
 
 class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
+    private var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
-        if (savedInstanceState == null) {
-            setNavigation()
+        if (PracticePadRoomDatabase.INSTANCE == null) {
+            PracticePadRoomDatabase.getInstance(applicationContext)
+            binding.progress.isVisible = true
+            disposable = PracticePadRoomDatabase.subject.subscribe {
+                binding.progress.isVisible = false
+                setNavigation()
+                disposable?.dispose()
+            }
         }
     }
 
