@@ -536,5 +536,30 @@
         "time": 30
       }
     ]
+  },
+  {
+    "id": 1007,
+    "title": "Test Challange",
+    "tempo": 120,
+    "exercises": [
+      {
+        "id": 6,
+        "title": "16th doubles",
+        "image": "doubles_16th",
+        "time": 5
+      },
+      {
+        "id": 13,
+        "title": "Triple stroke roll",
+        "image": "triplets_one_hand",
+        "time": 5
+      },
+      {
+        "id": 8,
+        "title": "16th sextuplets",
+        "image": "triplets_16th",
+        "time": 5
+      }
+    ]
   }
 ]

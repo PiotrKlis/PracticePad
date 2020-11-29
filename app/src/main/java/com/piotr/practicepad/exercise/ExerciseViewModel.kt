@@ -13,7 +13,6 @@ import com.piotr.practicepad.extensions.getOverallTime
 import com.piotr.practicepad.metronome.Metronome
 import com.piotr.practicepad.timers.ExerciseSetTimer
 import com.piotr.practicepad.timers.ExerciseTimer
-import com.piotr.practicepad.utils.safeLet
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -76,7 +75,7 @@ class ExerciseViewModel @Inject constructor(
     }
 
     private fun renderFirstItem(activeExerciseSet: ExerciseSet) {
-        mutableState.value = getExercise(activeExerciseSet, FIRST_ITEM)
+        mutableState.value = createState(activeExerciseSet)
         exerciseTimer.setData(activeExerciseSet.exercises[FIRST_ITEM].time)
         exerciseSetTimer.setData(activeExerciseSet.exercises.getOverallTime())
         metronome.tempo = mutableState.value?.tempo
@@ -86,7 +85,7 @@ class ExerciseViewModel @Inject constructor(
         viewModelScope.launch {
             val activeSet = exerciseSetRepository.getActiveSet()
             if (activeSet.shouldStartNextExercise(position)) {
-                mutableState.value = getExercise(activeSet, position)
+                mutableState.value = updateState(activeSet, position)
                 exerciseTimer.startNextExercise(activeSet.exercises[position].time)
                 metronome.tempo = mutableState.value?.tempo
             } else {
@@ -94,6 +93,32 @@ class ExerciseViewModel @Inject constructor(
             }
         }
     }
+
+    private fun createState(exerciseSet: ExerciseSet): ExerciseState {
+        return ExerciseState(
+            setName = exerciseSet.title,
+            exerciseImage = exerciseSet.exercises[FIRST_ITEM].image,
+            exerciseName = exerciseSet.exercises[FIRST_ITEM].title,
+            nextExerciseName = exerciseSet.exercises.getNextExerciseName(FIRST_ITEM),
+            exercisesLeft = Pair(FIRST_ITEM, exerciseSet.exercises.size),
+            currentExerciseIndex = FIRST_ITEM,
+            exerciseList = exerciseSet.exercises,
+            tempo = exerciseSet.tempo
+        )
+    }
+
+    private fun updateState(
+        activeSet: ExerciseSet,
+        position: Int
+    ) = mutableState.value?.copy(
+        setName = activeSet.title,
+        exerciseImage = activeSet.exercises[position].image,
+        exerciseName = activeSet.exercises[position].title,
+        nextExerciseName = activeSet.exercises.getNextExerciseName(position),
+        exercisesLeft = Pair(position, activeSet.exercises.size),
+        currentExerciseIndex = position,
+        exerciseList = activeSet.exercises
+    )
 
     fun setEnded() {
         metronome.stop()
@@ -114,19 +139,6 @@ class ExerciseViewModel @Inject constructor(
         practiceState.setState(OFF)
     }
 
-    private fun getExercise(exerciseSet: ExerciseSet, position: Int): ExerciseState {
-        return ExerciseState(
-            setName = exerciseSet.title,
-            exerciseImage = exerciseSet.exercises[position].image,
-            exerciseName = exerciseSet.exercises[position].title,
-            nextExerciseName = exerciseSet.exercises.getNextExerciseName(position),
-            exercisesLeft = Pair(position, exerciseSet.exercises.size),
-            currentExerciseIndex = position,
-            exerciseList = exerciseSet.exercises,
-            tempo = getTempo(exerciseSet.tempo)
-        )
-    }
-
     private fun updateTempo(newTempo: Long) {
         if (newTempo in metronomeOperationRange) {
             mutableState.value = mutableState.value?.copy(tempo = newTempo)
@@ -134,6 +146,4 @@ class ExerciseViewModel @Inject constructor(
             metronome.start()
         }
     }
-
-    private fun getTempo(newTempo: Long): Long = newTempo + tempoDifference
 }

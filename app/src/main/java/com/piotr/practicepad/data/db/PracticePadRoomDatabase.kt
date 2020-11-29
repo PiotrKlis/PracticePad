@@ -1,8 +1,12 @@
 package com.piotr.practicepad.data.db
 
 import android.content.Context
+import android.util.Log
 import androidx.annotation.StringRes
-import androidx.room.*
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.JsonParser
@@ -10,6 +14,8 @@ import com.google.gson.reflect.TypeToken
 import com.piotr.practicepad.R
 import com.piotr.practicepad.data.dao.ExerciseDao
 import com.piotr.practicepad.data.dao.ExerciseSetDao
+import com.piotr.practicepad.data.dao.InitDao
+import com.piotr.practicepad.data.dao.InitEntity
 import com.piotr.practicepad.data.entities.ExerciseEntity
 import com.piotr.practicepad.data.entities.ExerciseSetEntity
 import kotlinx.coroutines.Dispatchers
@@ -17,12 +23,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.InputStream
 
-@Database(entities = [ExerciseSetEntity::class, ExerciseEntity::class], version = 1)
+@Database(entities = [ExerciseSetEntity::class, ExerciseEntity::class, InitEntity::class], version = 1)
 @TypeConverters(DataConverter::class)
 abstract class PracticePadRoomDatabase :
     RoomDatabase() {
     abstract fun exerciseSetDao(): ExerciseSetDao
     abstract fun exerciseDao(): ExerciseDao
+    abstract fun initDao(): InitDao
 
     companion object {
         @Volatile
@@ -32,8 +39,7 @@ abstract class PracticePadRoomDatabase :
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
-
-        fun buildDatabase(context: Context) =
+        private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context,
                 PracticePadRoomDatabase::class.java,
@@ -96,6 +102,7 @@ abstract class PracticePadRoomDatabase :
             exerciseSets: List<ExerciseSetEntity>,
             exercises: List<ExerciseEntity>
         ) {
+            Log.d("XXX", "populate db")
             database.exerciseDao().insertAll(exercises)
             database.exerciseSetDao().insertAll(exerciseSets)
         }
