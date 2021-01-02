@@ -28,17 +28,15 @@ class ExerciseViewModel @Inject constructor(
     val state: LiveData<ExerciseState> get() = mutableState
     private val mutableState = MutableLiveData(ExerciseState())
     private val metronomeOperationRange = 40 until 221
-    private var activeSetId: Int? = SharedPrefs.DEFAULT_SET_ID
+    private var activeSetId: Int? = null
     private var tempoDifference: Long = 0L
 
     fun renderActiveExerciseSet() {
         viewModelScope.launch {
             exerciseSetRepository.getActiveSet().let { activeSet ->
                 if (activeSetId != activeSet.id) {
-                    viewModelScope.launch {
-                        renderFirstItem(activeSet)
-                        activeSetId = activeSet.id
-                    }
+                    renderFirstItem(activeSet)
+                    activeSetId = activeSet.id
                 }
             }
         }

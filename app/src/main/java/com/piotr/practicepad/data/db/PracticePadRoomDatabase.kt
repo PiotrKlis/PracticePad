@@ -21,12 +21,17 @@ import com.piotr.practicepad.data.entities.ExerciseSetEntity
 import com.piotr.practicepad.utils.Irrelevant
 import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.io.InputStream
 
-@Database(entities = [ExerciseSetEntity::class, ExerciseEntity::class, InitEntity::class], version = 1)
+@Database(
+    entities = [ExerciseSetEntity::class, ExerciseEntity::class, InitEntity::class],
+    version = 1
+)
 @TypeConverters(DataConverter::class)
 abstract class PracticePadRoomDatabase :
     RoomDatabase() {
@@ -35,7 +40,9 @@ abstract class PracticePadRoomDatabase :
     abstract fun initDao(): InitDao
 
     companion object {
-        val subject = PublishSubject.create<Irrelevant>()
+        @ExperimentalCoroutinesApi
+        val subject = BroadcastChannel<Irrelevant>(CONFLATED)
+
         @Volatile
         var INSTANCE: PracticePadRoomDatabase? = null
 
@@ -43,6 +50,13 @@ abstract class PracticePadRoomDatabase :
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
+
+        fun initDb() {
+            GlobalScope.launch(Dispatchers.IO) {
+                INSTANCE?.exerciseSetDao()?.deleteAll()
+            }
+        }
+
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context,
@@ -50,6 +64,7 @@ abstract class PracticePadRoomDatabase :
                 "practice_pad_database"
             ).addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
+                    Log.d("XXX", "db onCreate")
                     super.onCreate(db)
                     GlobalScope.launch(Dispatchers.IO) {
                         INSTANCE?.let { database -> saveJsonFiles(database, context) }
@@ -101,15 +116,16 @@ abstract class PracticePadRoomDatabase :
             return json
         }
 
+        @ExperimentalCoroutinesApi
         private suspend fun populateDatabase(
             database: PracticePadRoomDatabase,
             exerciseSets: List<ExerciseSetEntity>,
             exercises: List<ExerciseEntity>
         ) {
-            Log.d("XXX", "populate db")
             database.exerciseDao().insertAll(exercises)
             database.exerciseSetDao().insertAll(exerciseSets)
-            subject.onNext(Irrelevant.INSTANCE)
+            subject.send(Irrelevant.INSTANCE)
+            Log.d("XXX", "sent value to subject")
         }
     }
 }

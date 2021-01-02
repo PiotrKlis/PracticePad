@@ -1,33 +1,50 @@
 package com.piotr.practicepad
 
 import android.os.Bundle
-import androidx.constraintlayout.widget.ConstraintSet
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.databinding.MainActivityBinding
-import com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetailsFragmentArgs
 import com.piotr.practicepad.extensions.setupWithNavController
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.collect
 
 class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
     private var disposable: Disposable? = null
 
+    @FlowPreview
+    @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         if (PracticePadRoomDatabase.INSTANCE == null) {
+            Log.d("XXX", "getting instance")
             PracticePadRoomDatabase.getInstance(applicationContext)
             binding.progress.isVisible = true
-            disposable = PracticePadRoomDatabase.subject.subscribe {
-                binding.progress.isVisible = false
-                setNavigation()
-                disposable?.dispose()
+            PracticePadRoomDatabase.initDb()
+            GlobalScope.launch(Dispatchers.Main) {
+                PracticePadRoomDatabase.subject.asFlow().collect {
+                    Log.d("XXX", "inside subscribe")
+                    binding.progress.isVisible = false
+                    setNavigation()
+                }
             }
+
+//            disposable = PracticePadRoomDatabase
+//                .subject
+//                .subscribeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//                Log.d("XXX", "inside subscribe")
+////                binding.progress.isVisible = false
+//                setNavigation()
+//                disposable?.dispose()
+//            }, { Log.e("XXX", "error db init") })
         }
     }
 
@@ -49,7 +66,7 @@ class MainActivity : DaggerAppCompatActivity() {
 /*
 * TODO
 *  - Metronome change on new exercise
-*   - timer starts at 4:60 ?
+*  - timer starts at 4:60 ?
 *  - any change to current set (up/down/delete) to reflect in db
 *  - Create your own exercise set
 *  - Test the app (list bugs - click being silent?)
