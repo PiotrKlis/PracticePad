@@ -14,12 +14,9 @@ import com.google.gson.reflect.TypeToken
 import com.piotr.practicepad.R
 import com.piotr.practicepad.data.dao.ExerciseDao
 import com.piotr.practicepad.data.dao.ExerciseSetDao
-import com.piotr.practicepad.data.dao.InitDao
-import com.piotr.practicepad.data.dao.InitEntity
 import com.piotr.practicepad.data.entities.ExerciseEntity
 import com.piotr.practicepad.data.entities.ExerciseSetEntity
 import com.piotr.practicepad.utils.Irrelevant
-import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -29,7 +26,7 @@ import kotlinx.coroutines.launch
 import java.io.InputStream
 
 @Database(
-    entities = [ExerciseSetEntity::class, ExerciseEntity::class, InitEntity::class],
+    entities = [ExerciseSetEntity::class, ExerciseEntity::class],
     version = 1
 )
 @TypeConverters(DataConverter::class)
@@ -37,7 +34,6 @@ abstract class PracticePadRoomDatabase :
     RoomDatabase() {
     abstract fun exerciseSetDao(): ExerciseSetDao
     abstract fun exerciseDao(): ExerciseDao
-    abstract fun initDao(): InitDao
 
     companion object {
         @ExperimentalCoroutinesApi
@@ -51,7 +47,10 @@ abstract class PracticePadRoomDatabase :
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
 
-        fun initDb() {
+        fun initDb(applicationContext: Context) {
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildDatabase(applicationContext).also { INSTANCE = it }
+            }
             GlobalScope.launch(Dispatchers.IO) {
                 INSTANCE?.exerciseSetDao()?.deleteAll()
             }

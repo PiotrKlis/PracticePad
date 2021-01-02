@@ -1,6 +1,7 @@
 package com.piotr.practicepad.di.modules
 
 import com.piotr.practicepad.MainActivity
+import com.piotr.practicepad.data.db.SharedPrefs
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

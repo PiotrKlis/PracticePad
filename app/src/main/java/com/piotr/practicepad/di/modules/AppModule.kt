@@ -3,7 +3,6 @@ package com.piotr.practicepad.di.modules
 import android.content.Context
 import android.content.SharedPreferences
 import com.piotr.practicepad.PracticePad
-import com.piotr.practicepad.data.dao.InitEntity
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.db.SharedPrefs
 import com.piotr.practicepad.data.repository.EntityMapper

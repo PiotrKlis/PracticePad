@@ -2,9 +2,9 @@ package com.piotr.practicepad
 
 import android.os.Bundle
 import android.util.Log
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
+import com.piotr.practicepad.data.db.SharedPrefs
 import com.piotr.practicepad.databinding.MainActivityBinding
 import com.piotr.practicepad.extensions.setupWithNavController
 import dagger.android.support.DaggerAppCompatActivity
@@ -12,39 +12,39 @@ import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
     private var disposable: Disposable? = null
 
+    @Inject
+    lateinit var sharedPrefs: SharedPrefs
+
     @FlowPreview
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
-        if (PracticePadRoomDatabase.INSTANCE == null) {
-            Log.d("XXX", "getting instance")
-            PracticePadRoomDatabase.getInstance(applicationContext)
-            binding.progress.isVisible = true
-            PracticePadRoomDatabase.initDb()
-            GlobalScope.launch(Dispatchers.Main) {
-                PracticePadRoomDatabase.subject.asFlow().collect {
-                    Log.d("XXX", "inside subscribe")
-                    binding.progress.isVisible = false
-                    setNavigation()
-                }
-            }
+        Log.d("XXX", "is first launch ${sharedPrefs.isFirstAppLaunch()}")
+        if (sharedPrefs.isFirstAppLaunch()) {
+            initDb()
+        } else {
+            setNavigation()
+        }
+    }
 
-//            disposable = PracticePadRoomDatabase
-//                .subject
-//                .subscribeOn(AndroidSchedulers.mainThread())
-//                .subscribe({
-//                Log.d("XXX", "inside subscribe")
-////                binding.progress.isVisible = false
-//                setNavigation()
-//                disposable?.dispose()
-//            }, { Log.e("XXX", "error db init") })
+    private fun initDb() {
+        PracticePadRoomDatabase.initDb(applicationContext)
+        GlobalScope.launch(Dispatchers.Main) {
+            PracticePadRoomDatabase.subject.asFlow().collect {
+                Log.d("XXX", "inside subscribe")
+                setNavigation()
+                sharedPrefs.setFirstAppLaunch()
+                Log.d("XXX", "initdb first launch ${sharedPrefs.isFirstAppLaunch()}")
+
+            }
         }
     }
 

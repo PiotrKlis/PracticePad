@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4498d75c163693158fdc78cf1d9e2a62",
+    "identityHash": "5d5d4bf20dd3d539087a5b8bc35ac974",
     "entities": [
       {
         "tableName": "exercise_set_table",
@@ -79,32 +79,12 @@
         },
         "indices": [],
         "foreignKeys": []
-      },
-      {
-        "tableName": "init",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`value` TEXT NOT NULL, PRIMARY KEY(`value`))",
-        "fields": [
-          {
-            "fieldPath": "value",
-            "columnName": "value",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "value"
-          ],
-          "autoGenerate": false
-        },
-        "indices": [],
-        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4498d75c163693158fdc78cf1d9e2a62')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5d5d4bf20dd3d539087a5b8bc35ac974')"
     ]
   }
 }
