@@ -41,20 +41,23 @@ class ExerciseSetDetailsFragment : BaseFragment(), Editor {
     }
 
     override fun delete(position: Int) {
-        binding.list.adapter?.notifyItemRemoved(position)
+        //TODO: probably viewModel.delete(position)
+//        binding.list.adapter?.notifyItemRemoved(position)
         binding.list.adapter?.notifyDataSetChanged()
     }
 
     override fun moveUp(position: Int) {
         viewModel.moveUp(position)
-        binding.list.adapter?.notifyItemMoved(position, position - 1)
+//        binding.list.adapter?.notifyItemMoved(position, position - 1)
+//        binding.list.adapter?.notifyItemMoved(position -1, position)
         binding.list.adapter?.notifyDataSetChanged()
         Log.d("AAA move up", "$position to ${position - 1}")
     }
 
     override fun moveDown(position: Int) {
         viewModel.moveDown(position)
-        binding.list.adapter?.notifyItemMoved(position, position + 1)
+//        binding.list.adapter?.notifyItemMoved(position, position + 1)
+//        binding.list.adapter?.notifyItemMoved(position + 1, position)
         binding.list.adapter?.notifyDataSetChanged()
         Log.d("AAA move down", "$position to ${position + 1}")
     }
