@@ -22,6 +22,7 @@ class LongExtensionsTest {
         assertEquals(3000L.millisToSeconds(), 3)
         assertEquals(3800L.millisToSeconds(), 4)
         assertEquals(350000L.millisToMinutes(), 5)
+        assertEquals(350000L.millisToMinutes(), 5)
         assertEquals(360000L.millisToMinutes(), 6)
         assertEquals(6L.secondsToMilliseconds(), 6000)
     }

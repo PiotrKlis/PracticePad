@@ -35,6 +35,7 @@ abstract class PracticePadRoomDatabase :
     abstract fun exerciseSetDao(): ExerciseSetDao
     abstract fun exerciseDao(): ExerciseDao
 
+    @ExperimentalCoroutinesApi
     companion object {
         @ExperimentalCoroutinesApi
         val subject = BroadcastChannel<Irrelevant>(CONFLATED)
@@ -52,6 +53,7 @@ abstract class PracticePadRoomDatabase :
                 INSTANCE ?: buildDatabase(applicationContext).also { INSTANCE = it }
             }
             GlobalScope.launch(Dispatchers.IO) {
+                Log.d("XXX", "deleting all sets")
                 INSTANCE?.exerciseSetDao()?.deleteAll()
             }
         }
@@ -63,9 +65,8 @@ abstract class PracticePadRoomDatabase :
                 "practice_pad_database"
             ).addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
-                    Log.d("XXX", "db onCreate")
                     super.onCreate(db)
-                    GlobalScope.launch(Dispatchers.IO) {
+                    GlobalScope.launch(Dispatchers.Main) {
                         INSTANCE?.let { database -> saveJsonFiles(database, context) }
                     }
                 }
@@ -115,7 +116,6 @@ abstract class PracticePadRoomDatabase :
             return json
         }
 
-        @ExperimentalCoroutinesApi
         private suspend fun populateDatabase(
             database: PracticePadRoomDatabase,
             exerciseSets: List<ExerciseSetEntity>,
@@ -124,7 +124,7 @@ abstract class PracticePadRoomDatabase :
             database.exerciseDao().insertAll(exercises)
             database.exerciseSetDao().insertAll(exerciseSets)
             subject.send(Irrelevant.INSTANCE)
-            Log.d("XXX", "sent value to subject")
+            Log.d("XXX", "insterted")
         }
     }
 }

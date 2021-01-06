@@ -15,5 +15,5 @@ class MetronomeModule {
 
     @Provides
     fun provideMediaPlayer(context: Context): MediaPlayer =
-        MediaPlayer.create(context, R.raw.low_seiko_sq50)
+        MediaPlayer.create(context, R.raw.drumsticks)
 }

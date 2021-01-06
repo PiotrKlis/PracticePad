@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name">PracticePad</string>
+	<string name="app_name">Practice Pad</string>
 	<string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
 	<string name="title_exercise">Exercise</string>
 	<string name="title_list_of_exercises">List of Exercises</string>

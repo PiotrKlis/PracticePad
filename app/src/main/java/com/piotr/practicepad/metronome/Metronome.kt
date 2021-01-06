@@ -12,9 +12,6 @@ import kotlin.concurrent.timerTask
 class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
     private var timer = Timer()
     var tempo: Long? = null
-        set(value) {
-            field = value
-        }
 
     fun handleClick(state: State, newTempo: Long?) {
         when (state) {
@@ -22,7 +19,7 @@ class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
                 tempo = newTempo
                 start()
             }
-            OFF -> timer.cancel()
+            OFF -> stop()
             RESTART -> {
                 tempo = newTempo
                 start()
@@ -39,6 +36,7 @@ class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
         tempo?.let {
             timer = Timer()
             timer.schedule(timerTask {
+                Log.d("XXX", "beep")
                 mediaPlayer.start()
             }, 0L, it.bpmToMilliseconds())
         } ?: Log.e(this::class.simpleName, "Tempo is null")
