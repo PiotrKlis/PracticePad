@@ -53,7 +53,6 @@ abstract class PracticePadRoomDatabase :
                 INSTANCE ?: buildDatabase(applicationContext).also { INSTANCE = it }
             }
             GlobalScope.launch(Dispatchers.IO) {
-                Log.d("XXX", "deleting all sets")
                 INSTANCE?.exerciseSetDao()?.deleteAll()
             }
         }
@@ -124,7 +123,6 @@ abstract class PracticePadRoomDatabase :
             database.exerciseDao().insertAll(exercises)
             database.exerciseSetDao().insertAll(exerciseSets)
             subject.send(Irrelevant.INSTANCE)
-            Log.d("XXX", "insterted")
         }
     }
 }
