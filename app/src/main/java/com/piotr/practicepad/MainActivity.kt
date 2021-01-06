@@ -7,19 +7,15 @@ import com.piotr.practicepad.data.db.SharedPrefs
 import com.piotr.practicepad.databinding.MainActivityBinding
 import com.piotr.practicepad.extensions.setupWithNavController
 import dagger.android.support.DaggerAppCompatActivity
-import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 class MainActivity : DaggerAppCompatActivity() {
-
     private lateinit var binding: MainActivityBinding
-    private var disposable: Disposable? = null
 
     @Inject
     lateinit var sharedPrefs: SharedPrefs
@@ -27,6 +23,10 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
+        handleFirstAppLaunch()
+    }
+
+    private fun handleFirstAppLaunch() {
         if (sharedPrefs.isFirstAppLaunch()) {
             initDb()
         } else {
@@ -34,7 +34,6 @@ class MainActivity : DaggerAppCompatActivity() {
         }
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     private fun initDb() {
         PracticePadRoomDatabase.initDb(applicationContext)
         GlobalScope.launch(Dispatchers.Main) {

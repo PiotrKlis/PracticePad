@@ -37,15 +37,15 @@
 			
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:layout_width="match_parent"
-				android:paddingBottom="@dimen/small_margin"
-				android:layout_height="wrap_content">
+				android:layout_height="wrap_content"
+				android:paddingBottom="@dimen/small_margin">
 				
-<!--					app:imageResource="@{model.image}"-->
 				<androidx.appcompat.widget.AppCompatImageView
 					android:id="@+id/image"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:src="@drawable/doubles_8th"
+					app:imageResource="@{model.image}"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintHorizontal_bias="0.0"
 					app:layout_constraintStart_toStartOf="parent"
@@ -94,12 +94,12 @@
 					android:id="@+id/arrow_up"
 					android:layout_width="wrap_content"
 					android:layout_height="0dp"
-					android:visibility="visible"
 					android:layout_marginEnd="@dimen/medium_margin"
 					android:onClick="@{() -> editor.moveUp(adapterParams.position)}"
 					android:src="@drawable/ic_baseline_arrow_upward_24"
-					app:layout_constraintEnd_toEndOf="parent"
+					android:visibility="visible"
 					app:layout_constraintBottom_toTopOf="@id/arrow_down"
+					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toBottomOf="@id/image"
 					app:upArrowVisibility="@{adapterParams}" />
 				
