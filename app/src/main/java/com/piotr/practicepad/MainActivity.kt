@@ -61,7 +61,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
-*  - timer starts at 4:60 ?
 *  - any change to current set (up/down/delete) to reflect in db
 *  - Create your own exercise set
 *  - Test the app (list bugs - click being silent?)
@@ -72,6 +71,7 @@ class MainActivity : DaggerAppCompatActivity() {
 *
 *  MINORS
 * - animation
+* *  - timer starts at 4:60 
 * */
 
 /*DONE
