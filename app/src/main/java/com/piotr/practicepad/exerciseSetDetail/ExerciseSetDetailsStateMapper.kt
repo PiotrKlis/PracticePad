@@ -8,9 +8,10 @@ class ExerciseSetDetailsStateMapper @Inject constructor() :
     Mapper<ExerciseSet, ExerciseSetDetailsState> {
     override fun map(input: ExerciseSet): ExerciseSetDetailsState {
         return ExerciseSetDetailsState(
-            input.title,
-            input.tempo,
-            input.exercises.toMutableList()
+            id = input.id,
+            name = input.title,
+            tempo = input.tempo,
+            exerciseDetailsList = input.exercises.toMutableList()
         )
     }
 }
