@@ -28,7 +28,6 @@ class ExerciseViewModel @Inject constructor(
     private val mutableState = MutableLiveData(ExerciseState())
     private val metronomeOperationRange = 40 until 221
     private var previousSet: ExerciseSet? = null
-    private var tempoDifference: Long = 0L
 
     fun renderActiveExerciseSet() {
         viewModelScope.launch {
@@ -56,12 +55,10 @@ class ExerciseViewModel @Inject constructor(
 
     fun subtractTempoClick(tempo: Long) {
         updateTempo(tempo - 1)
-        tempoDifference--
     }
 
     fun addTempoClick(tempo: Long) {
         updateTempo(tempo + 1)
-        tempoDifference++
     }
 
     fun onPause() {
@@ -140,7 +137,7 @@ class ExerciseViewModel @Inject constructor(
         if (newTempo in metronomeOperationRange) {
             mutableState.value = mutableState.value?.copy(tempo = newTempo)
             metronome.tempo = newTempo
-            metronome.start()
+            metronome.updateTempo()
         }
     }
 }

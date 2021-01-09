@@ -31,12 +31,15 @@ class Metronome @Inject constructor(private val mediaPlayer: MediaPlayer) {
         timer.cancel()
     }
 
+    fun updateTempo() {
+
+    }
+
     fun start() {
         timer.cancel()
         tempo?.let {
             timer = Timer()
             timer.schedule(timerTask {
-                Log.d("XXX", "beep")
                 mediaPlayer.start()
             }, 0L, it.bpmToMilliseconds())
         } ?: Log.e(this::class.simpleName, "Tempo is null")

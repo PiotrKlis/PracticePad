@@ -50,6 +50,18 @@ class ExerciseSetDetailViewModel @Inject constructor(
         }
     }
 
+
+    fun delete(position: Int) {
+        mutableState.value?.let { state ->
+            val list = state.exerciseDetailsList.apply {
+                val item = this[position]
+                this.remove(item)
+            }
+            mutableState.value = state.copy(exerciseDetailsList = list)
+            updateDb(state)
+        }
+    }
+
     private fun updateDb(state: ExerciseSetDetailsState) {
         viewModelScope.launch {
             database.exerciseSetDao().update(

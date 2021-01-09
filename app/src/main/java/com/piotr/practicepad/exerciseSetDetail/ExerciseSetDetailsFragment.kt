@@ -43,6 +43,7 @@ class ExerciseSetDetailsFragment : BaseFragment(), Editor {
     override fun delete(position: Int) {
         //TODO: probably viewModel.delete(position)
 //        binding.list.adapter?.notifyItemRemoved(position)
+        viewModel.delete(position)
         binding.list.adapter?.notifyDataSetChanged()
     }
 
