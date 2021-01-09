@@ -30,6 +30,16 @@
 			app:layout_constraintTop_toTopOf="parent"
 			tools:context=".exerciseList.ExerciseListFragment"
 			tools:listitem="@layout/exercise_set_row" />
+		
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:backgroundTint="@color/white"
+			android:src="@drawable/ic_baseline_add_24"
+			android:layout_marginBottom="@dimen/very_big_margin"
+			android:layout_marginEnd="@dimen/very_big_margin"/>
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

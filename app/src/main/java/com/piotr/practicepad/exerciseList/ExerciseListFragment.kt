@@ -22,7 +22,7 @@ class ExerciseListFragment : BaseFragment(), CheckBoxHandler, NavigationHandler 
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_exercise_list, container, false)
         binding.apply {

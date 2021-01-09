@@ -20,7 +20,7 @@ class ExerciseSetDetailsFragment : BaseFragment(), Editor {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_exercise_set_detail,
@@ -41,7 +41,6 @@ class ExerciseSetDetailsFragment : BaseFragment(), Editor {
     }
 
     override fun delete(position: Int) {
-        //TODO: probably viewModel.delete(position)
 //        binding.list.adapter?.notifyItemRemoved(position)
         viewModel.delete(position)
         binding.list.adapter?.notifyDataSetChanged()
