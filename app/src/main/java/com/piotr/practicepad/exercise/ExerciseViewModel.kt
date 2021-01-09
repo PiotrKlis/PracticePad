@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.piotr.practicepad.data.db.SharedPrefs
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
 import com.piotr.practicepad.exercise.PracticeState.State.*
 import com.piotr.practicepad.exerciseList.ExerciseSet
@@ -28,15 +27,15 @@ class ExerciseViewModel @Inject constructor(
     val state: LiveData<ExerciseState> get() = mutableState
     private val mutableState = MutableLiveData(ExerciseState())
     private val metronomeOperationRange = 40 until 221
-    private var activeSetId: Int? = null
+    private var previousSet: ExerciseSet? = null
     private var tempoDifference: Long = 0L
 
     fun renderActiveExerciseSet() {
         viewModelScope.launch {
             exerciseSetRepository.getActiveSet().let { activeSet ->
-                if (activeSetId != activeSet.id) {
+                if (previousSet != activeSet) {
                     renderFirstItem(activeSet)
-                    activeSetId = activeSet.id
+                    previousSet = activeSet
                 }
             }
         }
