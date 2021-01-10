@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExerciseSetDetailBinding
@@ -38,6 +39,7 @@ class ExerciseSetDetailsFragment : BaseFragment(), Editor {
         super.onViewCreated(view, savedInstanceState)
         viewModel.renderData(args.exerciseSetId)
         binding.list.adapter = this.adapter
+        binding.fabAddExercise.setOnClickListener { findNavController().navigate() }
     }
 
     override fun delete(position: Int) {
