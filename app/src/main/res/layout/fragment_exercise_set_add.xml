@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	
+	<data>
+	
+	</data>
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<include
+			android:id="@+id/set_info_container"
+			layout="@layout/set_info_container" />
+		
+		<SearchView
+			android:id="@+id/search"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/big_margin"
+			android:layout_marginEnd="@dimen/big_margin"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/set_info_container" />
+		
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/list"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/big_margin"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/search"
+			tools:listitem="@layout/exercise_detail_card" />
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
