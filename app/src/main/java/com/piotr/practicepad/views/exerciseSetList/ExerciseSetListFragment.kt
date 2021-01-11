@@ -9,9 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExerciseListBinding
-import com.piotr.practicepad.views.exerciseSet.ExerciseSetDetailsFragmentArgs
 import com.piotr.practicepad.utils.BaseFragment
 import com.piotr.practicepad.utils.NavigationHandler
+import com.piotr.practicepad.views.exerciseSet.ExerciseSetFragmentArgs
 
 class ExerciseSetListFragment : BaseFragment(), CheckBoxHandler,
     NavigationHandler {
@@ -50,7 +50,7 @@ class ExerciseSetListFragment : BaseFragment(), CheckBoxHandler,
     override fun navigationClick(id: Int) {
         findNavController().navigate(
             R.id.action_exerciseSetListFragment_to_exerciseSetDetailFragment,
-            ExerciseSetDetailsFragmentArgs(id).toBundle()
+            ExerciseSetFragmentArgs(id).toBundle()
         )
     }
 }

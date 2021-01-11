@@ -7,7 +7,7 @@
 		
 		<variable
 			name="model"
-			type="com.piotr.practicepad.exercise.ExerciseViewModel" />
+			type="com.piotr.practicepad.views.exercise.ExerciseViewModel" />
 		
 		<variable
 			name="exerciseTimer"
@@ -19,7 +19,7 @@
 		
 		<variable
 			name="practice"
-			type="com.piotr.practicepad.exercise.PracticeState" />
+			type="com.piotr.practicepad.views.exercise.PracticeState" />
 	
 	</data>
 	

@@ -13,7 +13,7 @@ class ExerciseSetListViewModel @Inject constructor(
     private val exerciseSetRepository: ExerciseSetRepository,
     private val sharedPrefs: SharedPrefs
 ) : ViewModel() {
-    val stateSet: LiveData<ExerciseSetListState> get() = mutableState
+    val state: LiveData<ExerciseSetListState> get() = mutableState
     private val mutableState = MutableLiveData(ExerciseSetListState())
     fun getExerciseSets() = viewModelScope.launch {
         mutableState.value = ExerciseSetListState(exerciseSetRepository.getAll())

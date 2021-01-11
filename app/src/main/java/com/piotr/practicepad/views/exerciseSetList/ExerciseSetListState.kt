@@ -1,3 +1,3 @@
 package com.piotr.practicepad.views.exerciseSetList
 
-data class ExerciseSetListState(val exerciseList: List<ExerciseSet> = emptyList())
+data class ExerciseSetListState(val exerciseSetList: List<ExerciseSet> = emptyList())

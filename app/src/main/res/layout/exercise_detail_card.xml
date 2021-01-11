@@ -7,15 +7,15 @@
 		
 		<variable
 			name="model"
-			type="com.piotr.practicepad.exercise.Exercise" />
+			type="com.piotr.practicepad.views.exercise.Exercise" />
 		
 		<variable
 			name="editor"
-			type="com.piotr.practicepad.exerciseSetDetail.Editor" />
+			type="com.piotr.practicepad.views.exerciseSet.Editor" />
 		
 		<variable
 			name="adapterParams"
-			type="com.piotr.practicepad.exerciseSetDetail.AdapterParams" />
+			type="com.piotr.practicepad.views.exerciseSet.AdapterParams" />
 	
 	</data>
 	

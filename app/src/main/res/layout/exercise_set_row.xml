@@ -6,15 +6,15 @@
 		
 		<variable
 			name="model"
-			type="com.piotr.practicepad.exerciseList.ExerciseSet" />
+			type="com.piotr.practicepad.views.exerciseSetList.ExerciseSet" />
 		
 		<variable
 			name="checkBoxHandler"
-			type="com.piotr.practicepad.exerciseList.CheckBoxHandler" />
+			type="com.piotr.practicepad.views.exerciseSetList.CheckBoxHandler" />
 		
 		<variable
 			name="navigationHandler"
-			type="com.piotr.practicepad.exerciseList.NavigationHandler" />
+			type="com.piotr.practicepad.utils.NavigationHandler" />
 	</data>
 	
 	<LinearLayout

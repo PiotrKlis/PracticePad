@@ -15,7 +15,7 @@ import com.piotr.practicepad.utils.BaseFragment
 class ExerciseSetFragment : BaseFragment(), Editor {
     private val viewModel: ExerciseSetViewModel by viewModels { viewModelFactory }
     private val adapter: ExerciseSetAdapter = ExerciseSetAdapter(this)
-    private val args: ExerciseSetDetailsFragmentArgs by navArgs()
+    private val args: ExerciseSetFragmentArgs by navArgs()
     private lateinit var binding: FragmentExerciseSetDetailBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

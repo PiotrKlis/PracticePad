@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.piotr.practicepad.R
-import com.piotr.practicepad.databinding.FragmentExerciseSetAddBinding
+import com.piotr.practicepad.databinding.FragmentAddExerciseSetBinding
 import com.piotr.practicepad.utils.BaseFragment
 
 class AddExerciseSetFragment : BaseFragment() {
-    private lateinit var binding: FragmentExerciseSetAddBinding
+    private lateinit var binding: FragmentAddExerciseSetBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
