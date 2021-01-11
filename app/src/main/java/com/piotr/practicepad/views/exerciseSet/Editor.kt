@@ -1,4 +1,4 @@
-package com.piotr.practicepad.exerciseSetDetail
+package com.piotr.practicepad.views.exerciseSet
 
 interface Editor {
     fun delete(position: Int)

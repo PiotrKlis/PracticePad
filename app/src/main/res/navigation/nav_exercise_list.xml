@@ -7,7 +7,7 @@
 	
 	<fragment
 		android:id="@+id/exerciseSetListFragment"
-		android:name="com.piotr.practicepad.exerciseList.ExerciseListFragment"
+		android:name="com.piotr.practicepad.views.exerciseSetList.ExerciseSetListFragment"
 		android:label="fragment_exerciseset_list"
 		tools:layout="@layout/fragment_exercise_list">
 		<action
@@ -20,7 +20,7 @@
 	
 	<fragment
 		android:id="@+id/exerciseSetDetailFragment"
-		android:name="com.piotr.practicepad.exerciseSetDetail.ExerciseSetDetailsFragment"
+		android:name="com.piotr.practicepad.views.exerciseSet.ExerciseSetFragment"
 		android:label="ExerciseSetDetail"
 		tools:layout="@layout/fragment_exercise_set_detail">
 		<argument
@@ -30,7 +30,7 @@
 	
 	<fragment
 		android:id="@+id/exerciseAdd"
-		android:name="com.piotr.practicepad.addExercise.ExerciseAddFragment"
+		android:name="com.piotr.practicepad.views.addExerciseSet.AddExerciseSetFragment"
 		android:label="ExerciseAdd"
-		tools:layout="@layout/fragment_exercise_set_add"/>
+		tools:layout="@layout/fragment_add_exercise_set"/>
 </navigation>

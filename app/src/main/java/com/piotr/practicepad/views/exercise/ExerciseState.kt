@@ -1,4 +1,4 @@
-package com.piotr.practicepad.exercise
+package com.piotr.practicepad.views.exercise
 
 data class ExerciseState(
     val setName: String = "",

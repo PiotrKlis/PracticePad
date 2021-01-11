@@ -1,4 +1,4 @@
-package com.piotr.practicepad.exerciseList
+package com.piotr.practicepad.views.exerciseSetList
 
 interface CheckBoxHandler {
     fun checkBoxClick(id: Int)

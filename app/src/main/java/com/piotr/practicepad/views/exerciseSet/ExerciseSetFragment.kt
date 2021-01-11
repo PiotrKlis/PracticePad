@@ -1,4 +1,4 @@
-package com.piotr.practicepad.exerciseSetDetail
+package com.piotr.practicepad.views.exerciseSet
 
 import android.os.Bundle
 import android.util.Log
@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExerciseSetDetailBinding
 import com.piotr.practicepad.utils.BaseFragment
 
-class ExerciseSetDetailsFragment : BaseFragment(), Editor {
-    private val viewModel: ExerciseSetDetailViewModel by viewModels { viewModelFactory }
-    private val adapter: ExerciseSetDetailsAdapter = ExerciseSetDetailsAdapter(this)
+class ExerciseSetFragment : BaseFragment(), Editor {
+    private val viewModel: ExerciseSetViewModel by viewModels { viewModelFactory }
+    private val adapter: ExerciseSetAdapter = ExerciseSetAdapter(this)
     private val args: ExerciseSetDetailsFragmentArgs by navArgs()
     private lateinit var binding: FragmentExerciseSetDetailBinding
     override fun onCreateView(
@@ -39,7 +38,7 @@ class ExerciseSetDetailsFragment : BaseFragment(), Editor {
         super.onViewCreated(view, savedInstanceState)
         viewModel.renderData(args.exerciseSetId)
         binding.list.adapter = this.adapter
-        binding.fabAddExercise.setOnClickListener { findNavController().navigate() }
+//        binding.fabAddExercise.setOnClickListener { findNavController().navigate() }
     }
 
     override fun delete(position: Int) {

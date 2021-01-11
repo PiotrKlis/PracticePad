@@ -28,7 +28,7 @@
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
-			tools:context=".exerciseList.ExerciseListFragment"
+			tools:context=".views.exerciseSetList.ExerciseSetListFragment"
 			tools:listitem="@layout/exercise_set_row" />
 		
 		<com.google.android.material.floatingactionbutton.FloatingActionButton

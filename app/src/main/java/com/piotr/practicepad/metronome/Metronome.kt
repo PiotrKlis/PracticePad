@@ -2,8 +2,8 @@ package com.piotr.practicepad.metronome
 
 import android.media.MediaPlayer
 import android.util.Log
-import com.piotr.practicepad.exercise.PracticeState.State
-import com.piotr.practicepad.exercise.PracticeState.State.*
+import com.piotr.practicepad.views.exercise.PracticeState.State
+import com.piotr.practicepad.views.exercise.PracticeState.State.*
 import com.piotr.practicepad.extensions.bpmToMilliseconds
 import java.util.*
 import javax.inject.Inject

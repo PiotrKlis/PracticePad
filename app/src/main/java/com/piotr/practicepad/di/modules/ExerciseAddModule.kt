@@ -1,6 +1,6 @@
 package com.piotr.practicepad.di.modules
 
-import com.piotr.practicepad.addExercise.ExerciseAddFragment
+import com.piotr.practicepad.views.addExerciseSet.AddExerciseSetFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -8,5 +8,5 @@ import dagger.android.ContributesAndroidInjector
 abstract class ExerciseAddModule {
 
     @ContributesAndroidInjector
-    abstract fun contributesExerciseAddFragment(): ExerciseAddFragment
+    abstract fun contributesExerciseAddFragment(): AddExerciseSetFragment
 }

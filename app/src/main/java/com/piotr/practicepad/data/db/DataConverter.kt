@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.piotr.practicepad.data.entities.ExerciseEntity
-import com.piotr.practicepad.exercise.Exercise
 
 class DataConverter {
 

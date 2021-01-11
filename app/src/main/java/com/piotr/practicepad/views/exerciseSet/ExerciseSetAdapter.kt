@@ -1,14 +1,16 @@
-package com.piotr.practicepad.exerciseSetDetail
+package com.piotr.practicepad.views.exerciseSet
+
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.ExerciseDetailCardBinding
-import com.piotr.practicepad.exercise.Exercise
 import com.piotr.practicepad.extensions.bind
 import com.piotr.practicepad.utils.BindableRecyclerViewAdapter
+import com.piotr.practicepad.views.exercise.Exercise
+import com.piotr.practicepad.views.exerciseSet.AdapterParams
 
-class ExerciseSetDetailsAdapter(private val editor: Editor) :
+class ExerciseSetAdapter(private val editor: Editor) :
     BindableRecyclerViewAdapter<RecyclerView.ViewHolder, Exercise>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         RowViewHolder(parent.bind(R.layout.exercise_detail_card, false))

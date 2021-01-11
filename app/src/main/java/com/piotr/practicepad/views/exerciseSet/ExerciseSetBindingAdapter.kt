@@ -1,10 +1,10 @@
-package com.piotr.practicepad.exerciseSetDetail
+package com.piotr.practicepad.views.exerciseSet
 
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 
-object ExerciseSetDetailsBindingAdapter {
+object ExerciseSetBindingAdapter {
     @JvmStatic
     @BindingAdapter("upArrowVisibility")
     fun upArrowVisibility(view: AppCompatImageView, adapterParams: AdapterParams) {

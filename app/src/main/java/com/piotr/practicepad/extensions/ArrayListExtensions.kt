@@ -1,6 +1,6 @@
 package com.piotr.practicepad.extensions
 
-import com.piotr.practicepad.exercise.Exercise
+import com.piotr.practicepad.views.exercise.Exercise
 
 fun List<Exercise>.getNextExerciseName(index: Int): String {
     var result = "Last one"

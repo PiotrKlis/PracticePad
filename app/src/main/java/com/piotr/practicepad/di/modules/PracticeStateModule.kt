@@ -1,6 +1,6 @@
 package com.piotr.practicepad.di.modules
 
-import com.piotr.practicepad.exercise.PracticeState
+import com.piotr.practicepad.views.exercise.PracticeState
 import dagger.Module
 import dagger.Provides
 

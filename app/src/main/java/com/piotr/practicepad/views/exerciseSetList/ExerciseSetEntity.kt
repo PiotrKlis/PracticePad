@@ -1,6 +1,6 @@
-package com.piotr.practicepad.exerciseList
+package com.piotr.practicepad.views.exerciseSetList
 
-import com.piotr.practicepad.exercise.Exercise
+import com.piotr.practicepad.views.exercise.Exercise
 
 data class ExerciseSet(
     val id: Int = 0,

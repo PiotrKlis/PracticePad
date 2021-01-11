@@ -1,8 +1,8 @@
-package com.piotr.practicepad.exercise
+package com.piotr.practicepad.views.exercise
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.piotr.practicepad.exercise.PracticeState.State.*
+import com.piotr.practicepad.views.exercise.PracticeState.State.*
 
 class PracticeState {
     val state: LiveData<State> get() = mutableState

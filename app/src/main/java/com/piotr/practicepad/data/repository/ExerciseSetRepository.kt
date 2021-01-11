@@ -1,9 +1,9 @@
 package com.piotr.practicepad.data.repository
 
-import android.util.Log
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.db.SharedPrefs
-import com.piotr.practicepad.exerciseList.ExerciseSet
+import com.piotr.practicepad.data.entities.EntityMapper
+import com.piotr.practicepad.views.exerciseSetList.ExerciseSet
 import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 
@@ -13,11 +13,8 @@ class ExerciseSetRepository @Inject constructor(
     private val entityMapper: EntityMapper
 ) {
     @OptIn(ExperimentalTime::class)
-    suspend fun getActiveSet(): ExerciseSet {
-        Log.d("XXX", "activeId ${sharedPrefs.getActiveSetId()} all ${database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId())}")
-        return entityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
-    }
-
+    suspend fun getActiveSet(): ExerciseSet =
+        entityMapper.map(database.exerciseSetDao().getSetFor(sharedPrefs.getActiveSetId()))
 
     @OptIn(ExperimentalTime::class)
     suspend fun getAll(): List<ExerciseSet> =

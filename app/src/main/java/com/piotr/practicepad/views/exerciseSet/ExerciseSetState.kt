@@ -1,8 +1,8 @@
-package com.piotr.practicepad.exerciseSetDetail
+package com.piotr.practicepad.views.exerciseSet
 
-import com.piotr.practicepad.exercise.Exercise
+import com.piotr.practicepad.views.exercise.Exercise
 
-data class ExerciseSetDetailsState(
+data class ExerciseSetState(
     val id: Int = 0,
     val name: String = "",
     val tempo: Long = 0,

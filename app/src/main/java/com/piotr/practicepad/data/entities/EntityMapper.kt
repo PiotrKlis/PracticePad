@@ -1,10 +1,8 @@
-package com.piotr.practicepad.data.repository
+package com.piotr.practicepad.data.entities
 
 import com.piotr.practicepad.data.dao.ExerciseSetEntityUpdate
-import com.piotr.practicepad.data.entities.ExerciseEntity
-import com.piotr.practicepad.data.entities.ExerciseSetEntity
-import com.piotr.practicepad.exercise.Exercise
-import com.piotr.practicepad.exerciseList.ExerciseSet
+import com.piotr.practicepad.views.exercise.Exercise
+import com.piotr.practicepad.views.exerciseSetList.ExerciseSet
 import com.piotr.practicepad.extensions.millisToSeconds
 import com.piotr.practicepad.extensions.secondsToMilliseconds
 import com.piotr.practicepad.utils.ResourceProvider

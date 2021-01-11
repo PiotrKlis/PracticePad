@@ -1,4 +1,4 @@
-package com.piotr.practicepad.exerciseList
+package com.piotr.practicepad.views.exerciseSetList
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,14 +9,14 @@ import com.piotr.practicepad.data.repository.ExerciseSetRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ExerciseListViewModel @Inject constructor(
+class ExerciseSetListViewModel @Inject constructor(
     private val exerciseSetRepository: ExerciseSetRepository,
     private val sharedPrefs: SharedPrefs
 ) : ViewModel() {
-    val state: LiveData<ExerciseListState> get() = mutableState
-    private val mutableState = MutableLiveData(ExerciseListState())
+    val stateSet: LiveData<ExerciseSetListState> get() = mutableState
+    private val mutableState = MutableLiveData(ExerciseSetListState())
     fun getExerciseSets() = viewModelScope.launch {
-        mutableState.value = ExerciseListState(exerciseSetRepository.getAll())
+        mutableState.value = ExerciseSetListState(exerciseSetRepository.getAll())
     }
     fun onCheckboxClick(id: Int) = sharedPrefs.setActiveSetId(id)
     fun isSetActive(id: Int): Boolean = sharedPrefs.isSetActive(id)

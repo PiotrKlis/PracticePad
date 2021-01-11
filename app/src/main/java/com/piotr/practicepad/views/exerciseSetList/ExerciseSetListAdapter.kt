@@ -1,4 +1,4 @@
-package com.piotr.practicepad.exerciseList
+package com.piotr.practicepad.views.exerciseSetList
 
 
 import android.view.ViewGroup
@@ -7,8 +7,9 @@ import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.ExerciseSetRowBinding
 import com.piotr.practicepad.extensions.bind
 import com.piotr.practicepad.utils.BindableRecyclerViewAdapter
+import com.piotr.practicepad.utils.NavigationHandler
 
-class ExerciseListAdapter(
+class ExerciseSetListAdapter(
     private val checkBoxHandler: CheckBoxHandler,
     private val navigationHandler: NavigationHandler
 ) : BindableRecyclerViewAdapter<RecyclerView.ViewHolder, ExerciseSet>() {

@@ -3,9 +3,9 @@ package com.piotr.practicepad.timers
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.piotr.practicepad.exercise.ExerciseEvent
-import com.piotr.practicepad.exercise.PracticeState.State
-import com.piotr.practicepad.exercise.PracticeState.State.*
+import com.piotr.practicepad.views.exercise.ExerciseEvent
+import com.piotr.practicepad.views.exercise.PracticeState.State
+import com.piotr.practicepad.views.exercise.PracticeState.State.*
 import com.piotr.practicepad.ui.main.utils.Event
 
 private const val ONE_SECOND = 1000L

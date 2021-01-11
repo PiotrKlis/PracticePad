@@ -1,4 +1,4 @@
-package com.piotr.practicepad.exercise
+package com.piotr.practicepad.views.exercise
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,6 @@ import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExcerciseBinding
 import com.piotr.practicepad.ui.main.utils.observeEvent
 import com.piotr.practicepad.utils.BaseFragment
-import kotlinx.coroutines.launch
 
 
 class ExerciseFragment : BaseFragment() {

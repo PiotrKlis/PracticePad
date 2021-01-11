@@ -1,4 +1,4 @@
-package com.piotr.practicepad.exercise
+package com.piotr.practicepad.views.exercise
 
 sealed class ExerciseEvent {
     data class PowerClick(val state: PracticeState.State) : ExerciseEvent()
