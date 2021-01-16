@@ -10,6 +10,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @FlowPreview
@@ -37,7 +38,7 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun initDb() {
         PracticePadRoomDatabase.initDb(applicationContext)
         GlobalScope.launch(Dispatchers.Main) {
-            PracticePadRoomDatabase.subject.asFlow().collect {
+            PracticePadRoomDatabase.state.collectLatest {
                 setNavigation()
                 sharedPrefs.setFirstAppLaunch()
             }

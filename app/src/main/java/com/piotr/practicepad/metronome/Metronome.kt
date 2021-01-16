@@ -1,47 +1,49 @@
 package com.piotr.practicepad.metronome
 
-import android.util.Log
 import com.piotr.practicepad.extensions.bpmToMilliseconds
-import com.piotr.practicepad.views.exercise.PracticeState.State
-import com.piotr.practicepad.views.exercise.PracticeState.State.*
+import com.piotr.practicepad.views.exercise.Practice
+import com.piotr.practicepad.views.exercise.Practice.State.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 import kotlin.concurrent.timerTask
 
 
-class Metronome @Inject constructor(private val player: Player) {
+class Metronome @Inject constructor(
+    private val player: Player,
+    private val practice: Practice
+) {
+    val tempo get() = mutableTempo.asSharedFlow()
+    private val mutableTempo = MutableSharedFlow<Long>()
     private var timer = Timer()
-    var tempo: Long? = null
 
-    fun handleClick(state: State, newTempo: Long?) {
-        when (state) {
-            ON -> {
-                tempo = newTempo
-                start()
+    init {
+        GlobalScope.launch {
+            practice.state.collectLatest { state ->
+                when (state) {
+                    ON -> start()
+                    OFF, RESTART -> stop()
+                }
             }
-            OFF -> stop()
-            RESTART -> {
-                tempo = newTempo
-                start()
-            }
+            tempo.collectLatest { start() }
         }
     }
 
-    fun stop() {
+    suspend fun updateTempo(tempo: Long) {
+        mutableTempo.emit(tempo)
+    }
+
+    private fun stop() {
         timer.cancel()
     }
 
-    fun updateTempo() {
-
-    }
-
-    private fun start() {
+    private suspend fun start() {
         timer.cancel()
-        tempo?.let {
             timer = Timer()
             timer.schedule(timerTask {
                 player.play()
-            }, 0L, it.bpmToMilliseconds())
-        } ?: Log.e(this::class.simpleName, "Tempo is null")
+            }, 0L, tempo.first().bpmToMilliseconds())
     }
 }

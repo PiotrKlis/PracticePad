@@ -4,8 +4,8 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.piotr.practicepad.views.exercise.ExerciseEvent
-import com.piotr.practicepad.views.exercise.PracticeState
-import com.piotr.practicepad.views.exercise.PracticeState.State.*
+import com.piotr.practicepad.views.exercise.Practice
+import com.piotr.practicepad.views.exercise.Practice.State.*
 import com.piotr.practicepad.ui.main.utils.Event
 
 private const val ONE_SECOND = 1000L
@@ -24,7 +24,7 @@ class ExerciseTimer {
         createNewTimer()
     }
 
-    fun handleClick(state: PracticeState.State) {
+    fun handleClick(state: Practice.State) {
         when (state) {
             ON, RESTART -> {
                 position = FIRST_ITEM

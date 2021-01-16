@@ -1,7 +1,6 @@
 package com.piotr.practicepad.data.db
 
 import android.content.Context
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.room.Database
 import androidx.room.Room
@@ -18,10 +17,9 @@ import com.piotr.practicepad.data.entities.ExerciseEntity
 import com.piotr.practicepad.data.entities.ExerciseSetEntity
 import com.piotr.practicepad.utils.Irrelevant
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.io.InputStream
 
@@ -35,10 +33,9 @@ abstract class PracticePadRoomDatabase :
     abstract fun exerciseSetDao(): ExerciseSetDao
     abstract fun exerciseDao(): ExerciseDao
 
-    @ExperimentalCoroutinesApi
     companion object {
-        @ExperimentalCoroutinesApi
-        val subject = BroadcastChannel<Irrelevant>(CONFLATED)
+        val state get() = mutableState.asStateFlow()
+        private val mutableState = MutableStateFlow(Irrelevant.INSTANCE)
 
         @Volatile
         var INSTANCE: PracticePadRoomDatabase? = null
@@ -122,7 +119,7 @@ abstract class PracticePadRoomDatabase :
         ) {
             database.exerciseDao().insertAll(exercises)
             database.exerciseSetDao().insertAll(exerciseSets)
-            subject.send(Irrelevant.INSTANCE)
+            mutableState.emit(Irrelevant.INSTANCE)
         }
     }
 }

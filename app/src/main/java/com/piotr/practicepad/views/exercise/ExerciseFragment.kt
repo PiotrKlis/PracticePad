@@ -52,7 +52,7 @@ class ExerciseFragment : BaseFragment() {
             model = viewModel
             exerciseSetTimer = viewModel.exerciseSetTimer
             exerciseTimer = viewModel.exerciseTimer
-            practice = viewModel.practiceState
+            practice = viewModel.practice
         }
         return binding
     }

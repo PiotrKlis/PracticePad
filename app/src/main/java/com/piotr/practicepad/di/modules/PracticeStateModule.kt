@@ -1,6 +1,6 @@
 package com.piotr.practicepad.di.modules
 
-import com.piotr.practicepad.views.exercise.PracticeState
+import com.piotr.practicepad.views.exercise.Practice
 import dagger.Module
 import dagger.Provides
 
@@ -8,5 +8,5 @@ import dagger.Provides
 class PracticeStateModule  {
 
     @Provides
-    fun providesPracticeState(): PracticeState = PracticeState()
+    fun providesPracticeState(): Practice = Practice()
 }

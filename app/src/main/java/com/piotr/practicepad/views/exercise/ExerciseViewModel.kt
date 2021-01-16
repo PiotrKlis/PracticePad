@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
-import com.piotr.practicepad.views.exercise.PracticeState.State.*
-import com.piotr.practicepad.views.exerciseSetList.ExerciseSet
 import com.piotr.practicepad.extensions.getNextExerciseName
 import com.piotr.practicepad.extensions.getOverallTime
 import com.piotr.practicepad.metronome.Metronome
 import com.piotr.practicepad.timers.ExerciseSetTimer
 import com.piotr.practicepad.timers.ExerciseTimer
+import com.piotr.practicepad.views.exercise.Practice.State.*
+import com.piotr.practicepad.views.exerciseSetList.ExerciseSet
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ class ExerciseViewModel @Inject constructor(
     private val metronome: Metronome,
     val exerciseTimer: ExerciseTimer,
     val exerciseSetTimer: ExerciseSetTimer,
-    val practiceState: PracticeState
+    val practice: Practice
 ) : ViewModel() {
     val state: LiveData<ExerciseState> get() = mutableState
     private val mutableState = MutableLiveData(ExerciseState())
@@ -40,7 +40,7 @@ class ExerciseViewModel @Inject constructor(
         }
     }
 
-    fun powerClick(state: PracticeState.State) {
+    fun powerClick(state: Practice.State) {
         when (state) {
             ON -> pausePractice()
             OFF -> startPractice()
@@ -62,17 +62,20 @@ class ExerciseViewModel @Inject constructor(
     }
 
     fun onPause() {
-        exerciseTimer.onPause()
-        exerciseSetTimer.onPause()
-        metronome.stop()
-        practiceState.onPause()
+        viewModelScope.launch { practice.onPause() }
+//        exerciseTimer.onPause()
+//        exerciseSetTimer.onPause()
+//        metronome.stop()
+//        practiceState.onPause()
     }
 
     private fun renderFirstItem(activeExerciseSet: ExerciseSet) {
-        mutableState.value = createState(activeExerciseSet)
-        exerciseTimer.setData(activeExerciseSet.exercises[FIRST_ITEM].time)
-        exerciseSetTimer.setData(activeExerciseSet.exercises.getOverallTime())
-        metronome.tempo = mutableState.value?.tempo
+        viewModelScope.launch {
+            mutableState.value = createState(activeExerciseSet)
+            exerciseTimer.setData(activeExerciseSet.exercises[FIRST_ITEM].time)
+            exerciseSetTimer.setData(activeExerciseSet.exercises.getOverallTime())
+            metronome.updateTempo(activeExerciseSet.tempo)
+        }
     }
 
     fun renderNextExercise(position: Int) {
@@ -83,7 +86,7 @@ class ExerciseViewModel @Inject constructor(
                 exerciseTimer.startNextExercise(activeSet.exercises[position].time)
                 metronome.tempo = mutableState.value?.tempo
             } else {
-                practiceState.setState(RESTART)
+                practice.setState(RESTART)
             }
         }
     }
@@ -115,29 +118,29 @@ class ExerciseViewModel @Inject constructor(
     )
 
     fun setEnded() {
-        metronome.stop()
-        practiceState.setState(RESTART)
+        viewModelScope.launch { practice.setState(RESTART) }
     }
 
     private fun startPractice() {
         exerciseTimer.handleClick(ON)
         exerciseSetTimer.handleClick(ON)
         metronome.handleClick(ON, state.value?.tempo)
-        practiceState.setState(ON)
+        practice.setState(ON)
     }
 
     private fun pausePractice() {
         exerciseTimer.handleClick(OFF)
         exerciseSetTimer.handleClick(OFF)
         metronome.handleClick(OFF, state.value?.tempo)
-        practiceState.setState(OFF)
+        practice.setState(OFF)
     }
 
     private fun updateTempo(newTempo: Long) {
         if (newTempo in metronomeOperationRange) {
             mutableState.value = mutableState.value?.copy(tempo = newTempo)
-            metronome.tempo = newTempo
-            metronome.updateTempo()
+            viewModelScope.launch { metronome.updateTempo(newTempo) }
+        } else {
+            // show toast
         }
     }
 }

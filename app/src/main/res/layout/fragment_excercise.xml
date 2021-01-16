@@ -19,7 +19,7 @@
 		
 		<variable
 			name="practice"
-			type="com.piotr.practicepad.views.exercise.PracticeState" />
+			type="com.piotr.practicepad.views.exercise.Practice" />
 	
 	</data>
 	
