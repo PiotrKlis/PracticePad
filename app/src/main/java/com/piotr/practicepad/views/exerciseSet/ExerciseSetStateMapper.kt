@@ -6,12 +6,11 @@ import javax.inject.Inject
 
 class ExerciseSetStateMapper @Inject constructor() :
     Mapper<ExerciseSet, ExerciseSetState> {
-    override fun map(input: ExerciseSet): ExerciseSetState {
-        return ExerciseSetState(
+    override fun map(input: ExerciseSet): ExerciseSetState =
+         ExerciseSetState(
             id = input.id,
             name = input.title,
             tempo = input.tempo,
             exerciseDetailsList = input.exercises.toMutableList()
         )
-    }
 }

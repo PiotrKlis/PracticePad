@@ -3,57 +3,57 @@ package com.piotr.practicepad.timers
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.piotr.practicepad.views.exercise.ExerciseEvent
+import com.piotr.practicepad.views.exercise.ExerciseTimerEvent
 import com.piotr.practicepad.views.exercise.Practice
 import com.piotr.practicepad.views.exercise.Practice.State.*
 import com.piotr.practicepad.ui.main.utils.Event
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 private const val ONE_SECOND = 1000L
-private const val FIRST_ITEM = 0
 
-class ExerciseTimer {
+class ExerciseTimer @Inject constructor(private val practice: Practice) {
     val data: LiveData<Long> get() = mutableData
     private val mutableData = MutableLiveData<Long>()
-    val event: LiveData<Event<ExerciseEvent>> get() = mutableEvent
-    private val mutableEvent = MutableLiveData<Event<ExerciseEvent>>()
+    val timerEvent: LiveData<Event<ExerciseTimerEvent>> get() = mutableEvent
+    private val mutableEvent = MutableLiveData<Event<ExerciseTimerEvent>>()
     private lateinit var timer: CountDownTimer
-    private var position = FIRST_ITEM
 
-    fun setData(time: Long) {
-        mutableData.value = time
-        createNewTimer()
-    }
-
-    fun handleClick(state: Practice.State) {
-        when (state) {
-            ON, RESTART -> {
-                position = FIRST_ITEM
-                createNewTimer()
-                timer.start()
+    init {
+        GlobalScope.launch {
+            practice.state.collectLatest { state ->
+                when (state) {
+                    ON -> {
+                        createTimer()
+                        timer.start()
+                    }
+                    OFF, RESTART -> timer.cancel()
+                }
             }
-            OFF -> timer.cancel()
         }
     }
 
-    fun onPause() {
-        timer.cancel()
+    fun setData(time: Long) {
+        mutableData.value = time
+        createTimer()
     }
 
     fun startNextExercise(time: Long) {
-        mutableData.value = time
-        createNewTimer()
+        setData(time)
         timer.start()
     }
 
-    private fun createNewTimer() {
+    private fun createTimer() {
         data.value?.let { time ->
             timer = object : CountDownTimer(
                 time,
                 ONE_SECOND
             ) {
                 override fun onFinish() {
-                    position += 1
-                    mutableEvent.value = Event(ExerciseEvent.NextExercise(position))
+                    mutableEvent.value = Event(ExerciseTimerEvent.ExerciseEnded)
+                    cancel()
                 }
 
                 override fun onTick(millisUntilFinished: Long) {

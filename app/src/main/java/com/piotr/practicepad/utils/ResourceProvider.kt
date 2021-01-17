@@ -9,15 +9,7 @@ interface ResourceProvider {
     fun getStringFromImage(image: Int): String
 }
 
-class AndroidResourceProvider @Inject constructor(private val context: Context) :
-    ResourceProvider {
-
-    companion object {
-        fun init(context: Context) {
-            AndroidResourceProvider(context)
-        }
-    }
-
+class AndroidResourceProvider @Inject constructor(private val context: Context) : ResourceProvider {
     override fun getImageForString(string: String): Int {
         context.apply {
             return resources.getIdentifier(

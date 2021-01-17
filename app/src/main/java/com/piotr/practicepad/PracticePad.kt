@@ -9,8 +9,6 @@ import dagger.android.DaggerApplication
 class PracticePad : DaggerApplication() {
     override fun onCreate() {
         super.onCreate()
-        AndroidStringProvider.initializeStringProvider(applicationContext)
-        AndroidResourceProvider.init(applicationContext)
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> =

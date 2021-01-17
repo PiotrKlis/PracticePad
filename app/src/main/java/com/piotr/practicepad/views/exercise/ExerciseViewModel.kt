@@ -12,6 +12,7 @@ import com.piotr.practicepad.timers.ExerciseSetTimer
 import com.piotr.practicepad.timers.ExerciseTimer
 import com.piotr.practicepad.views.exercise.Practice.State.*
 import com.piotr.practicepad.views.exerciseSetList.ExerciseSet
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,27 +28,25 @@ class ExerciseViewModel @Inject constructor(
     val state: LiveData<ExerciseState> get() = mutableState
     private val mutableState = MutableLiveData(ExerciseState())
     private val metronomeOperationRange = 40 until 221
-    private var previousSet: ExerciseSet? = null
+    private lateinit var currentExerciseSet: ExerciseSet
+    private var currentExerciseSetPosition = FIRST_ITEM
 
-    fun renderActiveExerciseSet() {
+    init {
         viewModelScope.launch {
-            exerciseSetRepository.getActiveSet().let { activeSet ->
-                if (previousSet != activeSet) {
-                    renderFirstItem(activeSet)
-                    previousSet = activeSet
+            practice.state.collectLatest { state ->
+                when (state) {
+                    RESTART -> renderFirstItem(exerciseSetRepository.getActiveSet())
                 }
             }
         }
     }
 
-    fun powerClick(state: Practice.State) {
-        when (state) {
-            ON -> pausePractice()
-            OFF -> startPractice()
-            RESTART -> {
-                viewModelScope.launch {
-                    renderFirstItem(exerciseSetRepository.getActiveSet())
-                    startPractice()
+    fun renderActiveExerciseSet() {
+        viewModelScope.launch {
+            exerciseSetRepository.getActiveSet().let { activeSet ->
+                if (currentExerciseSet != activeSet) {
+                    renderFirstItem(activeSet)
+                    currentExerciseSet = activeSet
                 }
             }
         }
@@ -63,10 +62,23 @@ class ExerciseViewModel @Inject constructor(
 
     fun onPause() {
         viewModelScope.launch { practice.onPause() }
-//        exerciseTimer.onPause()
-//        exerciseSetTimer.onPause()
-//        metronome.stop()
-//        practiceState.onPause()
+    }
+
+    fun renderNextExercise() {
+        viewModelScope.launch {
+            currentExerciseSetPosition += 1
+            if (currentExerciseSet.shouldStartNextExercise(currentExerciseSetPosition)) {
+                mutableState.value = updateState(currentExerciseSet, currentExerciseSetPosition)
+                exerciseTimer.startNextExercise(currentExerciseSet.exercises[currentExerciseSetPosition].time)
+                metronome.updateTempo(currentExerciseSet.tempo)
+            } else {
+                practice.setState(RESTART)
+            }
+        }
+    }
+
+    fun setEnded() {
+        viewModelScope.launch { practice.setState(RESTART) }
     }
 
     private fun renderFirstItem(activeExerciseSet: ExerciseSet) {
@@ -78,21 +90,8 @@ class ExerciseViewModel @Inject constructor(
         }
     }
 
-    fun renderNextExercise(position: Int) {
-        viewModelScope.launch {
-            val activeSet = exerciseSetRepository.getActiveSet()
-            if (activeSet.shouldStartNextExercise(position)) {
-                mutableState.value = updateState(activeSet, position)
-                exerciseTimer.startNextExercise(activeSet.exercises[position].time)
-                metronome.tempo = mutableState.value?.tempo
-            } else {
-                practice.setState(RESTART)
-            }
-        }
-    }
-
-    private fun createState(exerciseSet: ExerciseSet): ExerciseState {
-        return ExerciseState(
+    private fun createState(exerciseSet: ExerciseSet): ExerciseState =
+        ExerciseState(
             setName = exerciseSet.title,
             exerciseImage = exerciseSet.exercises[FIRST_ITEM].image,
             exerciseName = exerciseSet.exercises[FIRST_ITEM].title,
@@ -102,7 +101,6 @@ class ExerciseViewModel @Inject constructor(
             exerciseList = exerciseSet.exercises,
             tempo = exerciseSet.tempo
         )
-    }
 
     private fun updateState(
         activeSet: ExerciseSet,
@@ -116,24 +114,6 @@ class ExerciseViewModel @Inject constructor(
         currentExerciseIndex = position,
         exerciseList = activeSet.exercises
     )
-
-    fun setEnded() {
-        viewModelScope.launch { practice.setState(RESTART) }
-    }
-
-    private fun startPractice() {
-        exerciseTimer.handleClick(ON)
-        exerciseSetTimer.handleClick(ON)
-        metronome.handleClick(ON, state.value?.tempo)
-        practice.setState(ON)
-    }
-
-    private fun pausePractice() {
-        exerciseTimer.handleClick(OFF)
-        exerciseSetTimer.handleClick(OFF)
-        metronome.handleClick(OFF, state.value?.tempo)
-        practice.setState(OFF)
-    }
 
     private fun updateTempo(newTempo: Long) {
         if (newTempo in metronomeOperationRange) {

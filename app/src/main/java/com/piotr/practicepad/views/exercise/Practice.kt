@@ -16,6 +16,14 @@ class Practice {
         }
     }
 
+    fun powerClick(state: State) {
+        when (state) {
+            ON -> mutableState.value = OFF
+            OFF -> mutableState.value = ON
+            RESTART -> mutableState.value = ON
+        }
+    }
+
     suspend fun onPause() {
         if (state.value == ON) mutableState.emit(OFF)
     }

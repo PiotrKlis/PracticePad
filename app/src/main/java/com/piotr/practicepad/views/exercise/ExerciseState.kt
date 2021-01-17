@@ -1,8 +1,10 @@
 package com.piotr.practicepad.views.exercise
 
+import com.piotr.practicepad.R
+
 data class ExerciseState(
     val setName: String = "",
-    val exerciseImage: Int? = null,
+    val exerciseImage: Int = R.drawable.empty,
     val exerciseName: String = "",
     val nextExerciseName: String = "",
     val exercisesLeft: Pair<Int, Int> = Pair(0, 0),

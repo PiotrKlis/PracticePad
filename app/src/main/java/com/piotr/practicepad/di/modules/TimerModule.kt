@@ -2,6 +2,7 @@ package com.piotr.practicepad.di.modules
 
 import com.piotr.practicepad.timers.ExerciseSetTimer
 import com.piotr.practicepad.timers.ExerciseTimer
+import com.piotr.practicepad.views.exercise.Practice
 import dagger.Module
 import dagger.Provides
 
@@ -9,8 +10,8 @@ import dagger.Provides
 class TimerModule {
 
     @Provides
-    fun providesExerciseSetTimer(): ExerciseSetTimer = ExerciseSetTimer()
+    fun providesExerciseSetTimer(practice: Practice): ExerciseSetTimer = ExerciseSetTimer(practice)
 
     @Provides
-    fun providesExerciseTimer(): ExerciseTimer = ExerciseTimer()
+    fun providesExerciseTimer(practice: Practice): ExerciseTimer = ExerciseTimer(practice)
 }

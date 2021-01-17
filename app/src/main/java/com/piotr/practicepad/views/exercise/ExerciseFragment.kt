@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExcerciseBinding
+import com.piotr.practicepad.timers.ExerciseSetTimerEvent
 import com.piotr.practicepad.ui.main.utils.observeEvent
 import com.piotr.practicepad.utils.BaseFragment
 
@@ -24,14 +25,14 @@ class ExerciseFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.renderActiveExerciseSet()
-        viewModel.exerciseTimer.event.observeEvent(viewLifecycleOwner) { event ->
+        viewModel.exerciseTimer.timerEvent.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
-                is ExerciseEvent.NextExercise -> viewModel.renderNextExercise(event.position)
+                is ExerciseTimerEvent.ExerciseEnded -> viewModel.renderNextExercise()
             }
         }
         viewModel.exerciseSetTimer.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
-                is ExerciseEvent.SetEnded -> viewModel.setEnded()
+                is ExerciseSetTimerEvent.ExerciseSetEnded -> viewModel.setEnded()
             }
         }
     }

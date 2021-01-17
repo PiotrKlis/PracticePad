@@ -1,64 +1,61 @@
 package com.piotr.practicepad.timers
 
 import android.os.CountDownTimer
+import androidx.lifecycle.MutableLiveData
 import com.piotr.practicepad.ui.main.utils.Event
-import com.piotr.practicepad.views.exercise.ExerciseEvent
+import com.piotr.practicepad.views.exercise.ExerciseTimerEvent
 import com.piotr.practicepad.views.exercise.Practice
 import com.piotr.practicepad.views.exercise.Practice.State.*
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val ONE_SECOND = 1000L
 
 class ExerciseSetTimer @Inject constructor(private val practice: Practice) {
-    val data get() = mutableData.asSharedFlow()
-    private val mutableData = MutableSharedFlow<Long>()
-    val event get() = mutableEvent.asSharedFlow()
-    private val mutableEvent = MutableSharedFlow<Event<ExerciseEvent>>()
+    val data get() = mutableData
+    private val mutableData = MutableLiveData<Long>()
+    val event get() = mutableEvent
+    private val mutableEvent = MutableLiveData<Event<ExerciseSetTimerEvent>>()
     private lateinit var timer: CountDownTimer
 
     init {
         GlobalScope.launch {
             practice.state.collectLatest { state ->
                 when (state) {
-                    ON, RESTART -> start()
-                    OFF -> stop()
+                    ON, RESTART -> {
+                        createTimer()
+                        timer.start()
+                    }
+                    OFF -> {
+                        timer.cancel()
+                    }
                 }
             }
         }
     }
 
-    suspend fun setData(time: Long) {
-        mutableData.emit(time)
-        start()
+    fun setData(time: Long) {
+        mutableData.value = time
+        createTimer()
     }
 
-    private suspend fun start() {
-        GlobalScope.launch {
-            val time = mutableData.first()
+    private fun createTimer() {
+        data.value?.let { time ->
             timer = object : CountDownTimer(
                 time,
                 ONE_SECOND
             ) {
                 override fun onFinish() {
-                    GlobalScope.launch { mutableEvent.emit(Event(ExerciseEvent.SetEnded)) }
+                    mutableEvent.value = Event(ExerciseSetTimerEvent.ExerciseSetEnded)
                     cancel()
                 }
 
                 override fun onTick(millisUntilFinished: Long) {
-                    GlobalScope.launch { mutableData.emit(millisUntilFinished) }
+                    mutableData.value = millisUntilFinished
                 }
-            }.start()
+            }
         }
     }
-
-    private fun stop() {
-        timer.cancel()
-    }
 }
-

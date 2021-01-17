@@ -4,7 +4,10 @@ import com.piotr.practicepad.extensions.bpmToMilliseconds
 import com.piotr.practicepad.views.exercise.Practice
 import com.piotr.practicepad.views.exercise.Practice.State.*
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -35,15 +38,15 @@ class Metronome @Inject constructor(
         mutableTempo.emit(tempo)
     }
 
-    private fun stop() {
-        timer.cancel()
-    }
-
     private suspend fun start() {
         timer.cancel()
-            timer = Timer()
-            timer.schedule(timerTask {
-                player.play()
-            }, 0L, tempo.first().bpmToMilliseconds())
+        timer = Timer()
+        timer.schedule(timerTask {
+            player.play()
+        }, 0L, tempo.first().bpmToMilliseconds())
+    }
+
+    private fun stop() {
+        timer.cancel()
     }
 }
