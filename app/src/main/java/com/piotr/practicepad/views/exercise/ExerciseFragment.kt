@@ -11,8 +11,10 @@ import com.piotr.practicepad.databinding.FragmentExcerciseBinding
 import com.piotr.practicepad.timers.ExerciseSetTimerEvent
 import com.piotr.practicepad.ui.main.utils.observeEvent
 import com.piotr.practicepad.utils.BaseFragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
+@ExperimentalCoroutinesApi
 class ExerciseFragment : BaseFragment() {
     private val viewModel: ExerciseViewModel by viewModels { viewModelFactory }
 

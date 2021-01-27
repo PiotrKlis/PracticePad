@@ -1,18 +1,19 @@
 package com.piotr.practicepad.views.exercise
 
 import com.piotr.practicepad.views.exercise.Practice.State.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
+@ExperimentalCoroutinesApi
 class Practice {
-    val state get() = mutableState.asStateFlow()
+    val state get() = mutableState
     private val mutableState = MutableStateFlow(OFF)
 
-    suspend fun setState(state: State) {
+    fun setState(state: State) {
         when (state) {
-            ON -> mutableState.emit(ON)
-            OFF -> mutableState.emit(OFF)
-            RESTART -> mutableState.emit(RESTART)
+            ON -> mutableState.value = ON
+            OFF -> mutableState.value = OFF
+            RESTART -> mutableState.value = RESTART
         }
     }
 
@@ -25,7 +26,7 @@ class Practice {
     }
 
     suspend fun onPause() {
-        if (state.value == ON) mutableState.emit(OFF)
+        if (state.value == ON) mutableState.value = OFF
     }
 
     enum class State {

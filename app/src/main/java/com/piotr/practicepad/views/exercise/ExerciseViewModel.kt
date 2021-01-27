@@ -10,14 +10,16 @@ import com.piotr.practicepad.extensions.getOverallTime
 import com.piotr.practicepad.metronome.Metronome
 import com.piotr.practicepad.timers.ExerciseSetTimer
 import com.piotr.practicepad.timers.ExerciseTimer
-import com.piotr.practicepad.views.exercise.Practice.State.*
+import com.piotr.practicepad.views.exercise.Practice.State.RESTART
 import com.piotr.practicepad.views.exerciseSetList.ExerciseSet
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val FIRST_ITEM = 0
 
+@ExperimentalCoroutinesApi
 class ExerciseViewModel @Inject constructor(
     private val exerciseSetRepository: ExerciseSetRepository,
     private val metronome: Metronome,
@@ -28,7 +30,7 @@ class ExerciseViewModel @Inject constructor(
     val state: LiveData<ExerciseState> get() = mutableState
     private val mutableState = MutableLiveData(ExerciseState())
     private val metronomeOperationRange = 40 until 221
-    private lateinit var currentExerciseSet: ExerciseSet
+    private var currentExerciseSet = ExerciseSet()
     private var currentExerciseSetPosition = FIRST_ITEM
 
     init {
@@ -67,12 +69,10 @@ class ExerciseViewModel @Inject constructor(
     fun renderNextExercise() {
         viewModelScope.launch {
             currentExerciseSetPosition += 1
-            if (currentExerciseSet.shouldStartNextExercise(currentExerciseSetPosition)) {
+            if (currentExerciseSet?.shouldStartNextExercise(currentExerciseSetPosition)) {
                 mutableState.value = updateState(currentExerciseSet, currentExerciseSetPosition)
                 exerciseTimer.startNextExercise(currentExerciseSet.exercises[currentExerciseSetPosition].time)
                 metronome.updateTempo(currentExerciseSet.tempo)
-            } else {
-                practice.setState(RESTART)
             }
         }
     }

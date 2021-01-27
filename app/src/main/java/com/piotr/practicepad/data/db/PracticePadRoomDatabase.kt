@@ -18,8 +18,8 @@ import com.piotr.practicepad.data.entities.ExerciseSetEntity
 import com.piotr.practicepad.utils.Irrelevant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.io.InputStream
 
@@ -34,8 +34,8 @@ abstract class PracticePadRoomDatabase :
     abstract fun exerciseDao(): ExerciseDao
 
     companion object {
-        val state get() = mutableState.asStateFlow()
-        private val mutableState = MutableStateFlow(Irrelevant.INSTANCE)
+        val state get() = mutableState
+        private val mutableState = MutableSharedFlow<Irrelevant>()
 
         @Volatile
         var INSTANCE: PracticePadRoomDatabase? = null
