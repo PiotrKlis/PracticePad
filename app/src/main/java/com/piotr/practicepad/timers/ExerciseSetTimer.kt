@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.piotr.practicepad.ui.main.utils.Event
 import com.piotr.practicepad.views.exercise.Practice
 import com.piotr.practicepad.views.exercise.Practice.State.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collectLatest
@@ -39,8 +40,8 @@ class ExerciseSetTimer @Inject constructor(private val practice: Practice) {
 
     fun setData(time: Long) {
         mutableData.value = time
-        createTimer()
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.Main) {
+            createTimer()
             practice.state.collectLatest { state ->
                 when (state) {
                     ON, RESTART -> {

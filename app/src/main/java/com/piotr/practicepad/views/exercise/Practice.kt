@@ -3,9 +3,12 @@ package com.piotr.practicepad.views.exercise
 import com.piotr.practicepad.views.exercise.Practice.State.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @ExperimentalCoroutinesApi
-class Practice {
+@Singleton
+class Practice @Inject constructor() {
     val state get() = mutableState
     private val mutableState = MutableStateFlow(OFF)
 
@@ -25,7 +28,7 @@ class Practice {
         }
     }
 
-    suspend fun onPause() {
+    fun onPause() {
         if (state.value == ON) mutableState.value = OFF
     }
 
