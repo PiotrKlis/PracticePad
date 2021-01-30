@@ -11,18 +11,25 @@ import com.piotr.practicepad.databinding.FragmentExcerciseBinding
 import com.piotr.practicepad.timers.ExerciseSetTimerEvent
 import com.piotr.practicepad.ui.main.utils.observeEvent
 import com.piotr.practicepad.utils.BaseFragment
+import com.piotr.practicepad.views.exercise.Practice.State.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 @ExperimentalCoroutinesApi
 class ExerciseFragment : BaseFragment() {
     private val viewModel: ExerciseViewModel by viewModels { viewModelFactory }
-
+    private lateinit var binding: FragmentExcerciseBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = getBinding(inflater, container).root
+    ): View {
+        binding = getBinding(inflater, container)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,6 +42,15 @@ class ExerciseFragment : BaseFragment() {
         viewModel.exerciseSetTimer.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
                 is ExerciseSetTimerEvent.ExerciseSetEnded -> viewModel.setEnded()
+            }
+        }
+        GlobalScope.launch {
+            viewModel.practice.state.collectLatest { practiceState ->
+                when (practiceState) {
+                    ON -> binding.power.setBackgroundResource(R.drawable.ic_pause_circle_filled_black_24dp)
+                    OFF -> binding.power.setBackgroundResource(R.drawable.ic_play_circle_filled_black_24dp)
+                    RESTART -> binding.power.setBackgroundResource(R.drawable.ic_replay_black_24dp)
+                }
             }
         }
     }
