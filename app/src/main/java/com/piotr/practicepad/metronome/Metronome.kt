@@ -32,10 +32,11 @@ class Metronome @Inject constructor(private val player: Player) {
     }
 
     fun updateTempo() {
+        timer.cancel()
 
     }
 
-    private fun start() {
+    fun start() {
         timer.cancel()
         tempo?.let {
             timer = Timer()

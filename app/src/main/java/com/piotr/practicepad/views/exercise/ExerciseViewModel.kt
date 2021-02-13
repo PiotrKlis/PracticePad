@@ -137,7 +137,7 @@ class ExerciseViewModel @Inject constructor(
         if (newTempo in metronomeOperationRange) {
             mutableState.value = mutableState.value?.copy(tempo = newTempo)
             metronome.tempo = newTempo
-            metronome.updateTempo()
+            metronome.start()
         }
     }
 }
