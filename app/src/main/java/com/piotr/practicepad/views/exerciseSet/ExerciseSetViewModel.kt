@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
-import com.piotr.practicepad.data.entities.EntityMapper
+import com.piotr.practicepad.data.entities.ExerciseSetEntityMapper
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class ExerciseSetViewModel @Inject constructor(
     private val exerciseSetRepository: ExerciseSetRepository,
     private val exerciseSetStateMapper: ExerciseSetStateMapper,
-    private val entityMapper: EntityMapper,
+    private val exerciseSetEntityMapper: ExerciseSetEntityMapper,
     private val database: PracticePadRoomDatabase
 ) : ViewModel() {
     val state: LiveData<ExerciseSetState> get() = mutableState
@@ -65,7 +65,7 @@ class ExerciseSetViewModel @Inject constructor(
     private fun updateDb(state: ExerciseSetState) {
         viewModelScope.launch {
             database.exerciseSetDao().update(
-                entityMapper.mappo(id = state.id, input = state.exerciseDetailsList)
+                exerciseSetEntityMapper.map(id = state.id, input = state.exerciseDetailsList)
             )
         }
     }

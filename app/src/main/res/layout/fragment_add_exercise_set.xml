@@ -5,7 +5,9 @@
 	xmlns:tools="http://schemas.android.com/tools">
 	
 	<data>
-	
+	<variable
+		name="model"
+		type="com.piotr.practicepad.views.addExerciseSet.AddExerciseSetViewModel" />
 	</data>
 	
 	
@@ -59,14 +61,14 @@
 			app:layout_constraintTop_toBottomOf="@+id/set_info_container" />
 		
 		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/list"
+			android:id="@+id/recyclerList"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/big_margin"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/search"
-			tools:listitem="@layout/exercise_detail_card" />
+			tools:listitem="@layout/edit_exercise_detail_card" />
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

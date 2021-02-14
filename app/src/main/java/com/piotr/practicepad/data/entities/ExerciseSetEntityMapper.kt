@@ -1,15 +1,18 @@
 package com.piotr.practicepad.data.entities
 
 import com.piotr.practicepad.data.dao.ExerciseSetEntityUpdate
-import com.piotr.practicepad.views.exercise.Exercise
-import com.piotr.practicepad.views.exerciseSetList.ExerciseSet
 import com.piotr.practicepad.extensions.millisToSeconds
 import com.piotr.practicepad.extensions.secondsToMilliseconds
 import com.piotr.practicepad.utils.ResourceProvider
+import com.piotr.practicepad.views.exercise.Exercise
+import com.piotr.practicepad.views.exerciseSetList.ExerciseSet
 import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 
-class EntityMapper @Inject constructor(private val resourceProvider: ResourceProvider) {
+class ExerciseSetEntityMapper @Inject constructor(
+    private val resourceProvider: ResourceProvider,
+    private val exerciseEntityMapper: ExerciseEntityMapper
+) {
     @ExperimentalTime
     fun map(input: List<ExerciseSetEntity>): List<ExerciseSet> = input.map { map(it) }
 
@@ -29,15 +32,10 @@ class EntityMapper @Inject constructor(private val resourceProvider: ResourcePro
             }
         )
 
-    fun mappo(id: Int, input: List<Exercise>): ExerciseSetEntityUpdate =
+    fun map(id: Int, input: List<Exercise>): ExerciseSetEntityUpdate =
         ExerciseSetEntityUpdate(
             id = id,
-            exercises = input.map { mapporus(it) })
+            exercises = input.map { exerciseEntityMapper.map(it) })
 
-    fun mapporus(exercise: Exercise): ExerciseEntity = ExerciseEntity(
-        id = exercise.id,
-        title = exercise.title,
-        image = resourceProvider.getStringFromImage(exercise.image),
-        time = exercise.time.millisToSeconds()
-    )
+
 }
