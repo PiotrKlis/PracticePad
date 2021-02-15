@@ -4,7 +4,7 @@ package com.piotr.practicepad.views.exerciseSet
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.piotr.practicepad.R
-import com.piotr.practicepad.databinding.ExerciseDetailCardBinding
+import com.piotr.practicepad.databinding.EditExerciseDetailCardBinding
 import com.piotr.practicepad.extensions.bind
 import com.piotr.practicepad.utils.BindableRecyclerViewAdapter
 import com.piotr.practicepad.views.exercise.Exercise
@@ -24,7 +24,7 @@ class ExerciseSetAdapter(private val editor: Editor) :
         )
     }
 
-    private class RowViewHolder(private val binding: ExerciseDetailCardBinding) :
+    private class RowViewHolder(private val binding: EditExerciseDetailCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(item: Exercise, adapterParams: AdapterParams, editor: Editor) {
             binding.model = item
