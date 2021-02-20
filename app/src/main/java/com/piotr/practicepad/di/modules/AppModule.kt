@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.piotr.practicepad.PracticePad
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.db.SharedPrefs
+import com.piotr.practicepad.data.entities.ExerciseEntityMapper
 import com.piotr.practicepad.data.entities.ExerciseSetEntityMapper
 import com.piotr.practicepad.utils.AndroidResourceProvider
 import com.piotr.practicepad.utils.ResourceProvider
@@ -23,8 +24,8 @@ class AppModule {
         context.getSharedPreferences(SharedPrefs.KEY_ACTIVE_SET, Context.MODE_PRIVATE)
 
     @Provides
-    fun provideExerciseSetEntityMapper(resourceProvider: ResourceProvider) =
-        ExerciseSetEntityMapper(resourceProvider)
+    fun provideExerciseSetEntityMapper(resourceProvider: ResourceProvider, exerciseEntityMapper: ExerciseEntityMapper) =
+        ExerciseSetEntityMapper(resourceProvider, exerciseEntityMapper)
 
     @Provides
     fun provideResourceProvider(context: Context): ResourceProvider =

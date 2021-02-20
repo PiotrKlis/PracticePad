@@ -37,21 +37,21 @@ class ExerciseSetFragment : BaseFragment(), Editor {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.renderData(args.exerciseSetId)
-        binding.list.adapter = this.adapter
+        binding.recyclerList.adapter = this.adapter
 //        binding.fabAddExercise.setOnClickListener { findNavController().navigate() }
     }
 
     override fun delete(position: Int) {
 //        binding.list.adapter?.notifyItemRemoved(position)
         viewModel.delete(position)
-        binding.list.adapter?.notifyDataSetChanged()
+        binding.recyclerList.adapter?.notifyDataSetChanged()
     }
 
     override fun moveUp(position: Int) {
         viewModel.moveUp(position)
 //        binding.list.adapter?.notifyItemMoved(position, position - 1)
 //        binding.list.adapter?.notifyItemMoved(position -1, position)
-        binding.list.adapter?.notifyDataSetChanged()
+        binding.recyclerList.adapter?.notifyDataSetChanged()
         Log.d("AAA move up", "$position to ${position - 1}")
     }
 
@@ -59,7 +59,7 @@ class ExerciseSetFragment : BaseFragment(), Editor {
         viewModel.moveDown(position)
 //        binding.list.adapter?.notifyItemMoved(position, position + 1)
 //        binding.list.adapter?.notifyItemMoved(position + 1, position)
-        binding.list.adapter?.notifyDataSetChanged()
+        binding.recyclerList.adapter?.notifyDataSetChanged()
         Log.d("AAA move down", "$position to ${position + 1}")
     }
 }
