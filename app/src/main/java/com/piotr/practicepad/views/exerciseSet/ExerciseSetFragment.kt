@@ -38,27 +38,27 @@ class ExerciseSetFragment : BaseFragment(), Editor {
         super.onViewCreated(view, savedInstanceState)
         viewModel.renderData(args.exerciseSetId)
         binding.recyclerList.adapter = this.adapter
-//        binding.fabAddExercise.setOnClickListener { findNavController().navigate() }
+//        binding.fabAddExercise.setOnClickrecyclerListener { findNavController().navigate() }
     }
 
     override fun delete(position: Int) {
-//        binding.list.adapter?.notifyItemRemoved(position)
+//        binding.recyclerList.adapter?.notifyItemRemoved(position)
         viewModel.delete(position)
         binding.recyclerList.adapter?.notifyDataSetChanged()
     }
 
     override fun moveUp(position: Int) {
         viewModel.moveUp(position)
-//        binding.list.adapter?.notifyItemMoved(position, position - 1)
-//        binding.list.adapter?.notifyItemMoved(position -1, position)
+//        binding.recyclerList.adapter?.notifyItemMoved(position, position - 1)
+//        binding.recyclerList.adapter?.notifyItemMoved(position -1, position)
         binding.recyclerList.adapter?.notifyDataSetChanged()
         Log.d("AAA move up", "$position to ${position - 1}")
     }
 
     override fun moveDown(position: Int) {
         viewModel.moveDown(position)
-//        binding.list.adapter?.notifyItemMoved(position, position + 1)
-//        binding.list.adapter?.notifyItemMoved(position + 1, position)
+//        binding.recyclerList.adapter?.notifyItemMoved(position, position + 1)
+//        binding.recyclerList.adapter?.notifyItemMoved(position + 1, position)
         binding.recyclerList.adapter?.notifyDataSetChanged()
         Log.d("AAA move down", "$position to ${position + 1}")
     }
