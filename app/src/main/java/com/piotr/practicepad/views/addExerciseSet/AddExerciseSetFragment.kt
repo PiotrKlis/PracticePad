@@ -31,7 +31,7 @@ class AddExerciseSetFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerList.adapter = adapter
         viewModel.getExercises()
+        binding.recyclerList.adapter = adapter
     }
 }

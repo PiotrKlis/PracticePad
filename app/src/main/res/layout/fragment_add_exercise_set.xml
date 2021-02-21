@@ -5,9 +5,10 @@
 	xmlns:tools="http://schemas.android.com/tools">
 	
 	<data>
-	<variable
-		name="model"
-		type="com.piotr.practicepad.views.addExerciseSet.AddExerciseSetViewModel" />
+		
+		<variable
+			name="model"
+			type="com.piotr.practicepad.views.addExerciseSet.AddExerciseSetViewModel" />
 	</data>
 	
 	
@@ -43,8 +44,8 @@
 				android:layout_height="wrap_content"
 				android:layout_margin="@dimen/medium_margin"
 				android:background="@color/light_grey"
-				android:padding="@dimen/small_margin"
 				android:hint="Tempo"
+				android:padding="@dimen/small_margin"
 				android:textStyle="italic"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@id/set_name" />
@@ -65,10 +66,11 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/big_margin"
+			app:items="@{model.state.exerciseList}"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/search"
-			tools:listitem="@layout/edit_exercise_detail_card" />
+			tools:listitem="@layout/add_exercise_detail_card" />
 	
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

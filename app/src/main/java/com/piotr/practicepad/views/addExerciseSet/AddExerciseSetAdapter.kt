@@ -10,18 +10,16 @@ import com.piotr.practicepad.views.exercise.Exercise
 
 class AddExerciseSetAdapter :
     BindableRecyclerViewAdapter<RecyclerView.ViewHolder, Exercise>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        RowViewHolder(parent.bind(R.layout.edit_exercise_detail_card, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder =
+        RowViewHolder(parent.bind(R.layout.add_exercise_detail_card, false))
 
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? RowViewHolder)?.bindData(
-            item = items[position]
-        )
+        (holder as? RowViewHolder)?.bindData(item = items[position])
     }
 
-    private class RowViewHolder(private val binding: AddExerciseDetailCardBinding) :
+    inner class RowViewHolder(private val binding: AddExerciseDetailCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(item: Exercise) {
             binding.model = item
