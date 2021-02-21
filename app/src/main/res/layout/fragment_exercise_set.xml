@@ -17,38 +17,44 @@
 		android:animateLayoutChanges="true"
 		android:background="@color/grey">
 		
-		<TextView
+		<EditText
 			android:id="@+id/name"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/medium_margin"
 			android:layout_marginTop="@dimen/medium_margin"
+			android:padding="@dimen/small_margin"
 			android:text="@{model.state.name}"
 			android:textSize="@dimen/large_text_size"
+			android:textStyle="italic"
+			android:background="@drawable/rounded_background"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			tools:text="Name of the exercise set" />
 		
-		<TextView
+		<EditText
 			android:id="@+id/tempo"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/medium_margin"
 			android:layout_marginTop="@dimen/small_margin"
+			android:background="@drawable/rounded_background"
+			android:padding="@dimen/small_margin"
 			android:textSize="@dimen/medium_text_size"
+			android:textStyle="italic"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/name"
 			app:setTempo="@{model.state.tempo}"
-			tools:text="Tempo" />
+			tools:text="120 BPM" />
 		
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/medium_margin"
-			android:layout_marginTop="@dimen/small_margin"
 			android:textSize="@dimen/medium_text_size"
+			app:layout_constraintBottom_toBottomOf="@id/tempo"
 			app:layout_constraintStart_toEndOf="@id/tempo"
-			app:layout_constraintTop_toBottomOf="@id/name"
+			app:layout_constraintTop_toTopOf="@id/tempo"
 			app:timeLeft="@{model.state.exerciseDetailsList}"
 			tools:text="20:00" />
 		
@@ -56,13 +62,13 @@
 			android:id="@+id/recyclerList"
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
-			android:layout_marginTop="@dimen/medium_margin"
+			android:layout_marginTop="@dimen/small_margin"
 			app:items="@{model.state.exerciseDetailsList}"
 			app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/tempo"
-			app:layout_constraintBottom_toBottomOf="parent"
 			tools:context=".views.exerciseSet.ExerciseSetFragment"
 			tools:listitem="@layout/edit_exercise_detail_card" />
 		
@@ -70,12 +76,12 @@
 			android:id="@+id/fab_add_exercise"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:backgroundTint="@color/white"
-			android:src="@drawable/ic_baseline_add_24"
+			android:layout_marginEnd="@dimen/very_big_margin"
 			android:layout_marginBottom="@dimen/very_big_margin"
-			android:layout_marginEnd="@dimen/very_big_margin"/>
+			android:src="@drawable/ic_baseline_add_24"
+			app:backgroundTint="@color/white"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

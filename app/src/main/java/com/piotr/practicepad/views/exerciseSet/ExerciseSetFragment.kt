@@ -9,21 +9,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.piotr.practicepad.R
-import com.piotr.practicepad.databinding.FragmentExerciseSetDetailBinding
+import com.piotr.practicepad.databinding.FragmentExerciseSetBinding
 import com.piotr.practicepad.utils.BaseFragment
 
 class ExerciseSetFragment : BaseFragment(), Editor {
     private val viewModel: ExerciseSetViewModel by viewModels { viewModelFactory }
     private val adapter = ExerciseSetAdapter(this)
     private val args: ExerciseSetFragmentArgs by navArgs()
-    private lateinit var binding: FragmentExerciseSetDetailBinding
+    private lateinit var binding: FragmentExerciseSetBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_exercise_set_detail,
+            R.layout.fragment_exercise_set,
             container,
             false
         )

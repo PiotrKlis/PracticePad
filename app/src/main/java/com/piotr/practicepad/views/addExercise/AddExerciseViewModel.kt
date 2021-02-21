@@ -1,4 +1,4 @@
-package com.piotr.practicepad.views.addExerciseSet
+package com.piotr.practicepad.views.addExercise
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,12 +10,12 @@ import javax.inject.Inject
 
 class AddExerciseSetViewModel @Inject constructor(private val exerciseRepository: ExerciseRepository) :
     ViewModel() {
-    val state: LiveData<AddExerciseSetState> get() = mutableState
-    private val mutableState = MutableLiveData(AddExerciseSetState())
+    val state: LiveData<AddExerciseState> get() = mutableState
+    private val mutableState = MutableLiveData(AddExerciseState())
 
     fun getExercises() {
         viewModelScope.launch {
-            mutableState.value = AddExerciseSetState(exerciseRepository.getAll())
+            mutableState.value = AddExerciseState(exerciseRepository.getAll())
         }
     }
 }
