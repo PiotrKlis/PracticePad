@@ -35,7 +35,7 @@ class ExerciseSetListFragment : BaseFragment(), CheckBoxHandler, NavigationHandl
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerList.adapter = adapter
         viewModel.getExerciseSets()
-        binding.addExerciseSet.setOnClickListener { findNavController().navigate(R.id.action_exerciseSetListFragment_to_exerciseAdd) }
+//        binding.addExerciseSet.setOnClickListener { findNavController().navigate(R.id.action_exerciseSetListFragment_to_exerciseSetDetailFragment) }
     }
 
     override fun checkBoxClick(id: Int) {

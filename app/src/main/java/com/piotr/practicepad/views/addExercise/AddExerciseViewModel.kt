@@ -10,7 +10,6 @@ import javax.inject.Inject
 
 class AddExerciseViewModel @Inject constructor(private val exerciseRepository: ExerciseRepository) :
     ViewModel() {
-
     val state: LiveData<AddExerciseState> get() = mutableState
     private val mutableState = MutableLiveData(AddExerciseState())
 
@@ -19,5 +18,4 @@ class AddExerciseViewModel @Inject constructor(private val exerciseRepository: E
             mutableState.value = AddExerciseState(exerciseRepository.getAll())
         }
     }
-
 }

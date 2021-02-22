@@ -8,7 +8,7 @@
 		
 		<variable
 			name="model"
-			type="com.piotr.practicepad.views.addExerciseSet.AddExerciseSetViewModel" />
+			type="com.piotr.practicepad.views.addExercise.AddExerciseViewModel" />
 	</data>
 	
 	

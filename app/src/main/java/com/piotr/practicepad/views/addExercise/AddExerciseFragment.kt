@@ -14,7 +14,6 @@ class AddExerciseFragment : BaseFragment() {
     private val viewModel: AddExerciseViewModel by viewModels { viewModelFactory }
     private val adapter = AddExerciseAdapter().apply { setHasStableIds(true) }
     private lateinit var binding: FragmentAddExerciseBinding
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +30,7 @@ class AddExerciseFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerList.adapter = adapter
         viewModel.getExercises()
+        binding.recyclerList.adapter = adapter
     }
 }
