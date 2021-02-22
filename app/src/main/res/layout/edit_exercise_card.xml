@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	
+	<data>
+		
+		<variable
+			name="model"
+			type="com.piotr.practicepad.views.exercise.Exercise" />
+		
+		<variable
+			name="editor"
+			type="com.piotr.practicepad.views.exerciseSet.Editor" />
+		
+		<variable
+			name="adapterParams"
+			type="com.piotr.practicepad.views.exerciseSet.AdapterParams" />
+	
+	</data>
+	
+	<androidx.cardview.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="@dimen/medium_margin"
+		android:layout_marginTop="@dimen/small_margin"
+		android:layout_marginEnd="@dimen/medium_margin"
+		android:layout_marginBottom="@dimen/small_margin"
+		android:backgroundTint="@color/white"
+		app:cardCornerRadius="@dimen/smaller_margin"
+		app:cardElevation="@dimen/small_margin">
+		
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingBottom="@dimen/small_margin">
+			
+			<androidx.appcompat.widget.AppCompatImageView
+				android:id="@+id/image"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:src="@drawable/doubles_8th"
+				app:imageResource="@{model.image}"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_bias="0.0"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				tools:src="@drawable/doubles_8th" />
+			
+			<TextView
+				android:id="@+id/name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/medium_margin"
+				android:text="@{model.title}"
+				android:textColor="@color/black_ish"
+				android:textSize="@dimen/medium_text_size"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/image"
+				tools:text="Exercise name"
+				tools:textColor="@color/black_ish" />
+			
+			<TextView
+				android:id="@+id/time"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="@dimen/medium_margin"
+				android:textColor="@color/black_ish"
+				android:textSize="@dimen/medium_text_size"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/name"
+				app:timeLeft="@{model.time}"
+				tools:text="00:30"
+				tools:textColor="@color/black_ish" />
+			
+			<androidx.appcompat.widget.AppCompatImageView
+				android:id="@+id/delete_button"
+				android:layout_width="wrap_content"
+				android:layout_height="0dp"
+				android:layout_marginEnd="@dimen/very_big_margin"
+				android:onClick="@{() -> editor.delete(adapterParams.position)}"
+				android:src="@drawable/ic_baseline_delete_24"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/image" />
+			
+			<androidx.appcompat.widget.AppCompatImageView
+				android:id="@+id/arrow_up"
+				android:layout_width="wrap_content"
+				android:layout_height="0dp"
+				android:layout_marginEnd="@dimen/medium_margin"
+				android:onClick="@{() -> editor.moveUp(adapterParams.position)}"
+				android:src="@drawable/ic_baseline_arrow_upward_24"
+				android:visibility="visible"
+				app:layout_constraintBottom_toTopOf="@id/arrow_down"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/image"
+				app:upArrowVisibility="@{adapterParams}" />
+			
+			<androidx.appcompat.widget.AppCompatImageView
+				android:id="@+id/arrow_down"
+				android:layout_width="wrap_content"
+				android:layout_height="0dp"
+				android:layout_marginEnd="@dimen/medium_margin"
+				android:onClick="@{() -> editor.moveDown(adapterParams.position)}"
+				android:src="@drawable/ic_baseline_arrow_downward_24"
+				app:downArrowVisibility="@{adapterParams}"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/arrow_up" />
+		
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	
+	</androidx.cardview.widget.CardView>
+
+</layout>

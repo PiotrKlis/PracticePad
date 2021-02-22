@@ -15,7 +15,8 @@ abstract class ActivityBindingModule {
             TimerModule::class,
             PracticeStateModule::class,
             ExerciseSetDetailsModule::class,
-            ExerciseAddModule::class]
+            ExerciseAddModule::class,
+            AddExerciseModule::class]
     )
     abstract fun mainActivity(): MainActivity
 }

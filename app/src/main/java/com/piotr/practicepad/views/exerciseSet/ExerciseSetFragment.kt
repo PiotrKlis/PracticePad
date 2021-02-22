@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExerciseSetDetailBinding
@@ -38,7 +39,7 @@ class ExerciseSetFragment : BaseFragment(), Editor {
         super.onViewCreated(view, savedInstanceState)
         viewModel.renderData(args.exerciseSetId)
         binding.recyclerList.adapter = adapter
-//        binding.fabAddExercise.setOnClickrecyclerListener { findNavController().navigate() }
+        binding.fabAddExercise.setOnClickListener { findNavController().navigate(R.id.action_exerciseSetDetailFragment_to_addExerciseFragment) }
     }
 
     override fun delete(position: Int) {
