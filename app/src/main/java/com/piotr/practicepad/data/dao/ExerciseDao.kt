@@ -13,4 +13,6 @@ interface ExerciseDao {
 
     @Query("SELECT * FROM exercise_table")
     suspend fun getAll(): List<ExerciseEntity>
+    @Query("SELECT * FROM exercise_table WHERE title LIKE :query")
+    suspend fun getExerciseForText(query: String?): List<ExerciseEntity>
 }

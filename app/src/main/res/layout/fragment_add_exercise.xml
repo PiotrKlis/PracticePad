@@ -23,6 +23,7 @@
 			android:layout_margin="@dimen/medium_margin"
 			android:background="@drawable/rounded_background"
 			app:layout_constraintEnd_toEndOf="parent"
+			android:iconifiedByDefault="false"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
 		

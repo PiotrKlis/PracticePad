@@ -10,4 +10,6 @@ class ExerciseRepository @Inject constructor(
     private val exerciseEntityMapper: ExerciseEntityMapper
 ) {
     suspend fun getAll(): List<Exercise> = exerciseEntityMapper.map(database.exerciseDao().getAll())
+    suspend fun getExerciseForText(query: String?): List<Exercise> =
+        exerciseEntityMapper.map(database.exerciseDao().getExerciseForText(query))
 }

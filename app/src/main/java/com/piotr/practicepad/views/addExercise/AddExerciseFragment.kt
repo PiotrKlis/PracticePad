@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.adapters.SearchViewBindingAdapter
 import androidx.fragment.app.viewModels
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentAddExerciseBinding
@@ -32,5 +34,19 @@ class AddExerciseFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getExercises()
         binding.recyclerList.adapter = adapter
+        binding.search.setOnQueryTextListener(object : SearchViewBindingAdapter.OnQueryTextChange,
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.getExercisesForText(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.getExercisesForText(newText)
+                return true
+            }
+        })
     }
 }
+
+
