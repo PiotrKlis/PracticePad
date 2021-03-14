@@ -11,5 +11,5 @@ class ExerciseRepository @Inject constructor(
 ) {
     suspend fun getAll(): List<Exercise> = exerciseEntityMapper.map(database.exerciseDao().getAll())
     suspend fun getExerciseForText(query: String?): List<Exercise> =
-        exerciseEntityMapper.map(database.exerciseDao().getExerciseForText(query))
+        exerciseEntityMapper.map(database.exerciseDao().getExerciseForText("%$query%"))
 }
