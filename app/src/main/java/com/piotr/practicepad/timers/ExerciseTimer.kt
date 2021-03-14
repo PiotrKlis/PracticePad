@@ -36,7 +36,7 @@ class ExerciseTimer {
     }
 
     fun onPause() {
-        timer.cancel()
+        timer?.cancel()
     }
 
     fun startNextExercise(time: Long) {
