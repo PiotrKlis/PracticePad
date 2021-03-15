@@ -15,6 +15,7 @@ class AddExerciseViewModel @Inject constructor(private val exerciseRepository: E
 
     fun getExercises() {
         viewModelScope.launch {
+            val test = exerciseRepository.getAll()
             mutableState.value = AddExerciseState(exerciseRepository.getAll())
         }
     }

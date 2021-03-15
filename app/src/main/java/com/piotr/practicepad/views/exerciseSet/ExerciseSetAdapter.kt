@@ -24,6 +24,10 @@ class ExerciseSetAdapter(private val editor: Editor) :
         )
     }
 
+    override fun getItemId(position: Int): Long {
+        return items[position].id.toLong()
+    }
+
     private class RowViewHolder(private val binding: EditExerciseCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(item: Exercise, adapterParams: AdapterParams, editor: Editor) {

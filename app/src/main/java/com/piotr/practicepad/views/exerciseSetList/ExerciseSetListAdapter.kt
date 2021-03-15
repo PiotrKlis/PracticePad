@@ -21,6 +21,10 @@ class ExerciseSetListAdapter(
         (holder as? RowViewHolder)?.bindData(items[position], checkBoxHandler, navigationHandler)
     }
 
+    override fun getItemId(position: Int): Long {
+        return items[position].id.toLong()
+    }
+
     override fun getItemCount(): Int = items.size
 
     inner class RowViewHolder(private val binding: ExerciseSetRowBinding) :

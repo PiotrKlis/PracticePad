@@ -19,6 +19,10 @@ class AddExerciseAdapter :
         (holder as? RowViewHolder)?.bindData(item = items[position])
     }
 
+    override fun getItemId(position: Int): Long {
+        return items[position].id.toLong()
+    }
+
     inner class RowViewHolder(private val binding: AddExerciseCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(item: Exercise) {

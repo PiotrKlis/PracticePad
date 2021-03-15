@@ -37,16 +37,22 @@ class AddExerciseFragment : BaseFragment() {
         binding.search.setOnQueryTextListener(object : SearchViewBindingAdapter.OnQueryTextChange,
             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.getExercisesForText(query)
+                if (query.isNullOrEmpty()) {
+                    viewModel.getExercises()
+                } else {
+                    viewModel.getExercisesForText(query)
+                }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.getExercisesForText(newText)
+                if (newText.isNullOrEmpty()) {
+                    viewModel.getExercises()
+                } else {
+                    viewModel.getExercisesForText(newText)
+                }
                 return true
             }
         })
     }
 }
-
-
