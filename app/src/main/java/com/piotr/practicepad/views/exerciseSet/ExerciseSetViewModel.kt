@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.piotr.practicepad.data.dao.UpdateExerciseSetTempoEntity
+import com.piotr.practicepad.data.dao.UpdateExerciseSetTitleEntity
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.entities.ExerciseSetEntityMapper
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
@@ -62,9 +64,39 @@ class ExerciseSetViewModel @Inject constructor(
         }
     }
 
+    fun updateName(text: String) {
+        viewModelScope.launch {
+            state.value?.let {
+                database
+                    .exerciseSetDao()
+                    .updateExerciseSetTitle(
+                        UpdateExerciseSetTitleEntity(
+                            id = it.id,
+                            title = text
+                        )
+                    )
+            }
+        }
+    }
+
+    fun updateTempo(text: String) {
+//        viewModelScope.launch {
+//            state.value?.let {
+//                database
+//                    .exerciseSetDao()
+//                    .updateExerciseSetTitle(
+//                        UpdateExerciseSetTempoEntity(
+//                            id = it.id,
+//                            tempo = text
+//                        )
+//                    )
+//            }
+//        }
+    }
+
     private fun updateDb(state: ExerciseSetState) {
         viewModelScope.launch {
-            database.exerciseSetDao().update(
+            database.exerciseSetDao().updateExerciseList(
                 exerciseSetEntityMapper.map(id = state.id, input = state.exerciseDetailsList)
             )
         }

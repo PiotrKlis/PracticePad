@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -40,6 +41,8 @@ class ExerciseSetFragment : BaseFragment(), Editor {
         viewModel.renderData(args.exerciseSetId)
         binding.recyclerList.adapter = adapter
         binding.fabAddExercise.setOnClickListener { findNavController().navigate(R.id.action_exerciseSetDetailFragment_to_addExerciseFragment) }
+        binding.name.addTextChangedListener { text -> viewModel.updateName(text.toString()) }
+        binding.tempo.addTextChangedListener { text -> viewModel.updateTempo(text.toString()) }
     }
 
     override fun delete(position: Int) {

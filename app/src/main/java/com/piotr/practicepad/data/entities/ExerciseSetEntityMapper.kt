@@ -1,7 +1,6 @@
 package com.piotr.practicepad.data.entities
 
-import com.piotr.practicepad.data.dao.ExerciseSetEntityUpdate
-import com.piotr.practicepad.extensions.millisToSeconds
+import com.piotr.practicepad.data.dao.UpdateExerciseListEntity
 import com.piotr.practicepad.extensions.secondsToMilliseconds
 import com.piotr.practicepad.utils.ResourceProvider
 import com.piotr.practicepad.views.exercise.Exercise
@@ -32,8 +31,8 @@ class ExerciseSetEntityMapper @Inject constructor(
             }
         )
 
-    fun map(id: Int, input: List<Exercise>): ExerciseSetEntityUpdate =
-        ExerciseSetEntityUpdate(
+    fun map(id: Int, input: List<Exercise>): UpdateExerciseListEntity =
+        UpdateExerciseListEntity(
             id = id,
             exercises = input.map { exerciseEntityMapper.map(it) })
 

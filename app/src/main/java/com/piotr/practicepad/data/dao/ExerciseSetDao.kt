@@ -19,13 +19,35 @@ interface ExerciseSetDao {
     suspend fun deleteAll()
 
     @Update(entity = ExerciseSetEntity::class)
-    suspend fun update(exerciseSetEntityUpdate: ExerciseSetEntityUpdate)
+    suspend fun updateExerciseList(exerciseSetEntityUpdate: UpdateExerciseListEntity)
+
+    @Update(entity = ExerciseSetEntity::class)
+    suspend fun updateExerciseSetTitle(exerciseSetEntityUpdate: UpdateExerciseSetTitleEntity)
+
+    @Update(entity = ExerciseSetEntity::class)
+    suspend fun updateExerciseTempo(exerciseSetEntityUpdate: UpdateExerciseSetTempoEntity)
 }
 
 @Entity
-class ExerciseSetEntityUpdate(
+class UpdateExerciseListEntity(
     @ColumnInfo(name = "id")
     val id: Int,
     @ColumnInfo(name = "exercises")
     val exercises: List<ExerciseEntity>
+)
+
+@Entity
+class UpdateExerciseSetTitleEntity(
+    @ColumnInfo(name = "id")
+    val id: Int,
+    @ColumnInfo(name = "title")
+    val title: String
+)
+
+@Entity
+class UpdateExerciseSetTempoEntity(
+    @ColumnInfo(name = "id")
+    val id: Int,
+    @ColumnInfo(name = "tempo")
+    val tempo: Int
 )
