@@ -1,10 +1,12 @@
 package com.piotr.practicepad.views.exerciseSet
 
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -42,7 +44,21 @@ class ExerciseSetFragment : BaseFragment(), Editor {
         binding.recyclerList.adapter = adapter
         binding.fabAddExercise.setOnClickListener { findNavController().navigate(R.id.action_exerciseSetDetailFragment_to_addExerciseFragment) }
         binding.name.addTextChangedListener { text -> viewModel.updateName(text.toString()) }
-        binding.tempo.addTextChangedListener { text -> viewModel.updateTempo(text.toString()) }
+        binding.tempo.addTextChangedListener { text -> validateTempo(text) }
+    }
+
+    private fun validateTempo(text: Editable?) {
+        try {
+            val tempo = text.toString().toInt()
+            if (tempo in 40 until 221) {
+                viewModel.updateTempo(tempo)
+            } else {
+                Toast.makeText(context, "Tempo must be between 40-221 BPM", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        } catch (exception: Exception) {
+            Toast.makeText(context, "Tempo must be between 40-221 BPM", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun delete(position: Int) {

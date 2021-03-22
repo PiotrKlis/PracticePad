@@ -25,7 +25,7 @@ interface ExerciseSetDao {
     suspend fun updateExerciseSetTitle(exerciseSetEntityUpdate: UpdateExerciseSetTitleEntity)
 
     @Update(entity = ExerciseSetEntity::class)
-    suspend fun updateExerciseTempo(exerciseSetEntityUpdate: UpdateExerciseSetTempoEntity)
+    suspend fun updateExerciseSetTempo(exerciseSetEntityUpdate: UpdateExerciseSetTempoEntity)
 }
 
 @Entity

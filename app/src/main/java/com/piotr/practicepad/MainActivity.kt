@@ -61,7 +61,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
-*  - any change to current set (up/down/delete) to reflect in db
 *  - Create your own exercise set
 *  - Test the app (list bugs - click being silent?)
 *  - Testy! Unit + UI
@@ -71,10 +70,11 @@ class MainActivity : DaggerAppCompatActivity() {
 *
 *  MINORS
 * - animation
-* *  - timer starts at 4:60 
+* *  - timer starts at 4:60
 * */
 
 /*DONE
+*  - any change to current set (up/down/delete) to reflect in db
 *  - Metronome change on new exercise
 *  - enum to file
 *  - should exerciseListViewModel have state? Probably true

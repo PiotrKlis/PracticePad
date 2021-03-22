@@ -79,19 +79,19 @@ class ExerciseSetViewModel @Inject constructor(
         }
     }
 
-    fun updateTempo(text: String) {
-//        viewModelScope.launch {
-//            state.value?.let {
-//                database
-//                    .exerciseSetDao()
-//                    .updateExerciseSetTitle(
-//                        UpdateExerciseSetTempoEntity(
-//                            id = it.id,
-//                            tempo = text
-//                        )
-//                    )
-//            }
-//        }
+    fun updateTempo(tempo: Int) {
+        viewModelScope.launch {
+            state.value?.let {
+                database
+                    .exerciseSetDao()
+                    .updateExerciseSetTempo(
+                        UpdateExerciseSetTempoEntity(
+                            id = it.id,
+                            tempo = tempo
+                        )
+                    )
+            }
+        }
     }
 
     private fun updateDb(state: ExerciseSetState) {

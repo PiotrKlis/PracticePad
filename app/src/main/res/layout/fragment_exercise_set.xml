@@ -23,11 +23,11 @@
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/medium_margin"
 			android:layout_marginTop="@dimen/medium_margin"
+			android:background="@drawable/rounded_background"
 			android:padding="@dimen/small_margin"
 			android:text="@{model.state.name}"
 			android:textSize="@dimen/large_text_size"
 			android:textStyle="italic"
-			android:background="@drawable/rounded_background"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			tools:text="Name of the exercise set" />
@@ -44,8 +44,18 @@
 			android:textStyle="italic"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/name"
-			app:setTempo="@{model.state.tempo}"
-			tools:text="120 BPM" />
+			android:text="@{String.valueOf(model.state.tempo)}"
+			tools:text="120" />
+		
+		<TextView
+			android:id="@+id/BPM"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="@dimen/smaller_margin"
+			android:text="BPM"
+			app:layout_constraintBottom_toBottomOf="@+id/tempo"
+			app:layout_constraintStart_toEndOf="@id/tempo"
+			app:layout_constraintTop_toTopOf="@+id/tempo" />
 		
 		<TextView
 			android:layout_width="wrap_content"
@@ -53,7 +63,7 @@
 			android:layout_marginStart="@dimen/medium_margin"
 			android:textSize="@dimen/medium_text_size"
 			app:layout_constraintBottom_toBottomOf="@id/tempo"
-			app:layout_constraintStart_toEndOf="@id/tempo"
+			app:layout_constraintStart_toEndOf="@id/BPM"
 			app:layout_constraintTop_toTopOf="@id/tempo"
 			app:timeLeft="@{model.state.exerciseDetailsList}"
 			tools:text="20:00" />
