@@ -8,7 +8,7 @@ import com.piotr.practicepad.extensions.bind
 import com.piotr.practicepad.utils.BindableRecyclerViewAdapter
 import com.piotr.practicepad.views.exercise.Exercise
 
-class AddExerciseAdapter :
+class AddExerciseAdapter(private val onAddExerciseButtonClick: (exerciseId: Int) -> Unit) :
     BindableRecyclerViewAdapter<RecyclerView.ViewHolder, Exercise>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowViewHolder =
         RowViewHolder(parent.bind(R.layout.add_exercise_card, false))
@@ -16,7 +16,10 @@ class AddExerciseAdapter :
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? RowViewHolder)?.bindData(item = items[position])
+        (holder as? RowViewHolder)?.bindData(
+            item = items[position],
+            onAddExerciseButtonClick = onAddExerciseButtonClick
+        )
     }
 
     override fun getItemId(position: Int): Long {
@@ -25,8 +28,9 @@ class AddExerciseAdapter :
 
     inner class RowViewHolder(private val binding: AddExerciseCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(item: Exercise) {
+        fun bindData(item: Exercise, onAddExerciseButtonClick: (exerciseId: Int) -> Unit) {
             binding.model = item
+            binding.addExercise.setOnClickListener { onAddExerciseButtonClick(item.id) }
             binding.executePendingBindings()
         }
     }

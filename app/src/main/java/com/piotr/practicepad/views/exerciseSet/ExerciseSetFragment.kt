@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExerciseSetBinding
 import com.piotr.practicepad.utils.BaseFragment
+import com.piotr.practicepad.views.addExercise.AddExerciseFragmentArgs
 
 class ExerciseSetFragment : BaseFragment(), Editor {
     private val viewModel: ExerciseSetViewModel by viewModels { viewModelFactory }
@@ -42,7 +43,12 @@ class ExerciseSetFragment : BaseFragment(), Editor {
         super.onViewCreated(view, savedInstanceState)
         viewModel.renderData(args.exerciseSetId)
         binding.recyclerList.adapter = adapter
-        binding.fabAddExercise.setOnClickListener { findNavController().navigate(R.id.action_exerciseSetDetailFragment_to_addExerciseFragment) }
+        binding.fabAddExercise.setOnClickListener { findNavController()
+                    .navigate(
+                        R.id.action_exerciseSetDetailFragment_to_addExerciseFragment,
+                        AddExerciseFragmentArgs(args.exerciseSetId).toBundle()
+                    )
+            }
         binding.name.addTextChangedListener { text -> viewModel.updateName(text.toString()) }
         binding.tempo.addTextChangedListener { text -> validateTempo(text) }
     }
@@ -53,12 +59,15 @@ class ExerciseSetFragment : BaseFragment(), Editor {
             if (tempo in 40 until 221) {
                 viewModel.updateTempo(tempo)
             } else {
-                Toast.makeText(context, "Tempo must be between 40-221 BPM", Toast.LENGTH_SHORT)
-                    .show()
+                showTempoError()
             }
         } catch (exception: Exception) {
-            Toast.makeText(context, "Tempo must be between 40-221 BPM", Toast.LENGTH_SHORT).show()
+            showTempoError()
         }
+    }
+
+    private fun showTempoError() {
+        Toast.makeText(context, "Tempo must be between 40-221 BPM", Toast.LENGTH_SHORT).show()
     }
 
     override fun delete(position: Int) {

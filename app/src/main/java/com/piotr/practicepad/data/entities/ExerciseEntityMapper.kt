@@ -7,6 +7,8 @@ import com.piotr.practicepad.views.exercise.Exercise
 import javax.inject.Inject
 
 class ExerciseEntityMapper @Inject constructor(private val resourceProvider: ResourceProvider) {
+    fun mapExercises(exercises: List<Exercise>): List<ExerciseEntity> = exercises.map { map(it) }
+
     fun map(exercise: Exercise): ExerciseEntity = ExerciseEntity(
         id = exercise.id,
         title = exercise.title,
@@ -14,7 +16,7 @@ class ExerciseEntityMapper @Inject constructor(private val resourceProvider: Res
         time = exercise.time.millisToSeconds()
     )
 
-    fun map(input: List<ExerciseEntity>): List<Exercise> = input.map { map(it) }
+    fun mapExerciseEntities(input: List<ExerciseEntity>): List<Exercise> = input.map { map(it) }
 
     fun map(exerciseEntity: ExerciseEntity): Exercise = Exercise(
         id = exerciseEntity.id,

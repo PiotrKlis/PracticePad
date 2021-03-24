@@ -50,7 +50,7 @@
 				tools:text="Exercise Name" />
 			
 			<ImageButton
-				android:id="@+id/add_tempo_button"
+				android:id="@+id/add_exercise"
 				android:layout_width="32dp"
 				android:layout_height="32dp"
 				android:layout_marginEnd="16dp"
