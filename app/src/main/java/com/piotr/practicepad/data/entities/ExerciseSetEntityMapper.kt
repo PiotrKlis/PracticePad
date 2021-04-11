@@ -35,6 +35,4 @@ class ExerciseSetEntityMapper @Inject constructor(
         UpdateExerciseListEntity(
             id = id,
             exercises = input.map { exerciseEntityMapper.map(it) })
-
-
 }

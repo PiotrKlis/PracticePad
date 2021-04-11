@@ -14,7 +14,7 @@ fun Long.millisToMinutes(): Int =
 fun Long.secondsToMilliseconds(): Long = this * 1000L
 fun Long.bpmToMilliseconds(): Long =
     (MILLISECONDS_IN_SECOND * (SECONDS_IN_MINUTE / this)).toLong()
-
+fun Long.minutesToMillis(): Long = (this * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND).toLong()
 
 class LongExtensionsTest {
     @Test

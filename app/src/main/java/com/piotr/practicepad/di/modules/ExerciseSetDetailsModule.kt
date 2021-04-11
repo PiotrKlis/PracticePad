@@ -8,7 +8,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @Module
 abstract class ExerciseSetDetailsModule {
     @ContributesAndroidInjector

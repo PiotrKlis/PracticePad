@@ -16,10 +16,12 @@ import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExerciseSetBinding
 import com.piotr.practicepad.utils.BaseFragment
 import com.piotr.practicepad.views.addExercise.AddExerciseFragmentArgs
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 class ExerciseSetFragment : BaseFragment(), Editor {
     private val viewModel: ExerciseSetViewModel by viewModels { viewModelFactory }
-    private val adapter = ExerciseSetAdapter(this)
+    private val adapter = ExerciseSetAdapter(this, ::updateTime)
     private val args: ExerciseSetFragmentArgs by navArgs()
     private lateinit var binding: FragmentExerciseSetBinding
     override fun onCreateView(
@@ -53,23 +55,6 @@ class ExerciseSetFragment : BaseFragment(), Editor {
         binding.tempo.addTextChangedListener { text -> validateTempo(text) }
     }
 
-    private fun validateTempo(text: Editable?) {
-        try {
-            val tempo = text.toString().toInt()
-            if (tempo in 40 until 221) {
-                viewModel.updateTempo(tempo)
-            } else {
-                showTempoError()
-            }
-        } catch (exception: Exception) {
-            showTempoError()
-        }
-    }
-
-    private fun showTempoError() {
-        Toast.makeText(context, "Tempo must be between 40-221 BPM", Toast.LENGTH_SHORT).show()
-    }
-
     override fun delete(position: Int) {
 //        binding.recyclerList.adapter?.notifyItemRemoved(position)
         viewModel.delete(position)
@@ -90,5 +75,26 @@ class ExerciseSetFragment : BaseFragment(), Editor {
 //        binding.recyclerList.adapter?.notifyItemMoved(position + 1, position)
         binding.recyclerList.adapter?.notifyDataSetChanged()
         Log.d("AAA move down", "$position to ${position + 1}")
+    }
+
+    private fun validateTempo(text: Editable?) {
+        try {
+            val tempo = text.toString().toInt()
+            if (tempo in 40 until 221) {
+                viewModel.updateTempo(tempo)
+            } else {
+                showTempoError()
+            }
+        } catch (exception: Exception) {
+            showTempoError()
+        }
+    }
+
+    private fun updateTime(time: Long, exerciseId: Int) {
+        viewModel.updateTime(time, exerciseId)
+    }
+
+    private fun showTempoError() {
+        Toast.makeText(context, "Tempo must be between 40-221 BPM", Toast.LENGTH_SHORT).show()
     }
 }

@@ -9,8 +9,8 @@ interface ExerciseSetDao {
     @Query("SELECT * FROM exercise_set_table")
     suspend fun getAll(): List<ExerciseSetEntity>
 
-    @Query("SELECT * FROM exercise_set_table WHERE id == :activeSetId")
-    suspend fun getSetFor(activeSetId: Int): ExerciseSetEntity
+    @Query("SELECT * FROM exercise_set_table WHERE id == :setId")
+    suspend fun getSetFor(setId: Int): ExerciseSetEntity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(list: List<ExerciseSetEntity>)
@@ -50,4 +50,12 @@ class UpdateExerciseSetTempoEntity(
     val id: Int,
     @ColumnInfo(name = "tempo")
     val tempo: Int
+)
+
+@Entity
+class UpdateExerciseTimeInExerciseSet(
+    @ColumnInfo(name = "id")
+    val id: Int,
+    @ColumnInfo(name = "time")
+    val time: Int
 )
