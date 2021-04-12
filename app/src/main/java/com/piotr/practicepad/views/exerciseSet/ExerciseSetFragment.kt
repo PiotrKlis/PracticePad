@@ -24,6 +24,15 @@ class ExerciseSetFragment : BaseFragment(), Editor {
     private val adapter = ExerciseSetAdapter(this, ::updateTime)
     private val args: ExerciseSetFragmentArgs by navArgs()
     private lateinit var binding: FragmentExerciseSetBinding
+    private val exerciseSetId: Int
+        get() {
+            return if (args.exerciseSetId == DEFAULT_VALUE) {
+                viewModel.createNewSetId()
+            } else {
+                args.exerciseSetId
+            }
+        }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,12 +54,13 @@ class ExerciseSetFragment : BaseFragment(), Editor {
         super.onViewCreated(view, savedInstanceState)
         viewModel.renderData(args.exerciseSetId)
         binding.recyclerList.adapter = adapter
-        binding.fabAddExercise.setOnClickListener { findNavController()
-                    .navigate(
-                        R.id.action_exerciseSetDetailFragment_to_addExerciseFragment,
-                        AddExerciseFragmentArgs(args.exerciseSetId).toBundle()
-                    )
-            }
+        binding.fabAddExercise.setOnClickListener {
+            findNavController()
+                .navigate(
+                    R.id.action_exerciseSetDetailFragment_to_addExerciseFragment,
+                    AddExerciseFragmentArgs(args.exerciseSetId).toBundle()
+                )
+        }
         binding.name.addTextChangedListener { text -> viewModel.updateName(text.toString()) }
         binding.tempo.addTextChangedListener { text -> validateTempo(text) }
     }
@@ -96,5 +106,9 @@ class ExerciseSetFragment : BaseFragment(), Editor {
 
     private fun showTempoError() {
         Toast.makeText(context, "Tempo must be between 40-221 BPM", Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        private const val DEFAULT_VALUE = -1
     }
 }

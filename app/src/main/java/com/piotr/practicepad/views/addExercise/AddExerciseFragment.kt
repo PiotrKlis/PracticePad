@@ -39,7 +39,6 @@ class AddExerciseFragment : BaseFragment() {
         viewModel.getExercises()
         binding.recyclerList.adapter = adapter
         setSearchQueryListener()
-
     }
 
     private fun onAddExerciseButtonClick(exerciseId: Int) {

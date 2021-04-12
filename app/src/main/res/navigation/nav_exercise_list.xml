@@ -15,7 +15,7 @@
 			app:destination="@id/exerciseSetDetailFragment" />
 		<action
 			android:id="@+id/action_exerciseSetListFragment_to_addExerciseSet"
-			app:destination="@id/addExerciseSetFragment" />
+			app:destination="@id/exerciseSetDetailFragment" />
 	</fragment>
 	
 	<fragment
@@ -25,7 +25,8 @@
 		tools:layout="@layout/fragment_exercise_set">
 		<argument
 			android:name="exerciseSetId"
-			app:argType="integer" />
+			app:argType="integer"
+			android:defaultValue="-1"/>
 		<action
 			android:id="@+id/action_exerciseSetDetailFragment_to_addExerciseFragment"
 			app:destination="@id/addExerciseFragment" />

@@ -130,4 +130,8 @@ class ExerciseSetViewModel @Inject constructor(
             }
         }
     }
+
+    fun createNewSetId(): Int {
+        TODO("Not yet implemented")
+    }
 }

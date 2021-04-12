@@ -34,4 +34,8 @@ class AddExerciseViewModel @Inject constructor(
             exerciseSetRepository.updateExerciseSet(exerciseId, exerciseSetId)
         }
     }
+
+    fun addExerciseSet() {
+        TODO("Not yet implemented")
+    }
 }
