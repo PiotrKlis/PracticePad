@@ -4,9 +4,11 @@ import com.piotr.practicepad.MainActivity
 import com.piotr.practicepad.data.db.SharedPrefs
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import kotlin.time.ExperimentalTime
 
 @Module
 abstract class ActivityBindingModule {
+    @OptIn(ExperimentalTime::class)
     @ContributesAndroidInjector(
         modules = [
             ExerciseModule::class,
