@@ -11,15 +11,15 @@
 		android:label="fragment_exerciseset_list"
 		tools:layout="@layout/fragment_exercise_list">
 		<action
-			android:id="@+id/action_exerciseSetListFragment_to_exerciseSetDetailFragment"
-			app:destination="@id/exerciseSetDetailFragment" />
+			android:id="@+id/action_exerciseSetListFragment_to_exerciseSetFragment"
+			app:destination="@id/exerciseSetFragment" />
 		<action
-			android:id="@+id/action_exerciseSetListFragment_to_addExerciseSet"
-			app:destination="@id/exerciseSetDetailFragment" />
+			android:id="@+id/action_exerciseSetListFragment_to_exerciseSet"
+			app:destination="@id/exerciseSetFragment" />
 	</fragment>
 	
 	<fragment
-		android:id="@+id/exerciseSetDetailFragment"
+		android:id="@+id/exerciseSetFragment"
 		android:name="com.piotr.practicepad.views.exerciseSet.ExerciseSetFragment"
 		android:label="ExerciseSetDetail"
 		tools:layout="@layout/fragment_exercise_set">
@@ -31,12 +31,6 @@
 			android:id="@+id/action_exerciseSetDetailFragment_to_addExerciseFragment"
 			app:destination="@id/addExerciseFragment" />
 	</fragment>
-	
-	<fragment
-		android:id="@+id/addExerciseSetFragment"
-		android:name="com.piotr.practicepad.views.addExerciseSet.AddExerciseSetFragment"
-		android:label="AddExerciseSet"
-		tools:layout="@layout/fragment_add_exercise_set" />
 	
 	<fragment
 		android:id="@+id/addExerciseFragment"

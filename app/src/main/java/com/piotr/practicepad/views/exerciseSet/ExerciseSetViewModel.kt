@@ -9,6 +9,7 @@ import com.piotr.practicepad.data.dao.UpdateExerciseSetTempoEntity
 import com.piotr.practicepad.data.dao.UpdateExerciseSetTitleEntity
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.entities.ExerciseEntityMapper
+import com.piotr.practicepad.data.entities.ExerciseSetEntity
 import com.piotr.practicepad.data.entities.ExerciseSetEntityMapper
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
 import kotlinx.coroutines.launch
@@ -41,7 +42,7 @@ class ExerciseSetViewModel @Inject constructor(
                 this.add(position + 1, item)
             }
             mutableState.value = state.copy(exerciseDetailsList = list)
-            updateDb(state)
+            updateExerciseSet(state)
         }
     }
 
@@ -53,7 +54,7 @@ class ExerciseSetViewModel @Inject constructor(
                 this.add(position - 1, item)
             }
             mutableState.value = state.copy(exerciseDetailsList = list)
-            updateDb(state)
+            updateExerciseSet(state)
         }
     }
 
@@ -65,7 +66,7 @@ class ExerciseSetViewModel @Inject constructor(
                 this.remove(item)
             }
             mutableState.value = state.copy(exerciseDetailsList = list)
-            updateDb(state)
+            updateExerciseSet(state)
         }
     }
 
@@ -99,7 +100,7 @@ class ExerciseSetViewModel @Inject constructor(
         }
     }
 
-    private fun updateDb(state: ExerciseSetState) {
+    private fun updateExerciseSet(state: ExerciseSetState) {
         viewModelScope.launch {
             database.exerciseSetDao().updateExerciseList(
                 exerciseSetEntityMapper.map(id = state.id, input = state.exerciseDetailsList)
@@ -131,7 +132,11 @@ class ExerciseSetViewModel @Inject constructor(
         }
     }
 
-    fun createNewSetId(): Int {
-        TODO("Not yet implemented")
+    fun createNewSetId() {
+        viewModelScope.launch {
+            val sets = database.exerciseSetDao().getAll()
+            val highestId: Int = sets.maxBy { it.id }?.id!!
+            database.exerciseSetDao().insert(ExerciseSetEntity(id = highestId + 1))
+        }
     }
 }

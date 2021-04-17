@@ -24,14 +24,13 @@ class ExerciseSetFragment : BaseFragment(), Editor {
     private val adapter = ExerciseSetAdapter(this, ::updateTime)
     private val args: ExerciseSetFragmentArgs by navArgs()
     private lateinit var binding: FragmentExerciseSetBinding
-    private val exerciseSetId: Int
-        get() {
-            return if (args.exerciseSetId == DEFAULT_VALUE) {
-                viewModel.createNewSetId()
-            } else {
-                args.exerciseSetId
-            }
+    private val exerciseSetId: Int by lazy {
+        if (args.exerciseSetId == DEFAULT_VALUE) {
+            viewModel.createNewSetId()
+        } else {
+            args.exerciseSetId
         }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,13 +51,16 @@ class ExerciseSetFragment : BaseFragment(), Editor {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.renderData(args.exerciseSetId)
+        if (args.exerciseSetId == DEFAULT_VALUE) {
+            
+        }
+        viewModel.renderData(exerciseSetId)
         binding.recyclerList.adapter = adapter
         binding.fabAddExercise.setOnClickListener {
             findNavController()
                 .navigate(
                     R.id.action_exerciseSetDetailFragment_to_addExerciseFragment,
-                    AddExerciseFragmentArgs(args.exerciseSetId).toBundle()
+                    AddExerciseFragmentArgs(exerciseSetId).toBundle()
                 )
         }
         binding.name.addTextChangedListener { text -> viewModel.updateName(text.toString()) }

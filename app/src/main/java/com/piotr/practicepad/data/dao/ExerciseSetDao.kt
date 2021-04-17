@@ -15,6 +15,9 @@ interface ExerciseSetDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(list: List<ExerciseSetEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(exerciseSetEntity: ExerciseSetEntity)
+
     @Query("DELETE FROM exercise_set_table")
     suspend fun deleteAll()
 
