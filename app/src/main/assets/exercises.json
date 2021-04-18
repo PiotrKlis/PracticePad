@@ -3,173 +3,173 @@
     "id": 0,
     "title": "8th inverted doubles",
     "image": "inverted_eight",
-    "time": 0
+    "time": 10
   },
   {
     "id": 1,
     "title": "8th left hand",
     "image": "left_hand_eight",
-    "time": 0
+    "time": 10
   },
   {
     "id": 2,
     "title": "8th right hand",
     "image": "right_hand_eight",
-    "time": 0
+    "time": 10
   },
   {
     "id": 3,
     "title": "8th doubles",
     "image": "doubles_8th",
-    "time": 0
+    "time": 10
   },
   {
     "id": 4,
     "title": "8th triplets",
     "image": "triplets_8th",
-    "time": 0
+    "time": 10
   },
   {
     "id": 5,
     "title": "16th single stroke roll",
     "image": "single_16th",
-    "time": 0
+    "time": 10
   },
   {
     "id": 6,
     "title": "16th doubles",
     "image": "doubles_16th",
-    "time": 0
+    "time": 10
   },
   {
     "id": 7,
     "title": "16th paradiddle",
     "image": "single_paradiddle",
-    "time": 0
+    "time": 10
   },
   {
     "id": 8,
     "title": "16th sextuplets",
     "image": "triplets_16th",
-    "time": 0
+    "time": 10
   },
   {
     "id": 9,
     "title": "16th paradiddle sextuplets",
     "image": "paradiddle_sixtuplets",
-    "time": 0
+    "time": 10
   },
   {
     "id": 10,
     "title": "16th paradiddle-diddle sextuplets",
     "image": "single_paradiddle_diddle",
-    "time": 0
+    "time": 10
   },
   {
     "id": 11,
     "title": "Single stroke four",
     "image": "single_stroke_four",
-    "time": 0
+    "time": 10
   },
   {
     "id": 12,
     "title": "Single stroke seven",
     "image": "single_stroke_seven",
-    "time": 0
+    "time": 10
   },
   {
     "id": 13,
     "title": "Triple stroke roll",
     "image": "triplets_one_hand",
-    "time": 0
+    "time": 10
   },
   {
     "id": 14,
     "title": "Triple stroke roll sextuplets",
     "image": "triple_stroke_roll",
-    "time": 0
+    "time": 10
   },
   {
     "id": 15,
     "title": "Single army triplet",
     "image": "single_army_triplet",
-    "time": 0
+    "time": 10
   },
   {
     "id": 16,
     "title": "Drag",
     "image": "drag",
-    "time": 0
+    "time": 10
   },
   {
     "id": 17,
     "title": "Drag paradiddle",
     "image": "drag_paradiddle",
-    "time": 0
+    "time": 10
   },
   {
     "id": 18,
     "title": "Drag paradiddle 2",
     "image": "drag_paradiddle_2",
-    "time": 0
+    "time": 10
   },
   {
     "id": 19,
     "title": "Single drag tap",
     "image": "single_drag_tap",
-    "time": 0
+    "time": 10
   },
   {
     "id": 20,
     "title": "Single dragadiddle",
     "image": "single_dragadiddle",
-    "time": 0
+    "time": 10
   },
   {
     "id": 21,
     "title": "Flam accent",
     "image": "flam_accent",
-    "time": 0
+    "time": 10
   },
   {
     "id": 22,
     "title": "Flam drag",
     "image": "flam_drag",
-    "time": 0
+    "time": 10
   },
   {
     "title": "Flam paradiddle",
     "image": "flam_paradiddle",
-    "time": 0
+    "time": 10
   },
   {
     "id": 23,
     "title": "Flam tap",
     "image": "flam_tap",
-    "time": 0
+    "time": 10
   },
   {
     "id": 24,
     "title": "Flam",
     "image": "flam",
-    "time": 0
+    "time": 10
   },
   {
     "id": 25,
     "title": "Pataflala",
     "image": "pataflafla",
-    "time": 0
+    "time": 10
   },
   {
     "id": 26,
     "title": "Single Flammed Mill",
     "image": "single_flammed_mill",
-    "time": 0
+    "time": 10
   },
   {
     "id": 27,
     "title": "Quarters",
     "image": "quarter",
-    "time": 0
+    "time": 10
   }
 ]
