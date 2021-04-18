@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.piotr.practicepad.R
@@ -19,18 +20,11 @@ import com.piotr.practicepad.views.addExercise.AddExerciseFragmentArgs
 import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
-class ExerciseSetFragment : BaseFragment(), Editor {
+class ExerciseSetFragment : BaseFragment(), Editor, ExerciseSetEditor {
     private val viewModel: ExerciseSetViewModel by viewModels { viewModelFactory }
-    private val adapter = ExerciseSetAdapter(this, ::updateTime)
+    private val adapter = ExerciseSetAdapter(this, ::updateTime).apply { setHasStableIds(true) }
     private val args: ExerciseSetFragmentArgs by navArgs()
     private lateinit var binding: FragmentExerciseSetBinding
-    private val exerciseSetId: Int by lazy {
-        if (args.exerciseSetId == DEFAULT_VALUE) {
-            viewModel.createNewSetId()
-        } else {
-            args.exerciseSetId
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,23 +39,35 @@ class ExerciseSetFragment : BaseFragment(), Editor {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             model = viewModel
+            editor = this@ExerciseSetFragment
         }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (args.exerciseSetId == DEFAULT_VALUE) {
-            
-        }
-        viewModel.renderData(exerciseSetId)
         binding.recyclerList.adapter = adapter
+        setState()
+        viewModel.state.observe(viewLifecycleOwner, Observer { setViewElements() })
+    }
+
+    private fun setState() {
+        if (args.exerciseSetId == DEFAULT_VALUE || viewModel.state.value?.id == DEFAULT_VALUE) {
+            viewModel.createNewSet()
+        } else {
+            viewModel.setData(args.exerciseSetId)
+        }
+    }
+
+    private fun setViewElements() {
         binding.fabAddExercise.setOnClickListener {
-            findNavController()
-                .navigate(
-                    R.id.action_exerciseSetDetailFragment_to_addExerciseFragment,
-                    AddExerciseFragmentArgs(exerciseSetId).toBundle()
-                )
+            viewModel.state.value?.let { state ->
+                findNavController()
+                    .navigate(
+                        R.id.action_exerciseSetDetailFragment_to_addExerciseFragment,
+                        AddExerciseFragmentArgs(state.id).toBundle()
+                    )
+            }
         }
         binding.name.addTextChangedListener { text -> viewModel.updateName(text.toString()) }
         binding.tempo.addTextChangedListener { text -> validateTempo(text) }
@@ -112,5 +118,10 @@ class ExerciseSetFragment : BaseFragment(), Editor {
 
     companion object {
         private const val DEFAULT_VALUE = -1
+    }
+
+    override fun delete() {
+        viewModel.deleteExerciseSet()
+        activity?.onBackPressed()
     }
 }

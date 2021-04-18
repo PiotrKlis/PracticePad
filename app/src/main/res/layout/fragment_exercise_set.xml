@@ -9,6 +9,10 @@
 		<variable
 			name="model"
 			type="com.piotr.practicepad.views.exerciseSet.ExerciseSetViewModel" />
+		
+		<variable
+			name="editor"
+			type="com.piotr.practicepad.views.exerciseSet.ExerciseSetEditor" />
 	</data>
 	
 	<androidx.constraintlayout.widget.ConstraintLayout
@@ -40,11 +44,11 @@
 			android:layout_marginTop="@dimen/small_margin"
 			android:background="@drawable/rounded_background"
 			android:padding="@dimen/small_margin"
+			android:text="@{String.valueOf(model.state.tempo)}"
 			android:textSize="@dimen/medium_text_size"
 			android:textStyle="italic"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/name"
-			android:text="@{String.valueOf(model.state.tempo)}"
 			tools:text="120" />
 		
 		<TextView
@@ -58,6 +62,7 @@
 			app:layout_constraintTop_toTopOf="@+id/tempo" />
 		
 		<TextView
+			android:id="@+id/time"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="@dimen/medium_margin"
@@ -67,6 +72,17 @@
 			app:layout_constraintTop_toTopOf="@id/tempo"
 			app:timeLeft="@{model.state.exerciseDetailsList}"
 			tools:text="20:00" />
+		
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_margin="@dimen/big_margin"
+			android:onClick="@{() -> editor.delete()}"
+			android:src="@drawable/ic_delete"
+			app:layout_constraintBottom_toBottomOf="@id/time"
+			app:layout_constraintStart_toEndOf="@id/time"
+			app:layout_constraintTop_toTopOf="@id/time" />
 		
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/recyclerList"
@@ -93,5 +109,4 @@
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent" />
 	</androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

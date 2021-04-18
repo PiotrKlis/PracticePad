@@ -13,9 +13,6 @@
 		<action
 			android:id="@+id/action_exerciseSetListFragment_to_exerciseSetFragment"
 			app:destination="@id/exerciseSetFragment" />
-		<action
-			android:id="@+id/action_exerciseSetListFragment_to_exerciseSet"
-			app:destination="@id/exerciseSetFragment" />
 	</fragment>
 	
 	<fragment

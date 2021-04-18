@@ -27,7 +27,7 @@ class ExerciseSetViewModel @Inject constructor(
     val state: LiveData<ExerciseSetState> get() = mutableState
     private val mutableState = MutableLiveData(ExerciseSetState())
 
-    fun renderData(id: Int) {
+    fun setData(id: Int) {
         viewModelScope.launch {
             mutableState.value =
                 exerciseSetStateMapper.map(exerciseSetRepository.getSetForId(id))
@@ -100,14 +100,6 @@ class ExerciseSetViewModel @Inject constructor(
         }
     }
 
-    private fun updateExerciseSet(state: ExerciseSetState) {
-        viewModelScope.launch {
-            database.exerciseSetDao().updateExerciseList(
-                exerciseSetEntityMapper.map(id = state.id, input = state.exerciseDetailsList)
-            )
-        }
-    }
-
     fun updateTime(time: Long, exerciseId: Int) {
         viewModelScope.launch {
             state.value?.let { state ->
@@ -132,11 +124,29 @@ class ExerciseSetViewModel @Inject constructor(
         }
     }
 
-    fun createNewSetId() {
+    fun createNewSet() {
         viewModelScope.launch {
-            val sets = database.exerciseSetDao().getAll()
-            val highestId: Int = sets.maxBy { it.id }?.id!!
-            database.exerciseSetDao().insert(ExerciseSetEntity(id = highestId + 1))
+            val highestId: Int = database.exerciseSetDao().getAll().maxBy { it.id }?.id!!
+            val newId = highestId + 1
+            val newSet = ExerciseSetEntity(id = newId)
+            database.exerciseSetDao().insert(newSet)
+            mutableState.value = exerciseSetStateMapper.map(exerciseSetRepository.getSetForId(newId))
+        }
+    }
+
+    private fun updateExerciseSet(state: ExerciseSetState) {
+        viewModelScope.launch {
+            database.exerciseSetDao().updateExerciseList(
+                exerciseSetEntityMapper.map(id = state.id, input = state.exerciseDetailsList)
+            )
+        }
+    }
+
+    fun deleteExerciseSet() {
+        viewModelScope.launch {
+            state.value?.let {
+                database.exerciseSetDao().deleteSet(it.id)
+            }
         }
     }
 }

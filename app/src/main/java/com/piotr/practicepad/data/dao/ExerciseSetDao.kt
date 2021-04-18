@@ -29,6 +29,9 @@ interface ExerciseSetDao {
 
     @Update(entity = ExerciseSetEntity::class)
     suspend fun updateExerciseSetTempo(exerciseSetEntityUpdate: UpdateExerciseSetTempoEntity)
+
+    @Query("DELETE FROM exercise_set_table WHERE id == :setId")
+    suspend fun deleteSet(setId: Int)
 }
 
 @Entity
