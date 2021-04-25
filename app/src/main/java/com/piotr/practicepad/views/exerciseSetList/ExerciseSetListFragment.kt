@@ -6,12 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExerciseListBinding
 import com.piotr.practicepad.utils.BaseFragment
 import com.piotr.practicepad.utils.NavigationHandler
 import com.piotr.practicepad.views.exerciseSet.ExerciseSetFragmentArgs
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class ExerciseSetListFragment : BaseFragment(), CheckBoxHandler, NavigationHandler {
     private val viewModel: ExerciseSetListViewModel by viewModels { viewModelFactory }
@@ -35,7 +41,17 @@ class ExerciseSetListFragment : BaseFragment(), CheckBoxHandler, NavigationHandl
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerList.adapter = adapter
         viewModel.getExerciseSets()
-        binding.addExerciseSet.setOnClickListener { findNavController().navigate(R.id.action_exerciseSetListFragment_to_exerciseSetFragment) }
+        binding.addExerciseSet.setOnClickListener {
+            viewModel.createNewExerciseSet()
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.newSetId.collect { id ->
+                    findNavController().navigate(
+                        R.id.action_exerciseSetListFragment_to_exerciseSetFragment,
+                        ExerciseSetFragmentArgs(id).toBundle()
+                    )
+                }
+            }
+        }
     }
 
     override fun checkBoxClick(id: Int) {

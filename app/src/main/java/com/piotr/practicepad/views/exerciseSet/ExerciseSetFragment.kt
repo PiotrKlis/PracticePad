@@ -47,16 +47,8 @@ class ExerciseSetFragment : BaseFragment(), Editor, ExerciseSetEditor {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerList.adapter = adapter
-        setState()
+        viewModel.setData(args.exerciseSetId)
         viewModel.state.observe(viewLifecycleOwner, Observer { setViewElements() })
-    }
-
-    private fun setState() {
-        if (args.exerciseSetId == DEFAULT_VALUE || viewModel.state.value?.id == DEFAULT_VALUE) {
-            viewModel.createNewSet()
-        } else {
-            viewModel.setData(args.exerciseSetId)
-        }
     }
 
     private fun setViewElements() {
@@ -95,6 +87,11 @@ class ExerciseSetFragment : BaseFragment(), Editor, ExerciseSetEditor {
         Log.d("AAA move down", "$position to ${position + 1}")
     }
 
+    override fun delete() {
+        viewModel.deleteExerciseSet()
+        findNavController().navigateUp()
+    }
+
     private fun validateTempo(text: Editable?) {
         try {
             val tempo = text.toString().toInt()
@@ -114,14 +111,5 @@ class ExerciseSetFragment : BaseFragment(), Editor, ExerciseSetEditor {
 
     private fun showTempoError() {
         Toast.makeText(context, "Tempo must be between 40-221 BPM", Toast.LENGTH_SHORT).show()
-    }
-
-    companion object {
-        private const val DEFAULT_VALUE = -1
-    }
-
-    override fun delete() {
-        viewModel.deleteExerciseSet()
-        activity?.onBackPressed()
     }
 }
