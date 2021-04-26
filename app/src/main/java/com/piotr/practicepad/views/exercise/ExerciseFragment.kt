@@ -4,11 +4,13 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +19,7 @@ import com.piotr.practicepad.databinding.FragmentExcerciseBinding
 import com.piotr.practicepad.metronome.MetronomeService
 import com.piotr.practicepad.ui.main.utils.observeEvent
 import com.piotr.practicepad.utils.BaseFragment
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -32,6 +35,8 @@ class ExerciseFragment : BaseFragment(), MetronomeService.TickListener {
         savedInstanceState: Bundle?
     ): View = getBinding(inflater, container).root
 
+    @FlowPreview
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.renderActiveExerciseSet()
@@ -49,8 +54,9 @@ class ExerciseFragment : BaseFragment(), MetronomeService.TickListener {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.metronomeEvent.collect { event ->
                 when (event) {
-                    ExerciseViewModel.MetronomeEvent.Start -> metronomeService?.play()
-                    ExerciseViewModel.MetronomeEvent.Stop -> metronomeService?.pause()
+                    MetronomeEvent.Start -> metronomeService?.play()
+                    MetronomeEvent.Stop -> metronomeService?.pause()
+                    is MetronomeEvent.TempoChange -> metronomeService?.setBpm(event.tempo)
                 }
             }
         }

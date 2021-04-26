@@ -19,6 +19,12 @@ import javax.inject.Inject
 
 private const val FIRST_ITEM = 0
 
+sealed class MetronomeEvent {
+    object Start : MetronomeEvent()
+    object Stop : MetronomeEvent()
+    data class TempoChange(val tempo: Int) : MetronomeEvent()
+}
+
 class ExerciseViewModel @Inject constructor(
     private val exerciseSetRepository: ExerciseSetRepository,
     private val metronome: Metronome,
@@ -26,11 +32,6 @@ class ExerciseViewModel @Inject constructor(
     val exerciseSetTimer: ExerciseSetTimer,
     val practiceState: PracticeState
 ) : ViewModel() {
-    enum class MetronomeEvent {
-        Start,
-        Stop
-    }
-
     val metronomeEvent: SharedFlow<MetronomeEvent> get() = mutableMetronomeEvent
     private val mutableMetronomeEvent: MutableSharedFlow<MetronomeEvent> = MutableSharedFlow()
 
@@ -38,7 +39,6 @@ class ExerciseViewModel @Inject constructor(
     private val mutableState = MutableLiveData(ExerciseState())
     private val metronomeOperationRange = 40 until 221
     private var previousSet: ExerciseSet? = null
-
 
     fun renderActiveExerciseSet() {
         viewModelScope.launch {
@@ -65,11 +65,19 @@ class ExerciseViewModel @Inject constructor(
     }
 
     fun subtractTempoClick(tempo: Long) {
-        updateTempo(tempo - 1)
+        viewModelScope.launch {
+            val newTempo = tempo - 1
+            mutableMetronomeEvent.emit(MetronomeEvent.TempoChange(newTempo.toInt()))
+            mutableState.value = mutableState.value?.copy(tempo = newTempo)
+        }
     }
 
     fun addTempoClick(tempo: Long) {
-        updateTempo(tempo + 1)
+        viewModelScope.launch {
+            val newTempo = tempo + 1
+            mutableMetronomeEvent.emit(MetronomeEvent.TempoChange(newTempo.toInt()))
+            mutableState.value = mutableState.value?.copy(tempo = newTempo)
+        }
     }
 
     fun onPause() {
