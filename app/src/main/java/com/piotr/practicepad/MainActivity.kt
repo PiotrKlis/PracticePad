@@ -2,6 +2,7 @@ package com.piotr.practicepad
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.db.SharedPrefs
@@ -26,7 +27,8 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         handleFirstAppLaunch()
-
+        val intent = Intent(this, MetronomeService::class.java)
+        startService(intent)
     }
 
     private fun handleFirstAppLaunch() {

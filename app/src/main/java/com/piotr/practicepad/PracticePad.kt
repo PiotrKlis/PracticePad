@@ -16,9 +16,6 @@ class PracticePad : DaggerApplication() {
         super.onCreate()
         AndroidStringProvider.initializeStringProvider(applicationContext)
         AndroidResourceProvider.init(applicationContext)
-        val intent = Intent(this, MetronomeService::class.java)
-        ContextCompat.startForegroundService(this, intent)
-
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> =

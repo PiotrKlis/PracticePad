@@ -98,6 +98,7 @@ class MetronomeService : Service() {
         startForeground(1, notification)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun setBeatsUp(): Int {
         if(beatsPerMeasure < 9) {
             beatsPerMeasure++
@@ -109,6 +110,7 @@ class MetronomeService : Service() {
         return beatsPerMeasure
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun setBeatsDown(): Int {
         if(beatsPerMeasure > 1) {
             beatsPerMeasure--
@@ -189,6 +191,7 @@ class MetronomeService : Service() {
     /**
      * Rotates to the next rhythm
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     fun nextRhythm(): Rhythm {
         val isPlaying = this.isPlaying
         rhythm = rhythm.next()
