@@ -61,6 +61,9 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
+*  - Time in cards
+*  - Overall time after increase in card
+*  - exercise running after onPause/onResume
 *  - Create your own exercise set
 *  - Test the app (list bugs - click being silent?)
 *  - Testy! Unit + UI
