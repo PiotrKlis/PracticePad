@@ -1,11 +1,13 @@
 package com.piotr.practicepad
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.db.SharedPrefs
 import com.piotr.practicepad.databinding.MainActivityBinding
 import com.piotr.practicepad.extensions.setupWithNavController
+import com.piotr.practicepad.metronome.MetronomeService
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.asFlow
@@ -24,6 +26,7 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         handleFirstAppLaunch()
+
     }
 
     private fun handleFirstAppLaunch() {

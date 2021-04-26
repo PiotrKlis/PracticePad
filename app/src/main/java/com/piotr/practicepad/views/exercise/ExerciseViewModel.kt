@@ -5,13 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
-import com.piotr.practicepad.views.exercise.PracticeState.State.*
-import com.piotr.practicepad.views.exerciseSetList.ExerciseSet
 import com.piotr.practicepad.extensions.getNextExerciseName
 import com.piotr.practicepad.extensions.getOverallTime
 import com.piotr.practicepad.metronome.Metronome
 import com.piotr.practicepad.timers.ExerciseSetTimer
 import com.piotr.practicepad.timers.ExerciseTimer
+import com.piotr.practicepad.views.exercise.PracticeState.State.*
+import com.piotr.practicepad.views.exerciseSetList.ExerciseSet
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,10 +26,19 @@ class ExerciseViewModel @Inject constructor(
     val exerciseSetTimer: ExerciseSetTimer,
     val practiceState: PracticeState
 ) : ViewModel() {
+    enum class MetronomeEvent {
+        Start,
+        Stop
+    }
+
+    val metronomeEvent: SharedFlow<MetronomeEvent> get() = mutableMetronomeEvent
+    private val mutableMetronomeEvent: MutableSharedFlow<MetronomeEvent> = MutableSharedFlow()
+
     val state: LiveData<ExerciseState> get() = mutableState
     private val mutableState = MutableLiveData(ExerciseState())
     private val metronomeOperationRange = 40 until 221
     private var previousSet: ExerciseSet? = null
+
 
     fun renderActiveExerciseSet() {
         viewModelScope.launch {
@@ -122,14 +133,20 @@ class ExerciseViewModel @Inject constructor(
     private fun startPractice() {
         exerciseTimer.handleClick(ON)
         exerciseSetTimer.handleClick(ON)
-        metronome.handleClick(ON, state.value?.tempo)
+//        metronome.handleClick(ON, state.value?.tempo)
+        viewModelScope.launch {
+            mutableMetronomeEvent.emit(MetronomeEvent.Start)
+        }
         practiceState.setState(ON)
     }
 
     private fun pausePractice() {
         exerciseTimer.handleClick(OFF)
         exerciseSetTimer.handleClick(OFF)
-        metronome.handleClick(OFF, state.value?.tempo)
+//        metronome.handleClick(OFF, state.value?.tempo)
+        viewModelScope.launch {
+            mutableMetronomeEvent.emit(MetronomeEvent.Stop)
+        }
         practiceState.setState(OFF)
     }
 
