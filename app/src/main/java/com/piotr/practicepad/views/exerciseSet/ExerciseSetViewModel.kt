@@ -119,6 +119,7 @@ class ExerciseSetViewModel @Inject constructor(
                                 exerciseEntityMapper.mapExercises(mutableList.toList())
                             )
                         )
+                        mutableState.value = state.copy(exerciseDetailsList = mutableList)
                     }
             }
         }

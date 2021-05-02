@@ -50,6 +50,7 @@ class ExerciseSetAdapter(private val editor: Editor, private val updateTime: (ti
             binding.adapterParams = adapterParams
             binding.editor = editor
             binding.time.addTextChangedListener { text ->
+                //https://stackoverflow.com/questions/63426845/android-edittext-coroutine-debounce-operator-like-rxjava
                 validateInput(
                     text.toString(),
                     binding.time.context,
