@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/grey</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/white</item>
+<!--        <item name="android:timePickerStyle">@style/SpinnerTimePicker</item>-->
     </style>
     
     <style name="ToolbarTheme">
@@ -14,4 +15,12 @@
         <item name="android:textColorSecondary">@color/black_ish</item>
         <item name="android:textColor">@color/black_ish</item>
     </style>`
+
+        <style name="SpinnerTimePicker" parent="android:Widget.Material.Light.TimePicker">
+            <item name="android:timePickerMode">spinner</item>
+        </style>
+        
+        <style name="ClockTimePicker" parent="android:Widget.Material.Light.TimePicker">
+            <item name="android:timePickerMode">clock</item>
+        </style>
 </resources>

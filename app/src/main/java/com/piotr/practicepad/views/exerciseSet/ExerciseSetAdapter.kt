@@ -1,11 +1,12 @@
 package com.piotr.practicepad.views.exerciseSet
 
 
+import android.app.TimePickerDialog
 import android.content.Context
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
+import com.ikovac.timepickerwithseconds.MyTimePickerDialog
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.EditExerciseCardBinding
 import com.piotr.practicepad.extensions.bind
@@ -14,7 +15,10 @@ import com.piotr.practicepad.extensions.secondsToMilliseconds
 import com.piotr.practicepad.utils.BindableRecyclerViewAdapter
 import com.piotr.practicepad.views.exercise.Exercise
 
-class ExerciseSetAdapter(private val editor: Editor, private val updateTime: (time: Long, id: Int) -> Unit) :
+class ExerciseSetAdapter(
+    private val editor: Editor,
+    private val updateTime: (time: Long, id: Int) -> Unit
+) :
     BindableRecyclerViewAdapter<RecyclerView.ViewHolder, Exercise>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         RowViewHolder(
@@ -49,14 +53,25 @@ class ExerciseSetAdapter(private val editor: Editor, private val updateTime: (ti
             binding.model = item
             binding.adapterParams = adapterParams
             binding.editor = editor
-            binding.time.addTextChangedListener { text ->
-                //https://stackoverflow.com/questions/63426845/android-edittext-coroutine-debounce-operator-like-rxjava
-                validateInput(
-                    text.toString(),
+            binding.time.setOnClickListener {
+                MyTimePickerDialog(
                     binding.time.context,
-                    item.id
-                )
+                    { view, hourOfDay, minute, seconds -> },
+                    0,
+                    0,
+                    30,
+                    true
+                ).show()
+
             }
+//            binding.time.addTextChangedListener { text ->
+//                //https://stackoverflow.com/questions/63426845/android-edittext-coroutine-debounce-operator-like-rxjava
+//                validateInput(
+//                    text.toString(),
+//                    binding.time.context,
+//                    item.id
+//                )
+//            }
             binding.executePendingBindings()
         }
 

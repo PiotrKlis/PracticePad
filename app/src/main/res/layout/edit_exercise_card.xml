@@ -60,7 +60,7 @@
 				tools:text="Exercise name"
 				tools:textColor="@color/black_ish" />
 			
-			<EditText
+			<Button
 				android:id="@+id/time"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
