@@ -1,20 +1,27 @@
-package com.piotr.practicepad.utils
-
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.res.Resources
 import android.view.View
 import android.widget.NumberPicker
 import android.widget.TimePicker
 import java.util.*
 
-class DurationPicker(
+
+class DurationPickerDialog(
     context: Context?,
     private val callback: OnTimeSetListener?,
     private val initialMinutes: Int,
     seconds: Int
-) : TimePickerDialog(context, callback, initialMinutes, seconds, true) {
+) :
+    TimePickerDialog(context, callback, initialMinutes, seconds, true) {
+
+    init {
+        this.setTitle("Set duration")
+    }
+
     private var timePicker: TimePicker? = null
+
     override fun onClick(dialog: DialogInterface, which: Int) {
         if (callback != null && timePicker != null) {
             timePicker!!.clearFocus()
@@ -25,29 +32,26 @@ class DurationPicker(
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         try {
-            val classForid = Class.forName("com.android.internal.R\$id")
-            val timePickerField = classForid.getField("timePicker")
-            timePicker = findViewById<View>(timePickerField.getInt(null)) as TimePicker
-            val field = classForid.getField("hour")
-            // modify the hours spinner to cover the maximum number of minutes we want to support
+            timePicker = findViewById<View>(
+                Resources.getSystem().getIdentifier("timePicker", "id", "android")
+            ) as TimePicker
+            val hoursPicker = timePicker!!.findViewById(
+                Resources.getSystem().getIdentifier("hour", "id", "android")
+            ) as NumberPicker
+            // Modify the hours spinner to cover the maximum number of minutes we want to support
             val maxMinutes = 60
-            val mHourSpinner = timePicker!!.findViewById<View>(field.getInt(null)) as NumberPicker
-            mHourSpinner.minValue = 0
-            mHourSpinner.maxValue = maxMinutes
+            hoursPicker.minValue = 0
+            hoursPicker.maxValue = maxMinutes
+
             val displayedValues: MutableList<String> = ArrayList()
-            for (i in 0..maxMinutes) {
-                displayedValues.add(String.format("%d", i))
-            }
-            mHourSpinner.displayedValues = displayedValues.toTypedArray()
-            mHourSpinner.value =
-                initialMinutes // we can set this again now that we've modified the hours spinner
+
+            for (i in 0..maxMinutes) displayedValues.add(String.format("%d", i))
+
+            hoursPicker.displayedValues = displayedValues.toTypedArray()
+            hoursPicker.value = initialMinutes
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
-
-    init {
-        // we'll have to set this again after modifying the "hours" spinner
-        this.setTitle("Set duration")
     }
 }
