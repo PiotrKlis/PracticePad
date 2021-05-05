@@ -3,8 +3,11 @@ package com.piotr.practicepad.views.exerciseSet
 
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.DialogInterface
+import android.content.DialogInterface.BUTTON_POSITIVE
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.ikovac.timepickerwithseconds.MyTimePickerDialog
 import com.piotr.practicepad.R
@@ -13,6 +16,7 @@ import com.piotr.practicepad.extensions.bind
 import com.piotr.practicepad.extensions.minutesToMillis
 import com.piotr.practicepad.extensions.secondsToMilliseconds
 import com.piotr.practicepad.utils.BindableRecyclerViewAdapter
+import com.piotr.practicepad.utils.DurationPicker
 import com.piotr.practicepad.views.exercise.Exercise
 
 class ExerciseSetAdapter(
@@ -54,24 +58,26 @@ class ExerciseSetAdapter(
             binding.adapterParams = adapterParams
             binding.editor = editor
             binding.time.setOnClickListener {
-                MyTimePickerDialog(
+                val test = DurationPicker(
                     binding.time.context,
-                    { view, hourOfDay, minute, seconds -> },
+                    TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute -> },
                     0,
-                    0,
-                    30,
-                    true
-                ).show()
-
+                    30
+                )
+                test.setButton(
+                    BUTTON_POSITIVE,
+                    "OK",
+                    { dialog, which -> })
+                test.show()
             }
-//            binding.time.addTextChangedListener { text ->
-//                //https://stackoverflow.com/questions/63426845/android-edittext-coroutine-debounce-operator-like-rxjava
-//                validateInput(
-//                    text.toString(),
-//                    binding.time.context,
-//                    item.id
-//                )
-//            }
+//                binding.time.addTextChangedListener { text ->
+//                    validateInput(
+//                        text.toString(),
+//                        binding.time.context,
+//                        item.id
+//                    )
+//                }
+
             binding.executePendingBindings()
         }
 
