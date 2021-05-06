@@ -66,8 +66,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
-*  - Time in cards
-*  - Overall time after increase in card
 *  - exercise running after onPause/onResume
 *  - Create your own exercise set
 *  - Test the app (list bugs - click being silent?)
@@ -82,6 +80,8 @@ class MainActivity : DaggerAppCompatActivity() {
 * */
 
 /*DONE
+*  - Time in cards
+*  - Overall time after increase in card
 *  - any change to current set (up/down/delete) to reflect in db
 *  - Metronome change on new exercise
 *  - enum to file

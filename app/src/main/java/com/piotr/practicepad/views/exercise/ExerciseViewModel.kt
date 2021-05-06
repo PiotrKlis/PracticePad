@@ -1,5 +1,6 @@
 package com.piotr.practicepad.views.exercise
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -98,6 +99,7 @@ class ExerciseViewModel @Inject constructor(
         viewModelScope.launch {
             val activeSet = exerciseSetRepository.getActiveSet()
             if (activeSet.shouldStartNextExercise(position)) {
+                Log.d("PKPK", "my position is $position")
                 mutableState.value = updateState(activeSet, position)
                 exerciseTimer.startNextExercise(activeSet.exercises[position].time)
                 metronome.tempo = mutableState.value?.tempo
@@ -156,13 +158,5 @@ class ExerciseViewModel @Inject constructor(
             mutableMetronomeEvent.emit(MetronomeEvent.Stop)
         }
         practiceState.setState(OFF)
-    }
-
-    private fun updateTempo(newTempo: Long) {
-        if (newTempo in metronomeOperationRange) {
-            mutableState.value = mutableState.value?.copy(tempo = newTempo)
-            metronome.tempo = newTempo
-            metronome.start()
-        }
     }
 }
