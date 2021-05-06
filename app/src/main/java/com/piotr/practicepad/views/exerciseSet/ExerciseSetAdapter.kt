@@ -3,15 +3,11 @@ package com.piotr.practicepad.views.exerciseSet
 
 import DurationPickerDialog
 import android.app.TimePickerDialog
-import android.util.Log
 import android.view.ViewGroup
-import android.widget.TimePicker
 import androidx.recyclerview.widget.RecyclerView
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.EditExerciseCardBinding
-import com.piotr.practicepad.extensions.bind
-import com.piotr.practicepad.extensions.millisToMinutes
-import com.piotr.practicepad.extensions.millisToSeconds
+import com.piotr.practicepad.extensions.*
 import com.piotr.practicepad.utils.BindableRecyclerViewAdapter
 import com.piotr.practicepad.views.exercise.Exercise
 
@@ -53,16 +49,12 @@ class ExerciseSetAdapter(
             binding.model = item
             binding.adapterParams = adapterParams
             binding.editor = editor
-            val timeListener = TimePickerDialog.OnTimeSetListener { view, minute, second ->
-                Log.d(
-                    "PKPK",
-                    "minute: $minute second: $second"
-                )
-            }
             binding.time.setOnClickListener {
                 DurationPickerDialog(
                     binding.time.context,
-                    timeListener,
+                    TimePickerDialog.OnTimeSetListener { view, minute, second ->
+                        updateTime(minute.minutesToMillis() + second.secondsToMillis(), item.id)
+                    },
                     item.time.millisToMinutes(),
                     item.time.millisToSeconds()
                 ).show()

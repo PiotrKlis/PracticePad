@@ -11,10 +11,9 @@ fun Long.millisToSeconds(): Int = ((this / MILLISECONDS_IN_SECOND) % SECONDS_IN_
 fun Long.millisToMinutes(): Int =
     (this / (MILLISECONDS_IN_SECOND * SECONDS_IN_MINUTE) % SECONDS_IN_MINUTE).toInt()
 
-fun Long.secondsToMilliseconds(): Long = this * 1000L
+fun Long.secondsToMillis(): Long = this * 1000L
 fun Long.bpmToMilliseconds(): Long =
     (MILLISECONDS_IN_SECOND * (SECONDS_IN_MINUTE / this)).toLong()
-fun Long.minutesToMillis(): Long = (this * SECONDS_IN_MINUTE * MILLISECONDS_IN_SECOND).toLong()
 
 class LongExtensionsTest {
     @Test
@@ -24,6 +23,6 @@ class LongExtensionsTest {
         assertEquals(350000L.millisToMinutes(), 5)
         assertEquals(350000L.millisToMinutes(), 5)
         assertEquals(360000L.millisToMinutes(), 6)
-        assertEquals(6L.secondsToMilliseconds(), 6000)
+        assertEquals(6L.secondsToMillis(), 6000)
     }
 }

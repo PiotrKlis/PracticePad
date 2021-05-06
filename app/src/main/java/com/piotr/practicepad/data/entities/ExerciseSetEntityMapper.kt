@@ -1,7 +1,7 @@
 package com.piotr.practicepad.data.entities
 
 import com.piotr.practicepad.data.dao.UpdateExerciseListEntity
-import com.piotr.practicepad.extensions.secondsToMilliseconds
+import com.piotr.practicepad.extensions.secondsToMillis
 import com.piotr.practicepad.utils.ResourceProvider
 import com.piotr.practicepad.views.exercise.Exercise
 import com.piotr.practicepad.views.exerciseSetList.ExerciseSet
@@ -24,7 +24,7 @@ class ExerciseSetEntityMapper @Inject constructor(
             exercises = input.exercises.map { entity ->
                 Exercise(
                     id = entity.id,
-                    time = entity.time.toLong().secondsToMilliseconds(),
+                    time = entity.time.toLong().secondsToMillis(),
                     title = entity.title,
                     image = resourceProvider.getImageForString(entity.image)
                 )

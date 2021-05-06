@@ -1,7 +1,7 @@
 package com.piotr.practicepad.data.entities
 
 import com.piotr.practicepad.extensions.millisToSeconds
-import com.piotr.practicepad.extensions.secondsToMilliseconds
+import com.piotr.practicepad.extensions.secondsToMillis
 import com.piotr.practicepad.utils.ResourceProvider
 import com.piotr.practicepad.views.exercise.Exercise
 import javax.inject.Inject
@@ -21,7 +21,7 @@ class ExerciseEntityMapper @Inject constructor(private val resourceProvider: Res
     fun map(exerciseEntity: ExerciseEntity): Exercise = Exercise(
         id = exerciseEntity.id,
         title = exerciseEntity.title,
-        time = exerciseEntity.time.toLong().secondsToMilliseconds(),
+        time = exerciseEntity.time.toLong().secondsToMillis(),
         image = resourceProvider.getImageForString(exerciseEntity.image)
     )
 }
