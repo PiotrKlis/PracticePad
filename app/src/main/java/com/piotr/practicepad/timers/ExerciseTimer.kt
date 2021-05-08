@@ -30,11 +30,11 @@ class ExerciseTimer {
                 createNewTimer()
                 timer.start()
             }
-            RESTART -> {
-                position = FIRST_ITEM
-                createNewTimer()
-                timer.start()
-            }
+//            RESTART -> {
+//                position = FIRST_ITEM
+//                createNewTimer()
+//                timer.start()
+//            }
             OFF -> timer.cancel()
         }
     }
@@ -65,5 +65,10 @@ class ExerciseTimer {
                 }
             }
         }
+    }
+
+    fun setEnded() {
+        timer.cancel()
+        position = FIRST_ITEM
     }
 }

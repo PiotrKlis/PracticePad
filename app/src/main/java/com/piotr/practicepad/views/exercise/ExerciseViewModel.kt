@@ -55,11 +55,11 @@ class ExerciseViewModel @Inject constructor(
     fun powerClick(state: PracticeState.State) {
         when (state) {
             ON -> pausePractice()
-            OFF -> startPractice()
+            OFF -> startPractice(ON)
             RESTART -> {
                 viewModelScope.launch {
                     renderFirstItem(exerciseSetRepository.getActiveSet())
-                    startPractice()
+                    startPractice(ON)
                 }
             }
         }
@@ -84,8 +84,10 @@ class ExerciseViewModel @Inject constructor(
     fun onPause() {
         exerciseTimer.onPause()
         exerciseSetTimer.onPause()
-        metronome.stop()
         practiceState.onPause()
+        viewModelScope.launch {
+            mutableMetronomeEvent.emit(MetronomeEvent.Stop)
+        }
     }
 
     private fun renderFirstItem(activeExerciseSet: ExerciseSet) {
@@ -136,18 +138,21 @@ class ExerciseViewModel @Inject constructor(
     )
 
     fun setEnded() {
-        metronome.stop()
+        viewModelScope.launch {
+            mutableMetronomeEvent.emit(MetronomeEvent.Stop)
+        }
         practiceState.setState(RESTART)
+        exerciseTimer.setEnded()
     }
 
-    private fun startPractice() {
-        exerciseTimer.handleClick(ON)
-        exerciseSetTimer.handleClick(ON)
+    private fun startPractice(state: PracticeState.State) {
+        exerciseTimer.handleClick(state)
+        exerciseSetTimer.handleClick(state)
 //        metronome.handleClick(ON, state.value?.tempo)
         viewModelScope.launch {
             mutableMetronomeEvent.emit(MetronomeEvent.Start)
         }
-        practiceState.setState(ON)
+        practiceState.setState(state)
     }
 
     private fun pausePractice() {
