@@ -77,7 +77,8 @@ class MetronomeService : Service() {
         notificationManager.createNotificationChannel(mChannel)
 
         val pendingIntent: PendingIntent =
-            Intent(this, MainActivity::class.java).let { notificationIntent ->
+            Intent(this, MainActivity::class.java)
+                .let { notificationIntent ->
                 PendingIntent.getActivity(this, 0, notificationIntent, 0)
             }
         val stopSelf = Intent(this, MetronomeService::class.java)
@@ -86,10 +87,10 @@ class MetronomeService : Service() {
         val stopAction = Notification.Action.Builder(Icon.createWithResource(this, android.R.drawable.ic_media_pause), "Stop", pStopSelf).build()
 
         val notification: Notification = Notification.Builder(this, CHANNEL_ID)
-            .setContentTitle("I am notification title")
-            .setContentText("i am content text")
-            .setSmallIcon(R.drawable.ic_baseline_arrow_downward_24)
-            .setLargeIcon(Icon.createWithResource(this, R.drawable.ic_baseline_arrow_upward_24))
+            .setContentTitle("Practice Pad")
+            .setContentText("Metronome is playing")
+            .setSmallIcon(R.drawable.ic_music_note)
+            .setLargeIcon(Icon.createWithResource(this, R.drawable.ic_music_note))
             .setContentIntent(pendingIntent)
             .addAction(stopAction)
             .setDeleteIntent(pStopSelf)

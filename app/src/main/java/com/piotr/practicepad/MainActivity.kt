@@ -54,6 +54,10 @@ class MainActivity : DaggerAppCompatActivity() {
         setNavigation()
     }
 
+    override fun onPause() {
+        super.onPause()
+    }
+
     private fun setNavigation() {
         binding.bottomNavigation.setupWithNavController(
             navGraphIds = listOf(R.navigation.nav_exercise, R.navigation.nav_exercise_list),
@@ -66,8 +70,6 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
-*  - exercise running after onPause/onResume
-*  - Create your own exercise set
 *  - Test the app (list bugs - click being silent?)
 *  - Testy! Unit + UI
 *  - Test on other devices
@@ -80,6 +82,8 @@ class MainActivity : DaggerAppCompatActivity() {
 * */
 
 /*DONE
+*  - exercise running after onPause/onResume
+*  - Create your own exercise set
 *  - Time in cards
 *  - Overall time after increase in card
 *  - any change to current set (up/down/delete) to reflect in db
