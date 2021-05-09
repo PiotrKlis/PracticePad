@@ -70,6 +70,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
 /*
 * TODO
+*  - Move service init to dagger
 *  - Test the app (list bugs - click being silent?)
 *  - Testy! Unit + UI
 *  - Test on other devices
