@@ -45,7 +45,6 @@ class ExerciseFragment : BaseFragment(), MetronomeService.TickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.renderActiveExerciseSet()
-        metronomeService?.setBpm(viewModel.state.value?.tempo?.toInt() ?: 100)
         viewModel.exerciseTimer.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
                 is ExerciseEvent.NextExercise -> viewModel.renderNextExercise(event.position)

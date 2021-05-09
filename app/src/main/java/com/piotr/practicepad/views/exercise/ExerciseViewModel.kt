@@ -101,7 +101,13 @@ class ExerciseViewModel @Inject constructor(
         mutableState.value = createState(activeExerciseSet)
         exerciseTimer.setData(activeExerciseSet.exercises[FIRST_ITEM].time)
         exerciseSetTimer.setData(activeExerciseSet.exercises.getOverallTime())
-        metronome.tempo = mutableState.value?.tempo
+        viewModelScope.launch {
+            mutableMetronomeEvent.emit(
+                MetronomeEvent.TempoChange(
+                    activeExerciseSet.tempo.toInt()
+                )
+            )
+        }
     }
 
     fun renderNextExercise(position: Int) {
@@ -111,7 +117,6 @@ class ExerciseViewModel @Inject constructor(
                 Log.d("PKPK", "my position is $position")
                 mutableState.value = updateState(activeSet, position)
                 exerciseTimer.startNextExercise(activeSet.exercises[position].time)
-                metronome.tempo = mutableState.value?.tempo
             } else {
                 practiceState.setState(RESTART)
             }

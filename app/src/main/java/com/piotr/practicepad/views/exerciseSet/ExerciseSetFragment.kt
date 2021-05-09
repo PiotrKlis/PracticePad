@@ -1,7 +1,6 @@
 package com.piotr.practicepad.views.exerciseSet
 
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,14 +17,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.piotr.practicepad.R
 import com.piotr.practicepad.databinding.FragmentExerciseSetBinding
+import com.piotr.practicepad.extensions.onTextChanges
 import com.piotr.practicepad.utils.BaseFragment
 import com.piotr.practicepad.views.addExercise.AddExerciseFragmentArgs
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlin.time.ExperimentalTime
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 @ExperimentalTime
 class ExerciseSetFragment : BaseFragment(), Editor, ExerciseSetEditor {
     private val viewModel: ExerciseSetViewModel by viewModels { viewModelFactory }
@@ -83,7 +86,11 @@ class ExerciseSetFragment : BaseFragment(), Editor, ExerciseSetEditor {
             }
         }
         binding.name.addTextChangedListener { text -> viewModel.updateName(text.toString()) }
-        binding.tempo.addTextChangedListener { text -> validateTempo(text) }
+        binding.tempo
+            .onTextChanges()
+            .debounce(800)
+            .onEach { validateTempo(it) }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override fun delete(position: Int) {
@@ -109,7 +116,7 @@ class ExerciseSetFragment : BaseFragment(), Editor, ExerciseSetEditor {
         findNavController().navigateUp()
     }
 
-    private fun validateTempo(text: Editable?) {
+    private fun validateTempo(text: CharSequence?) {
         try {
             val tempo = text.toString().toInt()
             if (tempo in 40 until 221) {
