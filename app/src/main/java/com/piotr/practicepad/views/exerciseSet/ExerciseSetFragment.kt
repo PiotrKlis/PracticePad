@@ -94,16 +94,12 @@ class ExerciseSetFragment : BaseFragment(), Editor, ExerciseSetEditor {
 
     override fun moveUp(position: Int) {
         viewModel.moveUp(position)
-//        binding.recyclerList.adapter?.notifyItemMoved(position, position - 1)
-//        binding.recyclerList.adapter?.notifyItemMoved(position -1, position)
         binding.recyclerList.adapter?.notifyDataSetChanged()
         Log.d("AAA move up", "$position to ${position - 1}")
     }
 
     override fun moveDown(position: Int) {
         viewModel.moveDown(position)
-//        binding.recyclerList.adapter?.notifyItemMoved(position, position + 1)
-//        binding.recyclerList.adapter?.notifyItemMoved(position + 1, position)
         binding.recyclerList.adapter?.notifyDataSetChanged()
         Log.d("AAA move down", "$position to ${position + 1}")
     }
