@@ -24,16 +24,21 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
+@FlowPreview
 class ExerciseFragment : BaseFragment(), MetronomeService.TickListener {
     private val viewModel: ExerciseViewModel by viewModels { viewModelFactory }
-    protected var metronomeService: MetronomeService? = null
-    protected var isBound = false
+    private var metronomeService: MetronomeService? = null
+    private var isBound = false
+    private var binding: FragmentExcerciseBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = getBinding(inflater, container).root
+    ): View? {
+        binding = getBinding(inflater, container)
+        return binding?.root
+    }
 
     @FlowPreview
     @RequiresApi(Build.VERSION_CODES.O)
@@ -43,6 +48,8 @@ class ExerciseFragment : BaseFragment(), MetronomeService.TickListener {
         viewModel.exerciseTimer.event.observeEvent(viewLifecycleOwner) { event ->
             when (event) {
                 is ExerciseEvent.NextExercise -> viewModel.renderNextExercise(event.position)
+                else -> {
+                } //no-op
             }
         }
         viewModel.exerciseSetTimer.event.observeEvent(viewLifecycleOwner) { event ->
@@ -60,6 +67,22 @@ class ExerciseFragment : BaseFragment(), MetronomeService.TickListener {
                 }
             }
         }
+        handleTempoButtonsLongClicks()
+    }
+
+    private fun handleTempoButtonsLongClicks() {
+        binding?.addTempoButton?.setOnLongClickListener {
+            metronomeService?.bpm?.plus(10)?.toLong()?.let { newTempo ->
+                viewModel.longTempoClick(newTempo)
+            }
+            true
+        }
+        binding?.substractTempoButton?.setOnLongClickListener {
+            metronomeService?.bpm?.minus(10)?.toLong()?.let { newTempo ->
+                viewModel.longTempoClick(newTempo)
+            }
+            true
+        }
     }
 
     private fun bindService() {
@@ -72,7 +95,7 @@ class ExerciseFragment : BaseFragment(), MetronomeService.TickListener {
         isBound = true
     }
 
-    protected val mConnection: ServiceConnection = object : ServiceConnection {
+    private val mConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             metronomeService = (service as MetronomeService.MetronomeBinder).getService()
             metronomeService?.addTickListener(this@ExerciseFragment)
@@ -106,7 +129,7 @@ class ExerciseFragment : BaseFragment(), MetronomeService.TickListener {
     }
 
     override fun onTick(interval: Int) {
-//        activity?.runOnUiThread {beatsView.nextBeat()}
+        //no-op
     }
 
     override fun onDestroy() {

@@ -131,7 +131,8 @@ class ExerciseSetViewModel @Inject constructor(
             val newId = highestId + 1
             val newSet = ExerciseSetEntity(id = newId)
             database.exerciseSetDao().insert(newSet)
-            mutableState.value = exerciseSetStateMapper.map(exerciseSetRepository.getSetForId(newId))
+            mutableState.value =
+                exerciseSetStateMapper.map(exerciseSetRepository.getSetForId(newId))
         }
     }
 
@@ -150,4 +151,5 @@ class ExerciseSetViewModel @Inject constructor(
             }
         }
     }
+
 }

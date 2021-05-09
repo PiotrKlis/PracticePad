@@ -73,6 +73,13 @@ class ExerciseViewModel @Inject constructor(
         }
     }
 
+    fun longTempoClick(tempo: Long) {
+        viewModelScope.launch {
+            mutableMetronomeEvent.emit(MetronomeEvent.TempoChange(tempo.toInt()))
+            mutableState.value = mutableState.value?.copy(tempo = tempo)
+        }
+    }
+
     fun addTempoClick(tempo: Long) {
         viewModelScope.launch {
             val newTempo = tempo + 1

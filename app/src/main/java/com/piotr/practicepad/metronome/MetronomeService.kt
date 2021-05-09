@@ -102,7 +102,7 @@ class MetronomeService : Service() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun setBeatsUp(): Int {
         if(beatsPerMeasure < 9) {
-            beatsPerMeasure++
+            beatsPerMeasure += 10
             if (isPlaying) {
                 pause()
                 play()
@@ -114,7 +114,7 @@ class MetronomeService : Service() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun setBeatsDown(): Int {
         if(beatsPerMeasure > 1) {
-            beatsPerMeasure--
+            beatsPerMeasure -= 10
             if (isPlaying) {
                 pause()
                 play()

@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
 import com.piotr.practicepad.data.db.SharedPrefs
+import com.piotr.practicepad.data.entities.ExerciseEntity
+import com.piotr.practicepad.data.entities.ExerciseEntityMapper
 import com.piotr.practicepad.data.entities.ExerciseSetEntity
 import com.piotr.practicepad.data.repository.ExerciseSetRepository
+import com.piotr.practicepad.views.exercise.Exercise
 import com.piotr.practicepad.views.exerciseSet.ExerciseSetStateMapper
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
