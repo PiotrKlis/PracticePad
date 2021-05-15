@@ -1,8 +1,10 @@
 package com.piotr.practicepad.views.exercise
 
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.piotr.practicepad.R
 import com.piotr.practicepad.views.exercise.PracticeState.State.*
@@ -57,5 +59,11 @@ object ExerciseViewModelBindingAdapter {
     @BindingAdapter("setTempo")
     fun setTempo(view: TextView, tempo: Long) {
         view.text = "$tempo BPM"
+    }
+
+    @JvmStatic
+    @BindingAdapter("isVisible")
+    fun setTempo(view: View, isVisible: Boolean) {
+        view.isVisible = !isVisible
     }
 }

@@ -74,6 +74,8 @@
 			tools:text="20:00" />
 		
 		<ImageView
+			app:isVisible="@{model.state.shouldHideDeleteButton}"
+			android:id="@+id/delete_button"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"

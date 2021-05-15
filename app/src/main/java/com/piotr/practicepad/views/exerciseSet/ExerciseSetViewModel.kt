@@ -8,6 +8,7 @@ import com.piotr.practicepad.data.dao.UpdateExerciseListEntity
 import com.piotr.practicepad.data.dao.UpdateExerciseSetTempoEntity
 import com.piotr.practicepad.data.dao.UpdateExerciseSetTitleEntity
 import com.piotr.practicepad.data.db.PracticePadRoomDatabase
+import com.piotr.practicepad.data.db.SharedPrefs
 import com.piotr.practicepad.data.entities.ExerciseEntityMapper
 import com.piotr.practicepad.data.entities.ExerciseSetEntity
 import com.piotr.practicepad.data.entities.ExerciseSetEntityMapper
@@ -22,7 +23,8 @@ class ExerciseSetViewModel @Inject constructor(
     private val exerciseSetStateMapper: ExerciseSetStateMapper,
     private val exerciseSetEntityMapper: ExerciseSetEntityMapper,
     private val exerciseEntityMapper: ExerciseEntityMapper,
-    private val database: PracticePadRoomDatabase
+    private val database: PracticePadRoomDatabase,
+    private val sharedPrefs: SharedPrefs
 ) : ViewModel() {
     val state: LiveData<ExerciseSetState> get() = mutableState
     private val mutableState = MutableLiveData(ExerciseSetState())
@@ -147,6 +149,9 @@ class ExerciseSetViewModel @Inject constructor(
     fun deleteExerciseSet() {
         viewModelScope.launch {
             state.value?.let {
+                if (sharedPrefs.getActiveSetId() == it.id) {
+                    sharedPrefs.setActiveSetId(SharedPrefs.DEFAULT_SET_ID)
+                }
                 database.exerciseSetDao().deleteSet(it.id)
             }
         }

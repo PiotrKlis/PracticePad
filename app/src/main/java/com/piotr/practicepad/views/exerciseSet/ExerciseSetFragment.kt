@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isEmpty
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -83,6 +84,7 @@ class ExerciseSetFragment : BaseFragment(), Editor, ExerciseSetEditor {
                         R.id.action_exerciseSetDetailFragment_to_addExerciseFragment,
                         AddExerciseFragmentArgs(state.id).toBundle()
                     )
+                if (state.shouldHideDeleteButton) binding.deleteButton.isVisible = false
             }
         }
         binding.name.addTextChangedListener { text -> viewModel.updateName(text.toString()) }

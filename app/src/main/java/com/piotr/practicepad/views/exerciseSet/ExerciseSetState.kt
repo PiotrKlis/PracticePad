@@ -6,5 +6,6 @@ data class ExerciseSetState(
     val id: Int = -1,
     val name: String = "",
     val tempo: Long = 90,
-    val exerciseDetailsList: MutableList<Exercise> = mutableListOf()
+    val exerciseDetailsList: MutableList<Exercise> = mutableListOf(),
+    val shouldHideDeleteButton: Boolean = false
 )
